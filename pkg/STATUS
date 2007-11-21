@@ -1,0 +1,50 @@
+Library circular
+=================
+Version 0.3-8, 2007/08/15
+Now unique.circular calls unique.default instead of the internal function. print.rao.spacing.test loads locally the dataset rao.table
+
+Version 0.3-7, 2007/08/13
+Fix a problem in the api of unique.circular function, fix the documentation of summary.circular and [.circular.
+
+Version 0.3-6, 2006/08/28
+Changed long declaration into int in circular/src/rvonmises.c file
+
+Version 0.3-5, 2006/08/10
+Rewrite most of the functions. Add functions c.circular, unique.circular, curve.circular, plot.function.circular, lines.circular. Add arguments to conversion.circular and change its behavior. Add pwrappednormal, qwrappednormal (experimental versions). Add new features to r,d,p,q functions (now mu must be specifies using a circular object)
+Almost all the functions use control.circular argument in order to specify the attribute of the resulting object. The rvonmises function uses a C code from Harry Southworth.
+
+Version 0.3-4, 2006/02/13
+Add an argument to windrose, rewrite small part of it. Fix typos in kuiper.test.Rd, extract.Rd and lm.circular.Rd. Now, var.default definition in var.circular.R point to stats::var and not to base::var 
+
+Version 0.3-3, 2005/12/06
+Add NAMESPACE file. Functions now use atan2 instead of atan when two arguments. summary.circular is fixed.
+
+Version 0.3-2, 2005/05/05
+Remove direct call to x11() in man pages.
+
+Version 0.3-1, 2005/05/05
+Remove the alias density and density.default and the corresponding documentation. Fix a problem in the documentation of lsfit.circle. Change MSE and SSE to MS and SS in aov.circular
+
+Version 0.3, 2005/04/27
+All the functions handle NA values. Most of them by removing NA (without ask). When more than one variable is needed only complete cases are considered.
+
+Added functions: aov.circular, equal.kappa.test, lsfit.circle
+
+Modified the function lm.circular so that now circular-circular and circular-linear regression are available
+
+Version 0.2, 2004/12/25 Added function windrose
+
+Version 0.1, 2004/05/24 Released the version
+
+Version 0.1, 2003/12/23 Pre-released version of the circular package
+Fixed a consistency for range.circular function
+
+Version 0.1, 2003/12/03
+Pre-released version of the circular package build on the R port of CircStats.
+
+Claudio Agostinelli
+Department of Statistics
+University Ca' Foscari of Venice
+Italy
+http://www.dst.unive.it/~claudio
+<claudio@unive.it>
