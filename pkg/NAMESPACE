@@ -20,6 +20,8 @@ export(
  I.p,
 # file aov.circular.R
  aov.circular,
+# file arrows.circular.R
+ arrows.circular,
 # file as.circular.R
  as.circular,
 # file as.data.frame.circular.R
