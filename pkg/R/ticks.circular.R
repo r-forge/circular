@@ -4,7 +4,7 @@
 #   Author: Claudio Agostinelli                             #
 #   E-mail: claudio@unive.it                                #
 #   Date: November, 13, 2008                                #
-#   Version: 0.4                                            #
+#   Version: 0.4-1                                          #
 #                                                           #
 #   Copyright (C) 2008 Claudio Agostinelli                  #
 #                                                           #
@@ -15,6 +15,8 @@ ticks.circular <- function(x, template=c("none", "geographics"), zero=NULL, rota
   if (is.null(col)) col <- par("col")
   xcircularp <- attr(as.circular(x), "circularp")
   type <- xcircularp$type
+  if (type=='directions')
+    x <- 2*x
   if (template=="geographics") {
     zero <- pi/2
     rotation <- "clock"
