@@ -102,11 +102,13 @@ rose.diag <- function(x, pch = 16, cex=1, axes = TRUE, shrink = 1, bins=NULL, ti
 }
 
 RosediagRad <- function(x, bins, prop, col, ...) {
+#### x musts be in modulo 2pi
     n <- length(x)
     freq <- rep(0, bins)
     arc <- (2 * pi)/bins
+    x[x >= 2*pi] <- 2*pi-4*.Machine$double.eps
     for (i in 1:bins) {
-       freq[i] <- sum(x <= i * arc & x > (i - 1) * arc)
+       freq[i] <- sum(x < i * arc & x >= (i - 1) * arc)
     }
     rel.freq <- freq/n
     radius <- sqrt(rel.freq) * prop

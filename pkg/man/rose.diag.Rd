@@ -51,7 +51,7 @@ a list with information on the plot: zero, rotation and next.points.
 \note{some codes from \code{\link{eqscplot}} in MASS is used.}
 
 \details{
-The circumference of the circle is split into groups, the number of groups specified by bins.  For each group, a sector is drawn.  The radii of the sectors are by default equal to the square root of the relative frequencies of observations in each group.  This ensures that the area of the sector is proportional to the group frequency.  The length of the radii can be controlled by varying the parameter prop. 
+The circumference of the circle is split into groups, the number of groups specified by bins. For each group, a sector is drawn. The radii of the sectors are by default equal to the square root of the relative frequencies of observations in each group. This ensures that the area of the sector is proportional to the group frequency. The length of the radii can be controlled by varying the parameter prop. Since version 0.3-9 the intervals are on the form [a,b).
 }
 
 \author{Claudio Agostinelli and Ulric Lund}
