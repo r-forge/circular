@@ -3,12 +3,14 @@
 #   arrows.circular function                                #
 #   Author: Claudio Agostinelli                             #
 #   E-mail: claudio@unive.it                                #
-#   Date: February, 12, 2008                                #
-#   Version: 0.1                                            #
+#   Date: March, 31, 2009                                   #
+#   Version: 0.2                                            #
 #                                                           #
-#   Copyright (C) 2008 Claudio Agostinelli                  #
+#   Copyright (C) 2009 Claudio Agostinelli                  #
 #                                                           #
 #############################################################
+# patche suggests by Peter Cowan (pdc)
+# [#193] fix for plotting many arrows with one call to arrows.circular()
 
 arrows.circular <- function(x, y=NULL, x0=0, y0=0, na.rm=FALSE, shrink=1, plot.info=NULL, zero=NULL, rotation=NULL, ...) {
   if (na.rm)
@@ -33,13 +35,17 @@ arrows.circular <- function(x, y=NULL, x0=0, y0=0, na.rm=FALSE, shrink=1, plot.i
     x <- -x
   x <- x+zero
   x <- x%%(2*pi)
+  x <- as.vector(x)
   if (is.null(y))
     y <- rep(1, length(x))
+  y <- as.vector(y)
+  if (length(y)!=length(x))
+    stop("'y' must have the same length of 'x'")
   y <- y*shrink
-  if (length(x0)!=x)
+  if (length(x0)!=length(x))
     x0 <- rep(x0, length(x))
-  if (length(y0)!=x)
-    y0 <- rep(y0, length(x)) 
+  if (length(y0)!=length(x))
+    y0 <- rep(y0, length(x))
   x1 <- x0 + y*cos(x)
   y1 <- y0 + y*sin(x)
   arrows(x0, y0, x1, y1, ...)  
