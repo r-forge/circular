@@ -86,6 +86,8 @@ export(
  rtriangular, dtriangular,
 # file trigonometric.moment.R
  trigonometric.moment,
+# file uniform.R
+ rcircularuniform, dcircularuniform,      
 # file vonmises.R
  rvonmises, dvonmises, pvonmises, rmixedvonmises, dmixedvonmises,
 # file var.circular.R 
