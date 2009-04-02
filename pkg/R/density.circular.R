@@ -130,14 +130,14 @@ DensityCircularRad <- function(x, z, bw, kernel, K=NULL, min.k=10) {
 #   plot.density.circular function                          #
 #   Author: Claudio Agostinelli                             #
 #   Email: claudio@unive.it                                 #
-#   Date: June, 07, 2006                                    #
+#   Date: April, 02, 2009                                   #
 #   Copyright (C) 2006 Claudio Agostinelli                  #
 #                                                           #
-#   Version 0.4-1                                           #
+#   Version 0.4-2                                           #
 #                                                           #
 #############################################################
 
-plot.density.circular <- function(x, main = NULL, xlab = NULL, ylab ="Density circular", type = "l", zero.line = TRUE, points.plot=FALSE, points.col=1, points.pch=1, points.cex=1, plot.type = c("circle", "line"), axes=TRUE, ticks=TRUE, bins=NULL, shrink=1, tcl=0.025,  tcl.text=0.125, sep=0.025, tol = 0.04, digits=2, cex=1, uin=NULL, xlim=NULL, ylim=NULL, join=FALSE, nosort=FALSE, units=NULL, template=NULL, zero=NULL, rotation=NULL, ...) {
+plot.density.circular <- function(x, main = NULL, sub=NULL, xlab = NULL, ylab ="Density circular", type = "l", zero.line = TRUE, points.plot=FALSE, points.col=1, points.pch=1, points.cex=1, plot.type = c("circle", "line"), axes=TRUE, ticks=TRUE, bins=NULL, shrink=1, tcl=0.025,  tcl.text=0.125, sep=0.025, tol = 0.04, digits=2, cex=1, uin=NULL, xlim=NULL, ylim=NULL, join=FALSE, nosort=FALSE, units=NULL, template=NULL, zero=NULL, rotation=NULL, control.circle=circle.control(), ...) {
    xcircularp <- attr(x$x, "circularp")
    if (is.null(xcircularp))
       stop("the component 'x' of the object must be of class circular")
@@ -199,7 +199,7 @@ plot.density.circular <- function(x, main = NULL, xlab = NULL, ylab ="Density ci
             stop("'bins' must be non negative")
       }
     
-      CirclePlotRad(xlim, ylim, uin, shrink, tol, 1000, main=main, xlab=xlab, ylab=ylab)
+      CirclePlotRad(xlim=xlim, ylim=ylim, uin=uin, shrink=shrink, tol=tol, main=main, sub=sub, xlab=xlab, ylab=ylab, control.circle=control.circle)
 
       if (axes) {
 	 axis.circular(units = units, template=template, modulo = modulo, zero=zero, rotation=rotation, digits=digits, cex=cex, tcl=tcl, tcl.text=tcl.text)

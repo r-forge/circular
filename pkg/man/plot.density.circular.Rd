@@ -6,17 +6,17 @@
    The \code{plot} method for \code{density.circular} objects.
 }
 \usage{
-\method{plot}{density.circular}(x, main=NULL, xlab=NULL, ylab="Density circular", type="l",
+\method{plot}{density.circular}(x, main=NULL, sub=NULL, xlab=NULL, ylab="Density circular", type="l",
            zero.line=TRUE, points.plot=FALSE, points.col=1, points.pch=1, points.cex=1,
            plot.type=c("circle", "line"), axes=TRUE, ticks=TRUE, bins=NULL, shrink=1, 
            tcl=0.025, tcl.text = 0.125, sep=0.025, tol=0.04, digits=2, cex=1, uin=NULL, 
            xlim=NULL, ylim=NULL, join=FALSE, nosort=FALSE, units=NULL, 
-           template=NULL, zero=NULL, rotation=NULL, ...)
+           template=NULL, zero=NULL, rotation=NULL, control.circle=circle.control(), ...)
 }
 
 \arguments{
   \item{x}{an object of class \code{\link{density.circular}}.}
-  \item{main, xlab, ylab, type}{plotting parameters with useful defaults.}
+  \item{main, sub, xlab, ylab, type}{plotting parameters with useful defaults.}
   \item{zero.line}{logical; if \code{TRUE}, add a base line at \eqn{y =
       0}. Used when \code{plot.type} is \code{"line"}.}
   \item{points.plot}{logical; if \code{TRUE} original data are added to
@@ -44,6 +44,7 @@
  \item{template}{template used in the plot.  If \code{NULL} the value is taken from the attribute of object 'x' from the argument 'x', i.e. \code{x$x}.}
  \item{zero}{position of the zero used in the plot.  If \code{NULL} the value is taken from the attribute of object 'x' from the argument 'x', i.e. \code{x$x}.}
  \item{rotation}{rotation used in the plot.  If \code{NULL} the value is taken from the attribute of object 'x' from the argument 'x', i.e. \code{x$x}.}
+ \item{control.circle}{parameters passed to \code{\link{plot.default}} in order to draw the circle. The function \code{\link{circle.control}} is used to set the parameters.}
  \item{\dots}{futher parameters passed to \code{\link{plot.default}}.}
 }
 

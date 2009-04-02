@@ -129,7 +129,7 @@ export(
 # file lines.circular.R
  lines.circular,
 # file plot.circular.R
- plot.circular,
+ plot.circular, circle.control,
 # file points.circular.R
  points.circular,
 # file plot.lsfit.circle.R
