@@ -2,9 +2,9 @@
 \alias{c.circular}
 
 \title{A method for circular object, which combines its arguments}
-\description{
-
-}
+%\description{
+%
+%}
 
 \usage{
 c.circular(..., recursive = FALSE)

@@ -8,5 +8,4 @@ Maintainer: Claudio Agostinelli <claudio@unive.it>
 Date: 2009-04-01
 Depends: boot
 Description: Circular Statistics, from "Topics in circular Statistics" (2001) S. Rao Jammalamadaka and A. SenGupta, World Scientific.
-License: GNU GPL version 2.
-
+License: GPL-2
