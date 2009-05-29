@@ -5,7 +5,8 @@
   Auxiliary function as user interface for circular plots. Typically only used when calling plot.circular. 
 }
 \usage{
-circle.control(n = 1000, type = "l", col = 1, bg = par("bg"), pch = 1, cex = 1, lty = 1, lwd = 1)
+circle.control(n = 1000, type = "l", col = 1, bg = par("bg"), 
+  pch = 1, cex = 1, lty = 1, lwd = 1)
 }
 \arguments{
   \item{n}{number of points used to interpolate the circle}

@@ -7,11 +7,12 @@
 }
 \usage{
 \method{plot}{density.circular}(x, main=NULL, sub=NULL, xlab=NULL, ylab="Density circular", type="l",
-           zero.line=TRUE, points.plot=FALSE, points.col=1, points.pch=1, points.cex=1,
-           plot.type=c("circle", "line"), axes=TRUE, ticks=TRUE, bins=NULL, shrink=1, 
-           tcl=0.025, tcl.text = 0.125, sep=0.025, tol=0.04, digits=2, cex=1, uin=NULL, 
-           xlim=NULL, ylim=NULL, join=FALSE, nosort=FALSE, units=NULL, 
-           template=NULL, zero=NULL, rotation=NULL, control.circle=circle.control(), ...)
+  zero.line=TRUE, points.plot=FALSE, points.col=1, points.pch=1, 
+  points.cex=1, plot.type=c("circle", "line"), axes=TRUE, ticks=TRUE, 
+  bins=NULL, shrink=1, tcl=0.025, tcl.text = 0.125, sep=0.025, tol=0.04, 
+  digits=2, cex=1, uin=NULL, xlim=NULL, ylim=NULL, join=FALSE, nosort=FALSE, 
+  units=NULL, template=NULL, zero=NULL, rotation=NULL, 
+  control.circle=circle.control(), ...)
 }
 
 \arguments{
@@ -65,12 +66,15 @@ plot(res25x, points.plot=TRUE, xlim=c(-1.5,1))
 res50x <- density(x, bw=25, adjust=2)
 lines(res50x, col=2)
 
-resp25x <- plot(res25x, points.plot=TRUE, xlim=c(-1, 1.3), ylim=c(-1.5,1.2), template="geographics", main="Plotting density estimate for two data set")
-y <- rvonmises(n=100, mu=circular(pi/2), kappa=2, control.circular=list(template="geographics"))
+resp25x <- plot(res25x, points.plot=TRUE, xlim=c(-1, 1.3), ylim=c(-1.5,1.2), 
+  template="geographics", main="Plotting density estimate for two data set")
+y <- rvonmises(n=100, mu=circular(pi/2), kappa=2, 
+  control.circular=list(template="geographics"))
 res25y <- density(y, bw=25)
 lines(res25y, points.plot=TRUE, plot.info=resp25x, col=2, points.col=2)
 
-plot(res25x, plot.type="line", points.plot=TRUE, xlim=c(-1, 1.3), ylim=c(-1.5,1.2), template="geographics", main="Plotting density estimate for two data set")
+plot(res25x, plot.type="line", points.plot=TRUE, xlim=c(-1, 1.3), ylim=c(-1.5,1.2), 
+  template="geographics", main="Plotting density estimate for two data set")
 lines(res25y, plot.type="line", points.plot=TRUE, col=2, points.col=2)
 
 }

@@ -8,7 +8,10 @@
 The function \code{circular} is used to create circular objects. \code{as.circular} and \code{is.circular} coerce an object to a circular and  test whether an object is a circular data.
 }
 \usage{
-circular(x, type = c("angles", "directions"), units = c("radians", "degrees"), template = c("none", "geographics"), modulo = c("asis", "2pi", "pi"), zero = 0, rotation = c("counter", "clock"), names)
+circular(x, type = c("angles", "directions"), 
+  units = c("radians", "degrees"),
+  template = c("none", "geographics"), modulo = c("asis", "2pi", "pi"), 
+  zero = 0, rotation = c("counter", "clock"), names)
 as.circular(x, control.circular=list(), ...)
 is.circular(x)
 \method{print}{circular}(x, info=TRUE, ...)
@@ -52,7 +55,8 @@ x <- circular(data.frame(runif(10, -pi/2, pi/2)))
 plot(x)
 class(x)
 
-cbind(x, x) # the matrix, cbind, rbind functions unclass and lost attributes! Use it with care.
+cbind(x, x) # the matrix, cbind, rbind functions unclass and lost attributes! 
+########Use it with care.
 
 x <- c(pi/12,2*pi+pi/12)%%(2*pi)  # unique may not work as desidered due to machine precision 
 print(x)

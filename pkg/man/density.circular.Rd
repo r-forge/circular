@@ -10,8 +10,9 @@
 
 \usage{
 \method{density}{circular}(x, z=NULL, bw, adjust = 1, type = c("K", "L"),
-     kernel = c("vonmises", "wrappednormal"), na.rm = FALSE, from = circular(0),
-     to = circular(2 * pi), n = 512, K = NULL, min.k=10, control.circular=list(), \dots)
+  kernel = c("vonmises", "wrappednormal"), na.rm = FALSE, 
+  from = circular(0), to = circular(2 * pi), n = 512, K = NULL, min.k=10, 
+  control.circular=list(), \dots)
 \method{print}{density.circular}(x, digits = NULL, \dots)
 }
 

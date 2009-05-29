@@ -9,8 +9,9 @@ Wrapped Normal distribution:  mean and concentration parameter.
 }
 
 \usage{
-mle.wrappednormal(x, mu = NULL, rho = NULL, sd = NULL, K = NULL, tol = 1e-05, 
-    min.sd = 1e-3, min.k = 10, max.iter = 100, verbose = FALSE, control.circular=list())
+mle.wrappednormal(x, mu = NULL, rho = NULL, sd = NULL, K = NULL, 
+  tol = 1e-05, min.sd = 1e-3, min.k = 10, max.iter = 100, 
+  verbose = FALSE, control.circular=list())
 \method{print}{mle.wrappednormal}(x, digits = max(3, getOption("digits") - 3), \dots)
 }
 

@@ -34,7 +34,8 @@ arrows.circular(x, y = NULL, x0 = 0, y0 = 0, na.rm = FALSE,
   plot(rvonmises(10, circular(0), kappa=1))
   arrows.circular(rvonmises(10, circular(0), kappa=1))
   arrows.circular(rvonmises(10, circular(0), kappa=1), y=runif(10), col=2)
-  arrows.circular(rvonmises(10, circular(0), kappa=1), y=runif(10), x0=runif(10, -1, 1), y0=runif(10, -1, 1), col=3)
+  arrows.circular(rvonmises(10, circular(0), kappa=1), y=runif(10), 
+    x0=runif(10, -1, 1), y0=runif(10, -1, 1), col=3)
 }
 
 \keyword{aplot}

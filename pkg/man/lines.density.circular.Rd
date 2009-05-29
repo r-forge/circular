@@ -6,7 +6,10 @@
    The \code{lines} add a plot for \code{density.circular} objects.
 }
 \usage{
-\method{lines}{density.circular}(x, type = "l", zero.line = TRUE, points.plot = FALSE, points.col = 1, points.pch = 1, points.cex = 1, plot.type = c("circle", "line"), bins = NULL, shrink = 1, tcl = 0.025, sep = 0.025, join = TRUE, nosort = FALSE, plot.info = NULL, zero = NULL, rotation = NULL, ...)
+\method{lines}{density.circular}(x, type = "l", zero.line = TRUE, points.plot = FALSE, 
+  points.col = 1, points.pch = 1, points.cex = 1, plot.type = c("circle", "line"), 
+  bins = NULL, shrink = 1, tcl = 0.025, sep = 0.025, join = TRUE, 
+  nosort = FALSE, plot.info = NULL, zero = NULL, rotation = NULL, ...)
 }
 
 \arguments{

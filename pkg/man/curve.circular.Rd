@@ -9,8 +9,13 @@
   plot circular density functions.
 }
 \usage{
-curve.circular(expr, from = NULL, to = NULL, n = 101, add = FALSE, cex = 1, axes = TRUE, ticks = FALSE, shrink = 1, tcl = 0.025, tcl.text = 0.125, tol = 0.04, uin = NULL, xlim = c(-1, 1), ylim = c(-1, 1), digits = 2, modulo = c("2pi", "asis", "pi"), main = NULL, sub = NULL, xlab = "", ylab = "", \dots)
-plot.function.circular(x, from = 0, to = 2*pi, control.circle=circle.control(), \dots)
+curve.circular(expr, from = NULL, to = NULL, n = 101, add = FALSE, 
+  cex = 1, axes = TRUE, ticks = FALSE, shrink = 1, tcl = 0.025, 
+  tcl.text = 0.125, tol = 0.04, uin = NULL, xlim = c(-1, 1), 
+  ylim = c(-1, 1), digits = 2, modulo = c("2pi", "asis", "pi"), 
+  main = NULL, sub = NULL, xlab = "", ylab = "", \dots)
+plot.function.circular(x, from = 0, to = 2*pi, 
+  control.circle=circle.control(), \dots)
 }
 \arguments{
   \item{expr}{an expression written as a function of \code{x}, or
@@ -55,7 +60,8 @@ A list with information on the plot: zero, rotation and next.points.
 
 ff <- function(x) sqrt(x)/20
 curve.circular(ff)
-curve.circular(ff, to=6*pi, join=FALSE, nosort=TRUE, n=1001, modulo="asis", shrink=1.2)
+curve.circular(ff, to=6*pi, join=FALSE, nosort=TRUE, n=1001, modulo="asis",
+  shrink=1.2)
 
 plot.function.circular(function(x) dvonmises(x, circular(0), 10), xlim=c(-1, 2.2))
 }

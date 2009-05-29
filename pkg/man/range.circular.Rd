@@ -7,7 +7,8 @@ Computes the circular range of a data set and performs a test of uniformity if s
 }
 
 \usage{
-range.circular(x, test=FALSE, na.rm = FALSE, finite = FALSE, control.circular=list(), ...)
+range.circular(x, test=FALSE, na.rm = FALSE, finite = FALSE, 
+  control.circular=list(), ...)
 }
 
 \arguments{
