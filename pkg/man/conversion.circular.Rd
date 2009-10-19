@@ -6,7 +6,7 @@ Conversion for Circular Data from one coordinate/units system to another one. Fo
 }
 
 \usage{
-conversion.circular(x, units = c("radians", "degrees"), type = NULL, 
+conversion.circular(x, units = c("radians", "degrees", "hours"), type = NULL, 
   template = NULL, modulo = NULL, zero = NULL, rotation = NULL)
 }
 

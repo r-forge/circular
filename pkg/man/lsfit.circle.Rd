@@ -51,7 +51,7 @@ squared residuals between the observations and the optimally fitting circle.
   \item{x.centered}{the x-coordinate re-centered at the center of the circle.}
   \item{y.centered}{the y-coordinate re-centered at the center of the circle.}
   \item{angles}{angles of the observations with respect to the center
-    coordinate of class \code{\circular}.}
+    coordinate of class \code{circular}.}
   \item{radius}{the distance between the observations and the center
     coordinate}
   \item{convergence}{value from the function optim.}

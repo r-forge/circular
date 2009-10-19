@@ -3,14 +3,14 @@
 #   circular function                                       #
 #   Author: Claudio Agostinelli                             #
 #   E-mail: claudio@unive.it                                #
-#   Date: October, 7, 2007                                  #
-#   Version: 0.7                                            #
+#   Date: October, 19, 2009                                 #
+#   Version: 0.8                                            #
 #                                                           #
-#   Copyright (C) 2007 Claudio Agostinelli                  #
+#   Copyright (C) 2009 Claudio Agostinelli                  #
 #                                                           #
 #############################################################
 
-circular <- function(x, type=c("angles", "directions"), units=c("radians", "degrees"), template=c("none", "geographics"), modulo=c("asis", "2pi", "pi"), zero=0, rotation=c("counter", "clock"), names=NULL) {
+circular <- function(x, type=c("angles", "directions"), units=c("radians", "degrees", "hours"), template=c("none", "geographics", "clock12", "clock24"), modulo=c("asis", "2pi", "pi"), zero=0, rotation=c("counter", "clock"), names=NULL) {
 
   type <- match.arg(type)
   units <- match.arg(units)
@@ -21,6 +21,13 @@ circular <- function(x, type=c("angles", "directions"), units=c("radians", "degr
   if (template=="geographics") {
     zero <- pi/2
     rotation <- "clock"
+  } else if (template=="clock24") {
+    zero <- pi/2
+    rotation <- "clock"
+  } else if (template=="clock12") {
+    zero <- pi/2
+    rotation <- "clock"
+    modulo <- "pi"
   }
 
   if (is.data.frame(x))
@@ -45,8 +52,10 @@ circular <- function(x, type=c("angles", "directions"), units=c("radians", "degr
     }
     if (units=="radians") {
       x <- x %% (ang*pi)
+    } else if (units=="degrees") {
+      x <- x %% (ang*180)
     } else {
-     x <- x %% (ang*180)
+      x <- x %% (ang*12) ## hours
     }
   }
 
@@ -87,19 +96,19 @@ c.circular <- function (..., recursive = FALSE) {
 #   conversion.circular function                            #
 #   Author: Claudio Agostinelli                             #
 #   E-mail: claudio@unive.it                                #
-#   Date: June, 07, 2006                                    #
-#   Version: 0.2-7                                          #
+#   Date: October, 19, 2009                                 #
+#   Version: 0.3                                            #
 #                                                           #
-#   Copyright (C) 2006 Claudio Agostinelli                  #
+#   Copyright (C) 2009 Claudio Agostinelli                  #
 #                                                           #
 #############################################################
 
-conversion.circular <- function(x, units=c("radians", "degrees"), type=NULL, template=NULL, modulo=NULL, zero=NULL, rotation=NULL) {
+conversion.circular <- function(x, units=c("radians", "degrees", "hours"), type=NULL, template=NULL, modulo=NULL, zero=NULL, rotation=NULL) {
     units <- match.arg(units)
     if (!is.null(type) && type!="angles" && type!="directions")
        stop("'type' must be 'angles' or 'directions' or NULL")
-    if (!is.null(template) && template!="none" && template!="geographics")
-       stop("'template' must be 'none' or 'geographics' or NULL")
+    if (!is.null(template) && template!="none" && template!="geographics" && template!="clock24" && template!="clock12")
+       stop("'template' must be 'none' or 'geographics' or 'clock24' or 'clock12' or NULL")
     if (!is.null(modulo) && modulo!="asis" && modulo!="2pi" && modulo!="pi")
        stop("'modulo' must be 'asis' or 'pi' or '2pi' or NULL")
     if (!is.null(zero) && !is.numeric(zero))
@@ -116,6 +125,13 @@ conversion.circular <- function(x, units=c("radians", "degrees"), type=NULL, tem
        if (template=="geographics") {
           zero <- pi/2
           rotation <- "clock"
+       } else if (template=="clock24") {
+          zero <- pi/2
+          rotation <- "clock"
+       } else if (template=="clock12") {
+          zero <- pi/2
+          rotation <- "clock"
+          modulo <- "pi"
        }
        value$template <- template 
     }
@@ -127,7 +143,15 @@ conversion.circular <- function(x, units=c("radians", "degrees"), type=NULL, tem
        if (unitsp=="degrees" & units=="radians") {
           x <- x/180*pi
        } else if (unitsp=="radians" & units=="degrees") {
-                 x <- x/pi*180
+          x <- x/pi*180
+       } else if (unitsp=="degrees" & units=="hours") {
+          x <- x/180*12
+       } else if (unitsp=="radians" & units=="hours") {
+          x <- x/pi*12
+       } else if (unitsp=="hours" & units=="degrees") {
+          x <- x/12*180
+       } else if (unitsp=="hours" & units=="radians") {
+          x <- x/12*pi
        }
        value$units <- units
     }
@@ -136,10 +160,14 @@ conversion.circular <- function(x, units=c("radians", "degrees"), type=NULL, tem
        if (units=="degrees") {
           zerod <- zero*180/pi
           zeropd <- zerop*180/pi
+       } else if (units=="radians") {
+          zerod <- zero*12/pi
+          zeropd <- zerop*12/pi
        } else {
           zerod <- zero
           zeropd <- zerop
        }
+       
        if (rotationp=="counter") {
           x <- x + zeropd - zerod
        } else {
@@ -160,9 +188,11 @@ conversion.circular <- function(x, units=c("radians", "degrees"), type=NULL, tem
           ang <- 1
        }
        if (units=="radians") {
-          x <- x %% (ang*pi)
+         x <- x %% (ang*pi)
+       } else if (units=="degrees") {
+         x <- x %% (ang*180)
        } else {
-          x <- x %% (ang*180)
+         x <- x %% (ang*12) ## time
        }
     }
     if (!is.null(modulo))
@@ -194,10 +224,10 @@ circularp <- function(x) attr(x, "circularp")
 #   circularp<- function                                    #
 #   Author: Claudio Agostinelli                             #
 #   E-mail: claudio@unive.it                                #
-#   Date: March, 8, 2006                                    #
-#   Version: 0.2-3                                          #
+#   Date: October, 19, 2009                                 #
+#   Version: 0.3                                            #
 #                                                           #
-#   Copyright (C) 2006 Claudio Agostinelli                  #
+#   Copyright (C) 2009 Claudio Agostinelli                  #
 #                                                           #
 #############################################################
  
@@ -224,9 +254,9 @@ circularp <- function(x) attr(x, "circularp")
 
     if (type!="angles" & type!="directions") stop("type (value[1]) must be 'angles', 'directions'")
 
-    if (units!="radians" & units!="degrees") stop("units (value[2]) must be 'radians' or 'degrees'")
+    if (units!="radians" & units!="degrees" & units!="hours") stop("units (value[2]) must be 'radians' or 'degrees' or 'hours'")
 
-    if (template!="none" & template!="geographics") stop("template (value[3]) must be 'none' or 'geographics'")
+    if (template!="none" & template!="geographics" & template!="clock24" & template!="clock12") stop("template (value[3]) must be 'none' or 'geographics' or 'clock24' or 'clock12'")
     
     if (modulo!="asis" & modulo!="2pi" &  modulo!="pi") stop("modulo (value[4]) must be 'asis' or 'pi' or '2pi'")
 

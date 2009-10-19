@@ -11,6 +11,7 @@ circle.control(n = 1000, type = "l", col = 1, bg = par("bg"),
 \arguments{
   \item{n}{number of points used to interpolate the circle}
   \item{type}{1-character string giving the type of plot desired. The following values are possible, for details, see \code{\link{plot}}: "p" for points, "l" for lines, "o" for overplotted points and lines, "b", "c" for (empty if "c") points joined by lines, "s" and "S" for stair steps and "h" for histogram-like vertical lines. Finally, "n" does not produce any points or lines.}
+  \item{col}{The color used.}
   \item{bg}{The color to be used for the background of the device region. }
   \item{pch}{Either an integer specifying a symbol or a single character to be used as the default in plotting points. See \code{\link{points}} for possible values and their interpretation. Note that only integers and single-character strings can be set as a graphics parameter (and not \code{NA} nor \code{NULL}).}
   \item{cex}{A numerical value giving the amount by which plotting text and symbols should be magnified relative to the default.}

@@ -3,8 +3,8 @@
 #   plot.circular function                                  #
 #   Author: Claudio Agostinelli                             #
 #   E-mail: claudio@unive.it                                #
-#   Date: March, 31, 2009                                   #
-#   Version: 0.4                                            #
+#   Date: October, 19, 2009                                 #
+#   Version: 0.5                                            #
 #                                                           #
 #   Copyright (C) 2009 Claudio Agostinelli                  #
 #                                                           #
@@ -26,9 +26,13 @@ plot.circular <- function(x, pch=16, cex=1, stack=FALSE, axes=TRUE, sep=0.025, s
       units <- xcircularp$units
    if (is.null(template))
       template <- xcircularp$template
-   if (template=="geographics") {
+   if (template=="geographics" | template=="clock24") {
       zero <- pi/2
       rotation <- "clock"
+   } else if (template=="clock12") {
+      zero <- pi/2
+      rotation <- "clock"
+      modulo <- "pi"
    } else {
       if (is.null(zero))
          zero <- xcircularp$zero
@@ -72,11 +76,13 @@ plot.circular <- function(x, pch=16, cex=1, stack=FALSE, axes=TRUE, sep=0.025, s
       x <- na.omit(x)
       n <- length(x)      
       if (n) {
-         x <- conversion.circular(x, units="radians")
+         x <- conversion.circular(x, units="radians", modulo=modulo)
          attr(x, "circularp") <- attr(x, "class") <- NULL
          if (rotation=="clock")
             x <- -x
          x <- x+zero
+         if (template=="clock12")
+           x <- 2*x
          x <- x%%(2*pi)
          PointsCircularRad(x, bins, stack, col, pch, iseries, nseries, sep, 0, shrink, cex, ...)
       }

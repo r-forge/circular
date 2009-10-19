@@ -3,17 +3,17 @@
 #   median.circular function                                  
 #   Author: Claudio Agostinelli                             
 #   E-mail: claudio@unive.it                                
-#   Date: October, 14, 2007                                  
-#   Version: 0.1                                          
+#   Date: October, 12, 2009                                  
+#   Version: 0.2                                          
 #                                                           
-#   Copyright (C) 2007 Claudio Agostinelli                  
+#   Copyright (C) 2009 Claudio Agostinelli                  
 #                                                           
 #############################################################
 
-median.circular <- function(x, na.rm=FALSE, type="Fisher", control.circular=list(), ...) {
+median.circular <- function(x, na.rm=FALSE, type="Fisher", deviation=FALSE, control.circular=list(), ...) {
   ## For now only the definition in
   ## equations 2.32 & 2.33
-  ##Vfrom N.I. Fisher's 'Statistical Analysis of Circular Data',
+  ## from N.I. Fisher's 'Statistical Analysis of Circular Data',
   ## Cambridge Univ. Press 1993.
   ## is implemented
    type <- match.arg(type)  
@@ -46,15 +46,20 @@ median.circular <- function(x, na.rm=FALSE, type="Fisher", control.circular=list
    attr(x, "class") <- attr(x, "circularp") <-  NULL
    if (type=="Fisher")
      circmedian <- MedianFisherCircularRad(x)
+   else
+     stop("Others 'type' not yet implemented")
    circmedian$median <- conversion.circular(circular(circmedian$median), dc$units, dc$type, dc$template, dc$modulo, dc$zero, dc$rotation)
-   return(circmedian)
+   if (deviation)
+     return(circmedian)
+   else
+     return(circmedian$median)
 }
 
 MedianFisherCircularRad <- function(x) {
   dev <- function(x, theta, shift=0) {
   ## x = median
     n <- length(theta)
-    res <- pi - sum(abs(pi-abs(MinusPiPlusPiRad(theta-x+shift))))/n
+    res <- pi - sum(abs(pi-abs(MinusPiPlusPiRad(theta-x-shift))))/n
     return(res)
   }
   grid <- res <- seq(0, 2*pi, pi/50)

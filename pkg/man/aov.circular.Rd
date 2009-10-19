@@ -2,9 +2,9 @@
 \alias{aov.circular}
 \alias{print.aov.circular}
 \title{Analysis of Variance for circular data}
-%\description{
-%
-%}
+\description{
+  One Critrion Analysis of Variance for circular data
+}
 
 \usage{
 aov.circular(x, group, kappa = NULL,

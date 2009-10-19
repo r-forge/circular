@@ -3,8 +3,8 @@
 #   dist.circular function                                  #
 #   Author: Claudio Agostinelli                             #
 #   E-mail: claudio@unive.it                                #
-#   Date: August, 19, 2007                                  #
-#   Version: 0.1-1                                          #
+#   Date: October, 12, 2009                                 #
+#   Version: 0.1-2                                          #
 #                                                           #
 #   Copyright (C) 2007 Claudio Agostinelli                  #
 #                                                           #
@@ -31,8 +31,8 @@ dist.circular <- function (x, method = "correlation", diag = FALSE, upper = FALS
     attr(d, "Diag") <- diag
     attr(d, "Upper") <- upper
     attr(d, "method") <- METHODS[method]
-    if (method == 6) 
-        attr(d, "p") <- p
+#    if (method == 6) 
+#        attr(d, "p") <- p
     attr(d, "call") <- match.call()
     class(d) <- "dist"
     return(d)
