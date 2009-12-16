@@ -39,7 +39,9 @@ qwrappednormal(p, mu = circular(0), rho = NULL, sd = 1,
 }
 
 \value{
-\code{dwrappednormal} gives the density and \code{rwrappednormal} generates random deviates.
+\code{dwrappednormal} gives the density and \code{rwrappednormal}
+generates random deviates,  \code{pwrappednormal} gives the
+distribution function, and \code{qwrappednormal} provides quantiles.
 }
 
 \author{Claudio Agostinelli and Ulric Lund}
