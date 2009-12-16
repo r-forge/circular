@@ -96,8 +96,8 @@ c.circular <- function (..., recursive = FALSE) {
 #   conversion.circular function                            #
 #   Author: Claudio Agostinelli                             #
 #   E-mail: claudio@unive.it                                #
-#   Date: October, 19, 2009                                 #
-#   Version: 0.3                                            #
+#   Date: December, 16, 2009                                #
+#   Version: 0.3-1                                          #
 #                                                           #
 #   Copyright (C) 2009 Claudio Agostinelli                  #
 #                                                           #
@@ -160,7 +160,7 @@ conversion.circular <- function(x, units=c("radians", "degrees", "hours"), type=
        if (units=="degrees") {
           zerod <- zero*180/pi
           zeropd <- zerop*180/pi
-       } else if (units=="radians") {
+       } else if (units=="hours") {
           zerod <- zero*12/pi
           zeropd <- zerop*12/pi
        } else {
