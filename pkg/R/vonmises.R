@@ -205,6 +205,86 @@ PvonmisesRad <- function(q, mu, kappa, tol) {
 
 #############################################################
 #                                                           #
+#   qvonmises function                                      #
+#   Author: Claudio Agostinelli                             #
+#   Email: claudio@unive.it                                 #
+#   Date: November, 23, 2009                                #
+#   Copyright (C) 2009 Claudio Agostinelli                  #
+#                                                           #
+#   Version 0.1                                             #
+#############################################################
+
+qvonmises <- function(p, mu=circular(0), kappa=NULL, control.circular=list(), ...) {
+   epsilon <- 10 * .Machine$double.eps
+   if (any(p > 1 & p<0))
+      stop("p must be in [0,1]")
+
+   if (is.circular(mu)) {
+      datacircularp <- circularp(mu)
+   } else {
+      datacircularp <- list(type="angles", units="radians", template="none", modulo="asis", zero=0, rotation="counter")
+   }
+   dc <- control.circular
+   if (is.null(dc$type))
+      dc$type <- datacircularp$type
+   if (is.null(dc$units))
+      dc$units <- datacircularp$units
+   if (is.null(dc$template))
+      dc$template <- datacircularp$template
+   if (is.null(dc$modulo))
+      dc$modulo <- datacircularp$modulo
+   if (is.null(dc$zero))
+      dc$zero <- datacircularp$zero
+   if (is.null(dc$rotation))
+      dc$rotation <- datacircularp$rotation
+
+   mu <- conversion.circular(mu, units="radians", zero=0, rotation="counter", modulo="2pi")
+   if (is.null(from)) {
+      from <- mu - pi
+   } else {
+      from <- conversion.circular(from, units="radians", zero=0, rotation="counter", modulo="2pi")    
+   }
+
+   attr(mu, "class") <- attr(mu, "circularp") <- NULL
+   attr(from, "class") <- attr(from, "circularp") <- NULL
+
+   n <- length(p)
+   if (length(mu) != 1) 
+      stop("is implemented only for scalar 'mean'")
+   
+   mu <- (mu-from)%%(2*pi)
+   if (is.null(kappa))
+      stop("kappa must be provided")
+
+   zeroPvonmisesRad <- function(x, p, mu, kappa) {
+      if (is.na(x)) {    
+         return(NA)
+      } else {   
+         return(integrate(DvonmisesRad, mu=mu, kappa=kappa, ...)$value - p)
+      }
+   }
+
+   value <- rep(NA, length(p))
+   sem <- options()$show.error.messages
+   options(show.error.messages=FALSE)
+   for (i in 1:length(p)) {
+         res <- try(uniroot(zeroPvonmisesRad, p=p[i], mu=mu, kappa=kappa, lower=0, upper=2*pi-epsilon, tol=tol))
+         if (is.list(res)) {
+             value[i] <- res$root 
+         } else if (p[i] < 10*epsilon) {
+             value[i] <- 0
+         } else if (p[i] > 1-10*epsilon) {
+             value[i] <- 2*pi-epsilon
+         }
+    }
+    options(show.error.messages=sem)
+    value <- value + from
+    value <- conversion.circular(circular(value), dc$units, dc$type, dc$template, dc$modulo, dc$zero, dc$rotation)
+    return(value)
+}
+
+#############################################################
+#                                                           #
 #   dmixedvonmises function                                 #
 #   Author: Claudio Agostinelli                             #
 #   Email: claudio@unive.it                                 #
