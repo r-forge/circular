@@ -89,7 +89,7 @@ export(
 # file uniform.R
  rcircularuniform, dcircularuniform,      
 # file vonmises.R
- rvonmises, dvonmises, pvonmises, rmixedvonmises, dmixedvonmises,
+ rvonmises, dvonmises, pvonmises, qvonmises, rmixedvonmises, dmixedvonmises,
 # file var.circular.R 
 ### var,
 # file watson.test.R
