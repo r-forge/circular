@@ -7,10 +7,11 @@ Creates a plot of circular data points on the current graphics device.  Data poi
 }
 
 \usage{
-\method{plot}{circular}(x, pch = 16, cex = 1, stack = FALSE, axes = TRUE, sep = 0.025, 
-  shrink = 1, bins = NULL, ticks = FALSE, tcl = 0.025, tcl.text = 0.125, 
-  col = NULL, tol = 0.04, uin = NULL, xlim = c(-1, 1), ylim = c(-1, 1), 
-  digits = 2, units = NULL, template = NULL, zero = NULL, rotation = NULL, 
+\method{plot}{circular}(x, pch = 16, cex = 1, stack = FALSE,
+  axes = TRUE, sep = 0.025, shrink = 1, bins = NULL, ticks = FALSE,
+  tcl = 0.025, tcl.text = 0.125, col = NULL, tol = 0.04, uin = NULL,
+  xlim = c(-1, 1), ylim = c(-1, 1), digits = 2, units = NULL,
+  template = NULL, zero = NULL, rotation = NULL, 
   main = NULL, sub=NULL, xlab = "", ylab = "", 
   control.circle=circle.control(), ...)
 }

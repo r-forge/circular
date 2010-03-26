@@ -66,8 +66,8 @@ dist.circular(x, method = "correlation", diag = FALSE, upper = FALSE)
     \code{\link{dist.circular}()}, the (\code{\link{match.arg}()}ed) \code{method}
     argument.}
 }
+
 %\references{
-%
 %}
 
 \seealso{

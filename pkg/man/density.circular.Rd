@@ -82,6 +82,8 @@ circularp(res25$x)
 plot(res25, points.plot=TRUE, xlim=c(-1.6,1))
 res50 <- density(x, bw=25, adjust=2)
 lines(res50, col=2)
+lines(res50, col=3, shrink=0.9) #shrink the plot wrt the function :-)
+lines(res50, col=4, offset=0.5) #draw it with a reference circle of 0.5 
 }
 
 \keyword{distribution}

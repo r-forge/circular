@@ -9,7 +9,7 @@
 \method{plot}{density.circular}(x, main=NULL, sub=NULL, xlab=NULL, ylab="Density circular", type="l",
   zero.line=TRUE, points.plot=FALSE, points.col=1, points.pch=1, 
   points.cex=1, plot.type=c("circle", "line"), axes=TRUE, ticks=TRUE, 
-  bins=NULL, shrink=1, tcl=0.025, tcl.text = 0.125, sep=0.025, tol=0.04, 
+  bins=NULL, offset=1, shrink=1, tcl=0.025, tcl.text = 0.125, sep=0.025, tol=0.04, 
   digits=2, cex=1, uin=NULL, xlim=NULL, ylim=NULL, join=FALSE, nosort=FALSE, 
   units=NULL, template=NULL, zero=NULL, rotation=NULL, 
   control.circle=circle.control(), ...)
@@ -27,9 +27,9 @@
   \item{axes}{logical; if \code{TRUE} axis are drawn.}
   \item{ticks}{logical; if \code{TRUE} ticks are drawn.}
   \item{bins}{number of ticks to plot. }
-  \item{shrink}{parameter that controls the size of the plotted circle.
-  Default is 1.  Larger values shrink the circle, while smaller values
-  enlarge the circle.}
+  \item{offset}{the radius of the circle}
+  \item{shrink}{parameter that controls the size of the plotted function.
+  Default is 1.}
  \item{tcl}{length of the ticks.}
  \item{tcl.text}{The position of the axis labels.}
  \item{sep}{constant used to specify the distance between stacked points. Default is 0.025; smaller values will create smaller spaces.}
