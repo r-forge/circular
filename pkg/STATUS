@@ -15,7 +15,7 @@ Add median.circular function.
 Add offset argument to the lines.circular, lines.density.circular, plot.density.circular functions.
 Add shrink argument to the lines.circular function.
 Function lines.circular return x and y in the invisible object.
-
+Fixed the name of the help page for the circular function.
 
 Version 0.3-8, 2007/08/15
 Now unique.circular calls unique.default instead of the internal function. print.rao.spacing.test loads locally the dataset rao.table
