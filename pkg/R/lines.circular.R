@@ -3,8 +3,8 @@
 #   lines.circular function                                 #
 #   Author: Claudio Agostinelli                             #
 #   E-mail: claudio@unive.it                                #
-#   Date: March, 26, 2010                                   #
-#   Version: 0.2                                            #
+#   Date: March, 29, 2010                                   #
+#   Version: 0.2-1                                          #
 #                                                           #
 #   Copyright (C) 2010 Claudio Agostinelli                  #
 #                                                           #
@@ -44,7 +44,7 @@ lines.circular <- function(x, y, join=FALSE, nosort=FALSE, offset=1, shrink=1, p
 ###      x <- x%%(2*pi)
       LinesCircularRad(x, y, join, nosort, offset, shrink, ...) 
    }
-   return(invisible(list(zero=zero, rotation=rotation, next.points=next.points)))
+   return(invisible(list(x=x, y=y, zero=zero, rotation=rotation, next.points=next.points)))
 }
 
 LinesCircularRad <- function(x, y, join=FALSE, nosort=FALSE, offset=1, shrink=1, ...) {
