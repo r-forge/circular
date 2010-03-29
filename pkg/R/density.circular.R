@@ -130,10 +130,10 @@ DensityCircularRad <- function(x, z, bw, kernel, K=NULL, min.k=10) {
 #   plot.density.circular function                          #
 #   Author: Claudio Agostinelli                             #
 #   Email: claudio@unive.it                                 #
-#   Date: March, 26, 2010                                   #
+#   Date: March, 29, 2010                                   #
 #   Copyright (C) 2010 Claudio Agostinelli                  #
 #                                                           #
-#   Version 0.4-3                                           #
+#   Version 0.4-4                                           #
 #                                                           #
 #############################################################
 
@@ -213,7 +213,7 @@ plot.density.circular <- function(x, main = NULL, sub=NULL, xlab = NULL, ylab ="
          x$x <- -x$x
       x$x <- x$x+zero
       x$x <- x$x%%(2*pi)
-      LinesCircularRad(x=x$x, y=x$y, join=join, nosort=nosort, offset=offset, shrink=shrink, ...)
+      ll <- LinesCircularRad(x=x$x, y=x$y, join=join, nosort=nosort, offset=offset, shrink=shrink, ...)
 
       if (points.plot) {
          next.points <- sep
@@ -223,7 +223,7 @@ plot.density.circular <- function(x, main = NULL, sub=NULL, xlab = NULL, ylab ="
          x$data <- x$data%%(2*pi)
          PointsCircularRad(x$data, bins, FALSE, points.col, points.pch, 1, 1, sep, next.points, shrink, points.cex)
       }
-      return(invisible(list(zero=zero, rotation=rotation, next.points=next.points)))
+      return(invisible(list(x=ll$x, y=ll$y, zero=zero, rotation=rotation, next.points=next.points)))
    }
 }
 
@@ -233,10 +233,10 @@ plot.density.circular <- function(x, main = NULL, sub=NULL, xlab = NULL, ylab ="
 #   lines.density.circular function                         #
 #   Author: Claudio Agostinelli                             #
 #   Email: claudio@unive.it                                 #
-#   Date: June, 07, 2006                                    #
-#   Copyright (C) 2006 Claudio Agostinelli                  #
+#   Date: March, 29, 2010                                   #
+#   Copyright (C) 2010 Claudio Agostinelli                  #
 #                                                           #
-#   Version 0.2-1                                           #
+#   Version 0.2-2                                           #
 #                                                           #
 #############################################################
 
@@ -286,7 +286,7 @@ lines.density.circular <- function(x, type = "l", zero.line = TRUE, points.plot=
          x$x <- -x$x
       x$x <- x$x+zero
       x$x <- x$x%%(2*pi)
-      LinesCircularRad(x=x$x, y=x$y, join=join, nosort=nosort, offset=offset, shrink=shrink, ...)
+      ll <- LinesCircularRad(x=x$x, y=x$y, join=join, nosort=nosort, offset=offset, shrink=shrink, ...)
       if (points.plot) {
          if (rotation=="clock")
             x$data <- -x$data
@@ -296,7 +296,7 @@ lines.density.circular <- function(x, type = "l", zero.line = TRUE, points.plot=
          PointsCircularRad(x$data, bins, FALSE, points.col, points.pch, 1, 1, sep, next.points, shrink, points.cex)
       }
     }
-    return(invisible(list(zero=zero, rotation=rotation, next.points=next.points)))
+    return(invisible(list(x=ll$x, y=ll$y, zero=zero, rotation=rotation, next.points=next.points)))
 }
 
 

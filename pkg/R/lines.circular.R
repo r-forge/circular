@@ -42,9 +42,9 @@ lines.circular <- function(x, y, join=FALSE, nosort=FALSE, offset=1, shrink=1, p
          x <- -x
       x <- x+zero
 ###      x <- x%%(2*pi)
-      LinesCircularRad(x, y, join, nosort, offset, shrink, ...) 
+      ll <- LinesCircularRad(x, y, join, nosort, offset, shrink, ...) 
    }
-   return(invisible(list(x=x, y=y, zero=zero, rotation=rotation, next.points=next.points)))
+   return(invisible(list(x=ll$x, y=ll$y, zero=zero, rotation=rotation, next.points=next.points)))
 }
 
 LinesCircularRad <- function(x, y, join=FALSE, nosort=FALSE, offset=1, shrink=1, ...) {
@@ -72,5 +72,6 @@ LinesCircularRad <- function(x, y, join=FALSE, nosort=FALSE, offset=1, shrink=1,
       w <- c(w, w[1])
    }
    lines.default(x=z, y=w, ...)
+   invisible(list(x=z, y=w))
 }
 
