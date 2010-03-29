@@ -1,4 +1,4 @@
-\name{Circular}
+\name{circular}
 \alias{circular}
 \alias{as.circular}
 \alias{is.circular}
