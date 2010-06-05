@@ -1,7 +1,14 @@
-coord2rad <- function(x, control.circular=list()) {
-  if (NCOL(x)!=2)
-    stop('a matrix or a dataframe with 2 columns is required')
-  x <- atan2(x[,2],x[,1])
+coord2rad <- function(x, y=NULL, control.circular=list()) {
+  if (NCOL(x)!=2) {
+    stop('a matrix or a dataframe with 2 columns is required if y is NULL')
+    x <- atan2(x[,2],x[,1])
+  } else if (is.null(y)) {
+    stop('x must have two columns if y is NULL')
+  } else {
+    x <- as.vector(x)
+    y <- as.vector(y)
+    x <- atan2(y,x)
+  }
   datacircularp <- list(type="angles", units="radians", template="none", modulo="2pi", zero=0, rotation="counter")  
   dc <- control.circular
   if (is.null(dc$type))
