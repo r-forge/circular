@@ -3,10 +3,11 @@
 \alias{dvonmises}
 \alias{rvonmises}
 \alias{pvonmises}
+\alias{qvonmises}
 
 \description{
-  Density, distribution function and random generation for the von Mises
-  circular distribution. 
+  Density, distribution function, random generation and quantiles for
+  the von Mises circular distribution. 
 }
 
 \usage{
@@ -18,7 +19,7 @@ qvonmises(p, mu = circular(0), kappa=NULL, tol = .Machine$double.eps^(0.6),
 }
 
 \arguments{
-  \item{x, q, p}{a vector. The code{x} and \code{q} objects are coerced to class
+  \item{x, q, p}{a vector. The \code{x} and \code{q} objects are coerced to class
     \code{\link{circular}}.}
 \item{n}{number of observations.}  
 \item{mu}{mean direction of the distribution. The object is coerced to class \code{\link{circular}}.}

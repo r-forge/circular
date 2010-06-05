@@ -20,7 +20,7 @@ mle.wrappednormal(x, mu = NULL, rho = NULL, sd = NULL, K = NULL,
     \code{\link{circular}}.}
   \item{mu}{if \code{NULL} the maximum likelihood estimate of the mean
     direction is calculated, otherwise the value is coerced to an object of class \code{circular}.}
-  \item{rho}{if {NULL} the maximum likelihood estimate of the
+  \item{rho}{if \code{NULL} the maximum likelihood estimate of the
     concentration parameter is calculated.}
   \item{sd}{standard deviation of the (unwrapped) normal. Used as an
     alternative parametrization.}

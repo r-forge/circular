@@ -40,7 +40,7 @@ There is no explicit solution for the form of \eqn{p(x)}{p(x)} and there are no 
 \references{
 Chambers, J. M., Mallows, C. L. and Stuck, B. W. (1976). A Method for Simulating Stable Random Variables. Journal of the American Statistical Association 71, 340-344.
 
-Lo\"{g}ae\"{v}e, M. (1977). Probability Theory I. (fourth edition) Springer-Verlag, New York.
+Logaeve, M. (1977). Probability Theory I. (fourth edition) Springer-Verlag, New York.
 }
 
 \seealso{
