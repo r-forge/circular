@@ -208,13 +208,13 @@ PvonmisesRad <- function(q, mu, kappa, tol) {
 #   qvonmises function                                      #
 #   Author: Claudio Agostinelli                             #
 #   Email: claudio@unive.it                                 #
-#   Date: November, 23, 2009                                #
-#   Copyright (C) 2009 Claudio Agostinelli                  #
+#   Date: May, 13, 2010                                     #
+#   Copyright (C) 2010 Claudio Agostinelli                  #
 #                                                           #
-#   Version 0.1                                             #
+#   Version 0.1-1                                           #
 #############################################################
 
-qvonmises <- function(p, mu=circular(0), kappa=NULL, control.circular=list(), ...) {
+qvonmises <- function(p, mu=circular(0), kappa=NULL, tol = .Machine$double.eps^(0.6), control.circular=list(), ...) {
    epsilon <- 10 * .Machine$double.eps
    if (any(p > 1 & p<0))
       stop("p must be in [0,1]")
