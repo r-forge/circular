@@ -233,10 +233,10 @@ plot.density.circular <- function(x, main = NULL, sub=NULL, xlab = NULL, ylab ="
 #   lines.density.circular function                         #
 #   Author: Claudio Agostinelli                             #
 #   Email: claudio@unive.it                                 #
-#   Date: March, 29, 2010                                   #
+#   Date: June, 05, 2010                                    #
 #   Copyright (C) 2010 Claudio Agostinelli                  #
 #                                                           #
-#   Version 0.2-2                                           #
+#   Version 0.3                                             #
 #                                                           #
 #############################################################
 
@@ -262,7 +262,9 @@ lines.density.circular <- function(x, type = "l", zero.line = TRUE, points.plot=
    x$data <- conversion.circular(x$data, units="radians")
    attr(x$x, "circularp") <- attr(x$x, "class") <- NULL
    attr(x$data, "circularp") <- attr(x$data, "class") <- NULL
-  
+
+   ll <- list()
+   
    plot.type <- match.arg(plot.type)
    if (is.null(bins)) {
        bins <- NROW(x)
@@ -296,6 +298,7 @@ lines.density.circular <- function(x, type = "l", zero.line = TRUE, points.plot=
          PointsCircularRad(x$data, bins, FALSE, points.col, points.pch, 1, 1, sep, next.points, shrink, points.cex)
       }
     }
+      
     return(invisible(list(x=ll$x, y=ll$y, zero=zero, rotation=rotation, next.points=next.points)))
 }
 
