@@ -3,6 +3,7 @@ useDynLib(circular)
 #Import directive
 importFrom(graphics, axis)
 importFrom(stats, density)
+###importFrom(stats, median)
 
 #Export directive
 
@@ -36,6 +37,8 @@ export(
  circular, conversion.circular, circularp, "circularp<-", is.circular,
 # file circular.colors.R
  circular.colors,
+# file coord2rad.R
+ coord2rad,
 # file cor.circular.R
  cor.circular,
 # file curve.circular.R
@@ -123,7 +126,7 @@ export(
 # file mean.circular.R
  mean.circular,
 # file median.circular.R
- median.circular,
+ medianCircular,
 # file axis.circular.R
  axis.circular,
 # file lines.circular.R
@@ -203,7 +206,8 @@ S3method(lines, density.circular)
 S3method(mean, circular)
 
 #median
-S3method(median, circular)
+####S3method(median, default)
+##S3method(median, circular)
 
 #print
 S3method(print, aov.circular)

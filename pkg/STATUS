@@ -1,6 +1,6 @@
 Library circular
 =================
-Version 0.3-9, 2010/04/06
+Version 0.3-9, 2010/06/10
 Fixed bug #729 on watson.two.test function.
 Fixed bug #69 small bug in rose.diag of R package "circular", 0.3-8 and the same problem in the points.circular and plot.circular
 Fixed bug #104	bug in rvonmises, 0.3-8. Now, when kappa is zero, random deviates are generated according to the Circular Uniform Distribution
