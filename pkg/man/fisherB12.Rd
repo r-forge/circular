@@ -1,5 +1,6 @@
 \name{fisherB12}
 \alias{fisherB12}
+\alias{fisherB12c}
 
 \title{B.12: Vanishing directions of homing pigeons}
 
@@ -17,9 +18,10 @@ Vanishing directions of 15 homing pigeons, released just over
 \code{fisherB12c} contains the same observations in a circular objects.}
 
 \source{
-Schmidt-Koenig (1963)
+Schmidt-Koenig (1963) On the role of the loft, the distance and site of
+release in pigeon homing (the "cross-loft experiment"). Biol. Bull. (125)154-164.
 }
-\seealso{
+\references{
 N.I. Fisher (1993) Statistical analysis of circular data. Cambridge University Press. Pag. 245.
 }
 

@@ -6,8 +6,8 @@ A method taking coordinates in a polar system and joining the corresponding poin
 
 }
 \usage{
-lines.circular(x, y, join = FALSE, nosort = FALSE, , offset=1, shrink=1,
-  plot.info = NULL,zero = NULL, rotation = NULL, modulo = NULL, \dots)
+lines.circular(x, y, join = FALSE, nosort = FALSE, offset=1, shrink=1,
+  plot.info = NULL, zero = NULL, rotation = NULL, modulo = NULL, \dots)
 }
 
 \arguments{

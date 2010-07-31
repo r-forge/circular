@@ -38,7 +38,8 @@
 }
 
 \value{
-A list with information on the plot: zero, rotation and next.points.
+A list with information on the plot: zero, rotation and next.points and,
+if available, the coordinates x and y.
 }
 
 \author{Claudio Agostinelli}

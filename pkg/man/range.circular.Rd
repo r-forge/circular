@@ -18,7 +18,7 @@ range.circular(x, test=FALSE, na.rm = FALSE, finite = FALSE,
 \item{na.rm}{logical, indicating if \code{\link{NA}}'s should be omitted.}
 \item{finite}{logical, indicating if all non-finite elements should be
   omitted.}
-\item{control.circular}{}
+\item{control.circular}{the attribute of the resulting object.}
 \item{\ldots}{further parameter passed from/to the method.}
 }
 
