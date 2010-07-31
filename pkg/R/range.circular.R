@@ -56,7 +56,7 @@ range.circular <- function(x, test = FALSE, na.rm=FALSE, finite=FALSE, control.c
   if (test) {
     result$range <- conversion.circular(x=circular(result$range), units=dc$units, type=dc$type, template=dc$template, modulo="2pi", zero=0, dc$rotation)
   } else {
-    result <- conversion.circular(x=circular(result$range), units=dc$units, type=dc$type, template=dc$template, modulo="2pi", zero=0, dc$rotation)
+    result <- conversion.circular(x=circular(result), units=dc$units, type=dc$type, template=dc$template, modulo="2pi", zero=0, dc$rotation)
   }
   return(result)
 }
