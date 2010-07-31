@@ -1,3 +1,9 @@
+### This is necessary since stats::median do not have ... argument
+### Work around suggested by Kurt.
+
+median <- function(x, na.rm, ...) UseMethod("median")
+median.default <- function(x, na.rm, ...) stats::median(x, na.rm)
+
 #############################################################
 #                                                           
 #   median.circular function                                  
