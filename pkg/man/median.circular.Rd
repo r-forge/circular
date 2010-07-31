@@ -1,5 +1,5 @@
-\name{median.circular}
-\alias{median.circular}
+\name{medianCircular}
+\alias{medianCircular}
 \title{
 Median Direction
 }
@@ -7,7 +7,7 @@ Median Direction
 Sample median direction and corresponding deviation measure for a vector of circular data
 }
 \usage{
-\method{median}{circular}(x, na.rm = FALSE, type = "Fisher", 
+medianCircular(x, na.rm = FALSE, type = "Fisher", 
   deviation = FALSE, control.circular = list(), \dots)
 }
 \arguments{
@@ -48,7 +48,7 @@ Claudio Agostinelli
 \examples{
 # Compute the median direction of a random sample of observations.
 x <- circular(runif(50, circular(0), pi))
-median(x) #only the median is returned
-###median(x, deviation=TRUE) #both median and deviation are reported
+medianCircular(x) #only the median is returned
+medianCircular(x, deviation=TRUE) #both median and deviation are reported
 }
 \keyword{univar}
