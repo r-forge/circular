@@ -1,5 +1,8 @@
 Library circular
 =================
+Version 0.4, 2010/08/01
+Refix range.circular
+
 Version 0.3-9, 2010/07/31
 Fixed bug #729 on watson.two.test function.
 Fixed bug #69 small bug in rose.diag of R package "circular", 0.3-8 and the same problem in the points.circular and plot.circular
