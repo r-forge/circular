@@ -1,12 +1,11 @@
 ### This is necessary since stats::median do not have ... argument
-### Work around suggested by Kurt.
-
-median <- function(x, na.rm, ...) UseMethod("median")
-median.default <- function(x, na.rm, ...) stats::median(x, na.rm)
+### Work around suggested by Kurt but does not work.
+##median <- function(x, na.rm, ...) UseMethod("median")
+##median.default <- function(x, na.rm, ...) stats::median(x, na.rm)
 
 #############################################################
 #                                                           
-#   median.circular function                                  
+#   medianCircular function                                  
 #   Author: Claudio Agostinelli                             
 #   E-mail: claudio@unive.it                                
 #   Date: October, 12, 2009                                  
@@ -16,7 +15,7 @@ median.default <- function(x, na.rm, ...) stats::median(x, na.rm)
 #                                                           
 #############################################################
 
-median.circular <- function(x, na.rm=FALSE, type="Fisher", deviation=FALSE, control.circular=list(), ...) {
+medianCircular <- function(x, na.rm=FALSE, type="Fisher", deviation=FALSE, control.circular=list(), ...) {
   ## For now only the definition in
   ## equations 2.32 & 2.33
   ## from N.I. Fisher's 'Statistical Analysis of Circular Data',
@@ -80,6 +79,5 @@ MedianFisherCircularRad <- function(x) {
   res <- list(median=median, deviation=md)
   return(res)
 }
-
 
 
