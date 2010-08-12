@@ -1,3 +1,5 @@
+#####This code is not used anymore. It is here for historical reason. Please use
+#####the code in the file rose.diag.R
 
 #############################################################
 #                                                           #
@@ -16,20 +18,10 @@
 #                                                           #
 #   Version 0.2-2                                           #
 #                                                           #
-#   Modified by Hiroyoshi Arai                              #
-#   Date: August, 12, 2010                                  #
-#   Added arguments                                         #
-#     radii.scale: "sqrt"(default) or "linear"              #
-#     border: the color to draw the border.                 #
-#   Revised argument                                        #
-#     col: the color to filling the sector.                 #
-#                                                           #
 #############################################################
 
-rose.diag <- function(x, pch = 16, cex=1, axes = TRUE, shrink = 1, bins=NULL, ticks = TRUE, tcl=0.025, tcl.text=0.125, radii.scale = c("sqrt", "linear"), border=NULL, col=NULL, tol = 0.04, uin=NULL, xlim=c(-1, 1), ylim=c(-1, 1), prop = 1, digits=2, plot.info=NULL, units=NULL, template=NULL, zero=NULL, rotation=NULL, main="", xlab="", ylab="", add=FALSE, ...) {
-
-   radii.scale <- match.arg(radii.scale)
-   
+rose.diag.oldstyle <- function(x, pch = 16, cex=1, axes = TRUE, shrink = 1, bins=NULL, ticks = TRUE, tcl=0.025, tcl.text=0.125, col=NULL, tol = 0.04, uin=NULL, xlim=c(-1, 1), ylim=c(-1, 1), prop = 1, digits=2, plot.info=NULL, units=NULL, template=NULL, zero=NULL, rotation=NULL, main="", xlab="", ylab="", add=FALSE, ...) {
+  
    if (is.matrix(x) | is.data.frame(x)) {
       nseries <- ncol(x)
    } else {
@@ -77,11 +69,11 @@ rose.diag <- function(x, pch = 16, cex=1, axes = TRUE, shrink = 1, bins=NULL, ti
          stop("bins must be non negative")
    }
 
-   if (is.null(border)) {
-      border <- seq(nseries)
+   if (is.null(col)) {
+      col <- seq(nseries)
    } else {
-      if (length(border)!=nseries) {
-         border <- rep(border, nseries)[1:nseries]
+      if (length(col)!=nseries) {
+         col <- rep(col, nseries)[1:nseries]
       }
    }
    pch <- rep(pch, nseries, length.out=nseries)
@@ -111,13 +103,13 @@ rose.diag <- function(x, pch = 16, cex=1, axes = TRUE, shrink = 1, bins=NULL, ti
          if (template=="clock12")
            x <- 2*x
          x <- x%%(2*pi)
-         RosediagRad(x, bins, radii.scale, prop, border[iseries], col, ...)
+         RosediagOSRad(x, bins, prop, col[iseries], ...)
       }
    }
    return(invisible(list(zero=zero, rotation=rotation, next.points=0)))    
 }
 
-RosediagRad <- function(x, bins, radii.scale, prop, border, col, ...) {
+RosediagOSRad <- function(x, bins, prop, col, ...) {
 #### x musts be in modulo 2pi
     n <- length(x)
     freq <- rep(0, bins)
@@ -129,66 +121,14 @@ RosediagRad <- function(x, bins, radii.scale, prop, border, col, ...) {
     breaks <- seq(0,2*pi,length.out=(bins+1))
     freq <- hist.default(x, breaks=breaks, plot=FALSE, right=TRUE)$counts   
     rel.freq <- freq/n
-    if (radii.scale == "sqrt") {
-       radius <- sqrt(rel.freq)*prop
-    } else {
-       radius <- rel.freq*prop
-    }
+    radius <- sqrt(rel.freq) * prop
     sector <- seq(0, 2 * pi - (2 * pi)/bins, length = bins)
     mids <- seq(arc/2, 2 * pi - pi/bins, length = bins)
     for (i in 1:bins) {
        if (rel.freq[i] != 0) {
-          xx <- c(0, radius[i]*cos(seq(sector[i], sector[i]+(2*pi)/bins, length=1000/bins)), 0)
-          yy <- c(0, radius[i]*sin(seq(sector[i], sector[i]+(2*pi)/bins, length=1000/bins)), 0)
-          polygon(xx, yy, border=border, col=col, ...)
+          lines.default(c(0, radius[i] * cos(sector[i])), c(0, radius[i] * sin(sector[i])), col=col, ...)
+          lines.default(c(0, radius[i] * cos(sector[i] + (2 * pi)/bins)), c(0, radius[i] * sin(sector[i] + (2 * pi)/bins)), col=col, ...)
+          lines.default(c(radius[i] * cos(sector[i]), radius[i] * cos(sector[i] + (2 * pi)/bins)), c(radius[i] * sin(sector[i]), radius[i] * sin(sector[i] + (2 * pi)/bins)), col=col, ...)
        }
     }
 }
-
-
-#---------- CirclePlotRad (unchanged) -----------
-
-CirclePlotRad <- function(xlim=c(-1,1), ylim=c(-1,1), uin=NULL, shrink=1, tol=0.04, main=NULL, sub=NULL, xlab=NULL, ylab=NULL, control.circle=circle.control()) {
-   xlim <- shrink * xlim
-   ylim <- shrink * ylim
-   midx <- 0.5 * (xlim[2] + xlim[1])
-   xlim <- midx + (1 + tol) * 0.5 * c(-1, 1) * (xlim[2] - xlim[1])
-   midy <- 0.5 * (ylim[2] + ylim[1])
-   ylim <- midy + (1 + tol) * 0.5 * c(-1, 1) * (ylim[2] - ylim[1])
-   oldpin <- par("pin")
-   xuin <- oxuin <- oldpin[1]/diff(xlim)
-   yuin <- oyuin <- oldpin[2]/diff(ylim)
-   if (is.null(uin)) {
-      if (yuin > xuin)
-         yuin <- xuin
-      else
-         xuin <- yuin
-   } else {
-      if (length(uin) == 1)
-         uin <- uin * c(1, 1)
-      if (any(c(xuin, yuin) < uin))
-         stop("uin is too large to fit plot in")
-      xuin <- uin[1]; yuin <- uin[2]
-   }
-   xlim <- midx + oxuin/xuin * c(-1, 1) * diff(xlim) * 0.5
-   ylim <- midy + oyuin/yuin * c(-1, 1) * diff(ylim) * 0.5
-   n <- control.circle$n
-   x <- cos(seq(0, 2 * pi, length = n))
-   y <- sin(seq(0, 2 * pi, length = n))
-   axes <- FALSE
-   log <- ""
-   xaxs <- "i"
-   yaxs <- "i"
-   ann <-  par("ann")
-   frame.plot <- axes
-   panel.first <- NULL 
-   panel.last <- NULL
-   asp <- NA
-   plot.default(x=x, y=y, type=control.circle$type, xlim=xlim, ylim=ylim, log="", main=main, sub=sub, xlab=xlab, ylab=ylab, ann=ann, axes=axes, frame.plot=frame.plot, panel.first=panel.first, panel.last=panel.last, asp=asp, col=control.circle$col, bg=control.circle$bg, pch=control.circle$pch, cex=control.circle$cex, lty=control.circle$lty, lwd=control.circle$lwd)
-}
-
-circle.control <- function(n=1000, type='l', col=1, bg=par('bg'), pch=1, cex=1, lty=1, lwd=1) {
-  x <- list(n=n, type=type, col=col, bg=bg, pch=pch, cex=cex, lty=lty, lwd=lwd)
-  return(x)
-}
-
