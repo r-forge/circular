@@ -54,9 +54,9 @@ range.circular <- function(x, test = FALSE, na.rm=FALSE, finite=FALSE, control.c
   result <- RangeCircularRad(x, test)
    
   if (test) {
-    result$range <- conversion.circular(x=circular(result$range), units=dc$units, type=dc$type, template=dc$template, modulo="2pi", zero=0, rotation='clock')
+    result$range <- conversion.circular(x=circular(result$range), units=dc$units, type=dc$type, template=dc$template, modulo="2pi", zero=0, rotation='counter')
   } else {
-    result <- conversion.circular(x=circular(result), units=dc$units, type=dc$type, template=dc$template, modulo="2pi", zero=0, rotation='clock')
+    result <- conversion.circular(x=circular(result), units=dc$units, type=dc$type, template=dc$template, modulo="2pi", zero=0, rotation='counter')
   }
   return(result)
 }
