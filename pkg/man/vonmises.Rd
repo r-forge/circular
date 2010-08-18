@@ -13,7 +13,7 @@
 \usage{
 rvonmises(n, mu, kappa, control.circular=list())
 dvonmises(x, mu, kappa)
-pvonmises(q, mu, kappa, from=NULL,, tol = 1e-020)
+pvonmises(q, mu, kappa, from=NULL, tol = 1e-020)
 qvonmises(p, mu = circular(0), kappa=NULL, from=NULL, tol = .Machine$double.eps^(0.6), 
   control.circular = list(), \dots)
 }

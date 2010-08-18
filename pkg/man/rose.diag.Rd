@@ -48,7 +48,7 @@ color of the points. The values are recycled if needed.}
   \item{rotation}{the rotation of the plot. Ignored if \code{plot.info} or \code{template} are provided.}
  \item{main, xlab, ylab}{title, x label and y label of the plot.}
  \item{add}{add the rose diag to an existing plot.}
- \item{...}{futher parameters passed to \code{\link{polygons}}.}
+ \item{...}{futher parameters passed to \code{\link{polygon}}.}
 }
 
 \value{
