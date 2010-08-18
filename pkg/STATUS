@@ -1,6 +1,6 @@
 Library circular
 =================
-Version 0.4-1, 2010/08/14
+Version 0.4-1, 2010/08/18
 rose.diag function has new parameters and better control of the colors. Now it use polygon instead of lines.default and it draws edges of sectors as arcs. 
 Fixed bug on qvonmises and its documentation
 Fixed bug on qwrappednormal
