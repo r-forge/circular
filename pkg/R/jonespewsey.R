@@ -11,8 +11,10 @@
 
 
 djonespewsey <-	function(x, mu, kappa, psi){
-  if (length(mu)!=1|| length(kappa)!=1)
-    stop("all the parameters must have length 1")
+  if (missing(mu) || length(mu)!=1)
+    stop("the mean direction parameter 'mu' is mandatory and it must have length 1")
+  if (missing(kappa) || length(kappa)!=1)
+    stop("the concentration  parameter 'kappa' is mandatory and it must have length 1")
 
   if(kappa<0){stop("kappa must be non negative")}
 

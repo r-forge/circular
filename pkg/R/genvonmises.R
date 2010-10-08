@@ -10,8 +10,10 @@
 #############################################################
 
 dgenvonmises <- function (x, mu1, mu2, kappa1, kappa2) {
-  if (length(mu1)!=1|| length(mu2)!=1|| length(kappa1)!=1|| length(kappa2)!=1)
-    stop("all the parameters must have length 1")
+  if (missing(mu1) || length(mu1)!=1 || missing(mu2) || length(mu2)!=1)
+    stop("the mean direction parameters 'mu1' and 'mu2' are mandatory and it must have length 1")
+  if (missing(kappa1) || length(kappa1)!=1 || missing(kappa2) || length(kappa2)!=1)
+    stop("the concentration direction parameters 'kappa1' and 'kappa2' are mandatory and it must have length 1")
 
   if((kappa1<0)||(kappa2<0)){stop("'kappa1' and 'kappa2' must be non negative")}
   if((mu2%/%pi)%%2!=0){stop("'mu2' must be <pi")}

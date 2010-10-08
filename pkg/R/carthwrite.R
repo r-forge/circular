@@ -10,10 +10,14 @@
 #############################################################
 
 dcarthwrite <- function (x, mu, psi) {
-  if (length(mu)!=1|| length(psi)!=1)
-    stop("all the parameters must have length 1")
+  if (missing(mu) || length(mu)!=1)
+    stop("the mean direction parameter 'mu' is mandatory and it must have length 1")
 
-  if(psi<0){stop("the parameter 'psi' must be non negative")}
+  if (missing(psi) || length(psi)!=1)
+    stop("the parameter 'psi' is mandatory and it must have length 1")
+
+  if(psi<0)
+    stop("the parameter 'psi' must be non negative")
 
   x <- conversion.circular(x, units="radians", zero=0, rotation="counter")
   mu <- conversion.circular(mu, units="radians", zero=0, rotation="counter")

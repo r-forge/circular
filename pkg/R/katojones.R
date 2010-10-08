@@ -11,8 +11,17 @@
 
 
 dkatojones <-function(x, mu, nu, r, kappa){
-  if (length(mu)!=1|| length(nu)!=1|| length(r)!=1|| length(kappa)!=1)
-    stop("all the parameters must have length 1")
+  if (missing(mu) || length(mu)!=1)
+    stop("the mean direction parameter 'mu' is mandatory and it must have length 1")
+
+  if (missing(nu) || length(nu)!=1)
+    stop("the parameter 'nu' is mandatory and it must have length 1")
+
+  if (missing(r) || length(r)!=1)
+    stop("the parameter 'r' is mandatory and it must have length 1")
+
+  if (missing(kappa) || length(kappa)!=1)
+    stop("the parameter 'kappa' is mandatory and it must have length 1")
 
   if((r<0)||(r>=1)){stop("'r' must be in [0,1)")}
   if(kappa<0){stop("'kappa' must be not negative")}
