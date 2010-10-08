@@ -10,6 +10,9 @@
 #############################################################
 
 dcarthwrite <- function (x, mu, psi) {
+  if (length(mu)!=1|| length(psi)!=1)
+    stop("all the parameters must have length 1")
+
   if(psi<0){stop("the parameter 'psi' must be non negative")}
 
   x <- conversion.circular(x, units="radians", zero=0, rotation="counter")
