@@ -10,6 +10,9 @@
 #############################################################
 
 dgenvonmises <- function (x, mu1, mu2, kappa1, kappa2) {
+  if (length(mu1)!=1|| length(mu2)!=1|| length(kappa1)!=1|| length(kappa2)!=1)
+    stop("all the parameters must have length 1")
+
   if((kappa1<0)||(kappa2<0)){stop("'kappa1' and 'kappa2' must be non negative")}
   if((mu2%/%pi)%%2!=0){stop("'mu2' must be <pi")}
 
@@ -36,6 +39,7 @@ DgenvonmisesRad <-function(x, mu1, mu2, kappa1, kappa2){
 	exp(kappa1*cos(x)+kappa2*cos(2*(x+d)))
 	},0,2*pi)$value
 
-	return(num/den)
+	dens<-num/den
+	return(dens)
 }
 

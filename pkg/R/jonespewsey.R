@@ -11,6 +11,9 @@
 
 
 djonespewsey <-	function(x, mu, kappa, psi){
+  if (length(mu)!=1|| length(kappa)!=1)
+    stop("all the parameters must have length 1")
+
   if(kappa<0){stop("kappa must be non negative")}
 
   x <- conversion.circular(x, units="radians", zero=0, rotation="counter")
@@ -29,6 +32,7 @@ djonespewsey <-	function(x, mu, kappa, psi){
 DjonespewseyRad <- function(x, mu, kappa, psi){
 	ker<- function(x){ (cosh(kappa*psi)+sinh(kappa*psi)*cos(x-mu))^(1/psi) / (2*pi*cosh(kappa*psi))}
 	ncost<-integrate(ker,0,2*pi)$value
-	return(ker(x)/ncost)
+	dens<-ker(x)/ncost
+	return(dens)
 }
 

@@ -11,6 +11,9 @@
 
 
 dkatojones <-function(x, mu, nu, r, kappa){
+  if (length(mu)!=1|| length(nu)!=1|| length(r)!=1|| length(kappa)!=1)
+    stop("all the parameters must have length 1")
+
   if((r<0)||(r>=1)){stop("'r' must be in [0,1)")}
   if(kappa<0){stop("'kappa' must be not negative")}
 
@@ -26,11 +29,11 @@ dkatojones <-function(x, mu, nu, r, kappa){
   attr(mu, "class") <- attr(mu, "circularp") <-  NULL    
   attr(nu, "class") <- attr(nu, "circularp") <-  NULL    
   
-  RkatojonesRad(x, mu, nu, r, kappa)
+  DkatojonesRad(x, mu, nu, r, kappa)
 }
 
 
-RkatojonesRad <-function(x, mu, nu, r, kappa){
+DkatojonesRad <-function(x, mu, nu, r, kappa){
 	gamma<-mu+nu
 	den <- 2*pi*besselI(kappa,0) * (1+r^2-2*r*cos(x-gamma))
 	xi<-(r^4+2*r^2*cos(2*nu)+1)^.5
