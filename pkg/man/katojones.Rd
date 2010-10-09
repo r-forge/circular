@@ -2,8 +2,8 @@
 \alias{katojones}
 \alias{dkatojones}
 
-\title{Kato \& Jones Density Function}
-\description{Density for the Kato \& JOnes distribution.}
+\title{Kato and Jones Density Function}
+\description{Density for the Kato and Jones distribution.}
 
 \usage{dkatojones(x, mu, nu, r, kappa)
 }
@@ -18,7 +18,7 @@
 
 \value{The density.}
 
-\references{Kato , S. & Jones, M.C. (2010). A family of distributions on the circle with links to, and applications arising from,
+\references{Kato , S. and Jones, M.C. (2010). A family of distributions on the circle with links to, and applications arising from,
    M\"obius transformation. J. Am. Statist. Assoc. 105, 249–262.}
 \author{Federico Rotolo}
 

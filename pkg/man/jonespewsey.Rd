@@ -2,9 +2,9 @@
 \alias{djonespewsey}
 \alias{jonespewsey}
 
-\title{Jones \& Pewsey Density Function}
+\title{Jones and Pewsey Density Function}
 \description{
-  Density for the Jones \& Pewsey circular distribution. 
+  Density for the Jones and Pewsey circular distribution. 
 }
 
 \usage{djonespewsey(x, mu, kappa, psi)}
@@ -16,12 +16,9 @@
   \item{psi}{real shape parameter.}
 }
 
-\details{}
-
 \value{The density}
 
-\references{Jones , M.C. & Pewsey, A. (2005). A family of simmetric distributions on the circle. J. Am. Statist. Assoc. 100,
-   1422–1428}
+\references{Jones , M.C. and Pewsey, A. (2005). A family of simmetric distributions on the circle. J. Am. Statist. Assoc. 100, 1422–1428}
 \author{Federico Rotolo}
 
 \keyword{distribution}
