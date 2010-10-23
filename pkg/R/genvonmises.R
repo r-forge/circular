@@ -9,10 +9,10 @@
 #   Version                                                 #
 #############################################################
 
-dgenvonmises <- function (x, mu1, mu2, kappa1, kappa2) {
-  if (missing(mu1) || length(mu1)!=1 || missing(mu2) || length(mu2)!=1)
+dgenvonmises <- function (x, mu1=NULL, mu2=NULL, kappa1=NULL, kappa2=NULL) {
+  if (is.null(mu1) || length(mu1)!=1 || is.null(mu2) || length(mu2)!=1)
     stop("the mean direction parameters 'mu1' and 'mu2' are mandatory and it must have length 1")
-  if (missing(kappa1) || length(kappa1)!=1 || missing(kappa2) || length(kappa2)!=1)
+  if (is.null(kappa1) || length(kappa1)!=1 || is.null(kappa2) || length(kappa2)!=1)
     stop("the concentration direction parameters 'kappa1' and 'kappa2' are mandatory and it must have length 1")
 
   if((kappa1<0)||(kappa2<0)){stop("'kappa1' and 'kappa2' must be non negative")}
@@ -38,7 +38,7 @@ DgenvonmisesRad <-function(x, mu1, mu2, kappa1, kappa2){
 	d=(mu1-mu2)%%pi
 	num<- exp( kappa1*cos(x-mu1) + kappa2*cos(2*(x-mu2)) )
 	den<-integrate(function(x) {
-	exp(kappa1*cos(x)+kappa2*cos(2*(x+d)))
+		exp(kappa1*cos(x)+kappa2*cos(2*(x+d)))
 	},0,2*pi)$value
 
 	dens<-num/den
