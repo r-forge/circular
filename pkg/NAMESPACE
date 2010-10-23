@@ -150,7 +150,7 @@ export(
 # file jonespewsey.R
  djonespewsey,
 # file katojones.R
- dkatojones
+ dkatojones, rkatojones
 )
 
 
