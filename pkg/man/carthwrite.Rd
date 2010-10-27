@@ -10,8 +10,17 @@
   \item{psi}{the positive shape parameter.}
 }
 
-\value{The density}
+\details{The Carthwrite's power-of-cosine distribution has density
+	\deqn{
+		f(x)=\frac{2^{(1/\psi)-1} \Gamma^2((1/\psi)+1) (1+\cos(x-\mu))^{1/\psi}}
+		{\pi\Gamma((2/\psi)+1)},
+	}{%
+		f(x)=[2^{(1/\psi)-1} \Gamma^2((1/\psi)+1) (1+\cos(x-\mu))^{1/\psi}] / [\pi \Gamma((2/\psi)+1)],
+	}
+	for \eqn{0 \le x < 2\pi}{0 <= x < 2\pi}.
+}
 
+\value{The density}
 \references{Carthwrite, D.E. (1963). The use of directional spectra in studying the output of a wave recorder on a moving ship. Ocean Wave Spectra , 203–218.}
 
 \author{Federico Rotolo}
