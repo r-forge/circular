@@ -18,7 +18,6 @@
 
 \details{}
 
-
 \details{The Generalized von Mises distribution has density
 	\deqn{
 	        f(x)=\frac1{2\pi G_0(\delta,\kappa_1,\kappa_2)}
