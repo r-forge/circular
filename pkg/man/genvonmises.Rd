@@ -18,6 +18,17 @@
 
 \details{}
 
+
+\details{The Generalized von Mises distribution has density
+	\deqn{
+	        f(x)=\frac1{2\pi G_0(\delta,\kappa_1,\kappa_2)}
+	        \exp\{\kappa_1 \cos(x-\mu_1) + \kappa_2 \cos2(x-\mu_2)\},
+	}{%
+	        f(x)=exp[\kappa_1 \cos(x-\mu_1) + \kappa_2 \cos{2(x-\mu_2) }] / [2 \pi G_0(\delta,\kappa_1,\kappa_2)],
+	}
+	for \eqn{0 \le x < 2\pi}{0 <= x < 2 \pi}, where \eqn{\delta=(\mu_1-\mu_2)} and \eqn{G_0} is the normalizing constant.
+}
+
 \value{The density}
 
 \references{Gatto , R. & Jammalamadaka , S.R. (2007). The generalized von Mises distribution. Statistical Methodology 4, 341–353.}
