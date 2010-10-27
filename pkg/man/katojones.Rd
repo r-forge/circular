@@ -3,9 +3,11 @@
 \alias{dkatojones}
 
 \title{Kato and Jones Density Function}
-\description{Density for the Kato and Jones distribution.}
+\description{Density and random generation for the Kato and Jones distribution.}
 
-\usage{dkatojones(x, mu, nu, r, kappa)
+\usage{
+rkatojones(n, mu, nu, r, kappa, control.circular=list())
+dkatojones(x, mu, nu, r, kappa)
 }
 
 \arguments{
@@ -31,6 +33,9 @@
 	for \eqn{0 \le x < 2\pi}{0 <= x < 2 \pi}, 
 	where \eqn{\gamma=\mu+\nu}, \eqn{\xi=\{r^4+2r^2\cos(2\nu)+1\}^{1/2}}{\xi={r^4+2r^2 cos(2\nu)+1}^{1/2}}
 	and \eqn{\eta=\mu+\arg[ r^2\{\cos(2\nu)+i\sin(2\nu)\}+1 ]}{\eta=\mu+arg[ r^2{cos(2\nu)+i sin(2\nu)}+1 ]}.
+	
+	Original code for random generation is by Kato, S. and Jones, M.C. and can be found at the address 
+	http://pubs.amstat.org/doi/suppl/10.1198/jasa.2009.tm08313/suppl_file/t08-313code.txt.
 }
 
 \value{The density.}
