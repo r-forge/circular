@@ -1,7 +1,8 @@
 #############################################################
 #                                                           #
 #   rkatojones function                                     #
-#   Author: Federico Rotolo                                 #
+#   Author: Federico Rotolo,                                #
+#           original code from Kato, S. and Jones, M.C.     #
 #   Email: federico.rotolo@stat.unipd.it                    #
 #   Date: October, 23, 2010                                 #
 #   Copyright (C) 2010 Federico Rotolo                      #
