@@ -10,16 +10,33 @@
 
 \arguments{
   \item{x}{the angular value the density must be computed in.}
-  \item{mu}{the M\"obius 'mu' parameter. The object is coerced to class \code{\link{circular}}.}
-  \item{nu}{the M\"obius 'nu' parameter. The object is coerced to class \code{\link{circular}}.}
-  \item{r}{the M\"obius 'r' parameter. It must be in [0,1).}
+  \item{mu}{the Mobius 'mu' parameter. The object is coerced to class \code{\link{circular}}.}
+  \item{nu}{the Mobius 'nu' parameter. The object is coerced to class \code{\link{circular}}.}
+  \item{r}{the Mobius 'r' parameter. It must be in [0,1).}
   \item{kappa}{the positive vonMises parameter.}
+}
+
+\details{The Kato and Jones distribution has density
+	\deqn{
+		f(x)= \frac{1-r^2}{2\pi\mathcal I_0(\kappa)}
+		&\exp\left[
+			\frac{\kappa\{ \xi\cos(x-\eta)-2r\cos\nu \}}
+			{1+r^2-2r\cos(x -\gamma)}
+		\right]\\
+		&\phantom{\exp[]} \times \frac1{1+r^2-2r\cos(x -\gamma)},
+	}{%
+	f(x)= [1-r^2]/[{2\pi\mathcal I_0(\kappa)}{1+r^2-2r\cos(x -\gamma)}]
+			exp[{\kappa\{ \xi\cos(x-\eta)-2r\cos\nu \}} / {1+r^2-2r\cos(x -\gamma)}],
+	}
+	for \eqn{0 \le x < 2\pi}{0 <= x < 2 \pi}, 
+	where \eqn{\gamma=\mu+\nu}, \eqn{\xi=\{r^4+2r^2\cos(2\nu)+1\}^{1/2}}{\xi={r^4+2r^2 cos(2\nu)+1}^{1/2}}
+	and \eqn{\eta=\mu+\arg[ r^2\{\cos(2\nu)+i\sin(2\nu)\}+1 ]}{\eta=\mu+arg[ r^2{cos(2\nu)+i sin(2\nu)}+1 ]}.
 }
 
 \value{The density.}
 
 \references{Kato , S. and Jones, M.C. (2010). A family of distributions on the circle with links to, and applications arising from,
-   M\"obius transformation. J. Am. Statist. Assoc. 105, 249–262.}
+   Mobius transformation. J. Am. Statist. Assoc. 105, 249–262.}
 \author{Federico Rotolo}
 
 \examples{
