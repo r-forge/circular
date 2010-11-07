@@ -38,7 +38,10 @@ dkatojones(x, mu, nu, r, kappa)
 	http://pubs.amstat.org/doi/suppl/10.1198/jasa.2009.tm08313/suppl_file/t08-313code.txt.
 }
 
-\value{The density.}
+\value{The density.
+\code{dkatojones} gives the density and \code{rkatojones} generates random deviates.
+
+}
 
 \references{Kato , S. and Jones, M.C. (2010). A family of distributions on the circle with links to, and applications arising from,
    Mobius transformation. J. Am. Statist. Assoc. 105, 249–262.}
