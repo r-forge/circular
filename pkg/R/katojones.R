@@ -130,5 +130,3 @@ DkatojonesRad <-function(x, mu, nu, r, kappa){
 	num<-(1-r^2)*exp((kappa*(xi*cos(x-eta)-2*r*cos(nu)))/(1+r^2-2*r*cos(x-gamma)))
 	return(num/den)
 }
-
-
