@@ -12,7 +12,6 @@
 #
 #------------------------------------------------------------
 
-
 # Generic function
 watson.williams.test <- function(x, ...) {
 	UseMethod("watson.williams.test", x)
@@ -20,8 +19,7 @@ watson.williams.test <- function(x, ...) {
 
 # Default method, for an angle vector and a grouping vector
 # similar to equal.kappa.test
-watson.williams.test.default <- function(x, group, data.name=NULL) {
-	
+watson.williams.test.default <- function(x, group, data.name=NULL) {	
 	# generate a data name of not already done
 	if (is.null(data.name)) {
 		data.name = paste(deparse(substitute(x)), "by", deparse(substitute(group)))
@@ -37,8 +35,7 @@ watson.williams.test.default <- function(x, group, data.name=NULL) {
 	}
 		
 	# compute concentration parameters and check assumptions
-	require("circular")
-	kt = equal.kappa.test(x, group)
+	kt <-  equal.kappa.test(x, group)
 	if (kt$p.value < 0.05) {
 		warning("Concentration parameters: ", format(kt$kappa, digits=5) ," not equal between groups. The test is not applicable")
 	} else if ( any(kt$kappa < 2) ) {
@@ -47,31 +44,31 @@ watson.williams.test.default <- function(x, group, data.name=NULL) {
 	# TODO : also check that distributions conform to Von Mises?
 
 	# number of groups
-	group = as.factor(group)
-	k = nlevels(group)
+	group <- as.factor(group)
+	k <- nlevels(group)
 	# total sample size
-	n = length(x)
+	n <- length(x)
 	# sample size per group
-	group = sort(group)
-	y = group[-1] != group[-n]
-	i = c(which(y), n)
-	ns = diff(c(0, i))
+	group <- sort(group)
+	y <- group[-1] != group[-n]
+	i <- c(which(y), n)
+	ns <- diff(c(0, i))
 	# correction factor
-	g = 1 + 3 / (8 * kt$kappa.all)
+	g <- 1 + 3 / (8 * kt$kappa.all)
 	# sum of resultant vectors lengths
-	sRi = sum(kt$rho * ns)
+	sRi <- sum(kt$rho * ns)
 	# total resultant vector length
-	R = kt$rho.all * n
+	R <- kt$rho.all * n
 	
-	statistic = g * ((n - k) * (sRi - R)) / ((k - 1) * (n - sRi))
+	statistic <- g * ((n - k) * (sRi - R)) / ((k - 1) * (n - sRi))
 	
-	p.value = df(statistic, k-1, n-k)
+	p.value <- df(statistic, k-1, n-k)
 
 	# compute estimates of means
-	means = tapply(x, group, mean.circular)
+	means <- tapply(x, group, mean.circular)
 
 	# return result
-	result = list(
+	result <- list(
 		method = "Watson-Williams test for homogeneity of means",
 		data.name = data.name,
 		parameter = c(df1=k-1, df2=n-k),
@@ -80,35 +77,28 @@ watson.williams.test.default <- function(x, group, data.name=NULL) {
 		estimate = means
 	)
 	class(result) = "htest"
-	
 	return(result)
 }
 
 # Method for a list
 watson.williams.test.list <- function(x) {
-
 	# get data name
-	data.name = deparse(substitute(x))
-	
+	data.name <- deparse(substitute(x))
 	# convert into x and group
-	k = length(x)
-	ns = laply(x, length)
-	x = do.call(c, x)
+	k <- length(x)
+	ns <- apply(x, length)
+	x <- do.call(c, x)
 	# NB: unlist() removes the circular attributes here
-	group = rep(1:k, times=ns)
-
+	group <- rep(1:k, times=ns)
 	watson.williams.test.default(x, group, data.name)
 }
 
 # Method for a formula
 watson.williams.test.formula <- function(formula, data) {
-
 	# convert into x and group
-	d = model.frame(as.formula(formula), data)
-
+	d <- model.frame(as.formula(formula), data)
 	# get data name
-	data.name = paste(names(d), collapse=" by ")
-		
+	data.name <- paste(names(d), collapse=" by ")
 	watson.williams.test.default(d[,1], d[,2], data.name)
 }
 
