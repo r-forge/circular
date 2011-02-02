@@ -1,5 +1,5 @@
 \name{KatoJones}
-\alias{katojones}
+\alias{rkatojones}
 \alias{dkatojones}
 
 \title{Kato and Jones Density Function}
@@ -12,20 +12,22 @@ dkatojones(x, mu, nu, r, kappa)
 
 \arguments{
   \item{x}{the angular value the density must be computed in.}
+  \item{n}{number of observations.}  
   \item{mu}{the Mobius 'mu' parameter. The object is coerced to class \code{\link{circular}}.}
   \item{nu}{the Mobius 'nu' parameter. The object is coerced to class \code{\link{circular}}.}
   \item{r}{the Mobius 'r' parameter. It must be in [0,1).}
   \item{kappa}{the positive vonMises parameter.}
+  \item{control.circular}{the attribute of the resulting object.}  
 }
 
 \details{The Kato and Jones distribution has density
 	\deqn{
 		f(x)= \frac{1-r^2}{2\pi\mathcal I_0(\kappa)}
-		&\exp\left[
+		\exp\left[
 			\frac{\kappa\{ \xi\cos(x-\eta)-2r\cos\nu \}}
 			{1+r^2-2r\cos(x -\gamma)}
 		\right]\\
-		&\phantom{\exp[]} \times \frac1{1+r^2-2r\cos(x -\gamma)},
+		\phantom{\exp[]} \times \frac1{1+r^2-2r\cos(x -\gamma)},
 	}{%
 	f(x)= [1-r^2]/[{2\pi\mathcal I_0(\kappa)}{1+r^2-2r\cos(x -\gamma)}]
 			exp[{\kappa\{ \xi\cos(x-\eta)-2r\cos\nu \}} / {1+r^2-2r\cos(x -\gamma)}],
@@ -44,7 +46,7 @@ dkatojones(x, mu, nu, r, kappa)
 }
 
 \references{Kato , S. and Jones, M.C. (2010). A family of distributions on the circle with links to, and applications arising from,
-   Mobius transformation. J. Am. Statist. Assoc. 105, 249–262.}
+   Mobius transformation. J. Am. Statist. Assoc. 105, 249-262.}
 \author{Federico Rotolo}
 
 \examples{

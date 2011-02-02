@@ -6,7 +6,7 @@
 Creates a rose diagram of a circular data set on the current graphics device.}
 
 \usage{rose.diag(x, pch = 16, cex = 1, axes = TRUE, shrink = 1, 
-  bins = NULL, ticks = TRUE, tcl = 0.025, tcl.text = 0.125,
+  bins = NULL, upper = TRUE, ticks = TRUE, tcl = 0.025, tcl.text = 0.125,
   radii.scale = c("sqrt", "linear"), border=NULL, col=NULL, tol = 0.04,
   uin = NULL, xlim = c(-1, 1), ylim = c(-1, 1), prop = 1, digits = 2, 
   plot.info = NULL, units = NULL, template = NULL, zero = NULL, 
@@ -21,6 +21,7 @@ Creates a rose diagram of a circular data set on the current graphics device.}
  \item{shrink}{parameter that controls the size of the plotted circle.
    Default is 1.  Larger values shrink the circle, while smaller values enlarge the circle.}
  \item{bins}{number of arcs to partition the circle with.}
+ \item{upper}{therose diagram cells are "upper"-closed intervals.}
  \item{ticks}{logical: if \code{TRUE} ticks are plotted according to the
   value of \code{bins}.}
  \item{tcl}{length of the ticks.}

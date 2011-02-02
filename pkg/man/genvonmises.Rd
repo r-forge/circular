@@ -16,8 +16,6 @@
   \item{kappa2}{non-negative numeric parameter of the distribution.}
 }
 
-\details{}
-
 \details{The Generalized von Mises distribution has density
 	\deqn{
 	        f(x)=\frac1{2\pi G_0(\delta,\kappa_1,\kappa_2)}
@@ -30,7 +28,7 @@
 
 \value{The density}
 
-\references{Gatto , R. & Jammalamadaka , S.R. (2007). The generalized von Mises distribution. Statistical Methodology 4, 341–353.}
+\references{Gatto , R. & Jammalamadaka , S.R. (2007). The generalized von Mises distribution. Statistical Methodology 4, 341-353.}
 
 \author{Federico Rotolo}
 
