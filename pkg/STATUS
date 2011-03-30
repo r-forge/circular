@@ -1,5 +1,8 @@
 Library circular
 =================
+Version 0.4-3 2011/03/30
+Fixed a bug in c.circular function.
+
 Version 0.4-2 2011/03/15
 Fixed a bug in rose.diag function. Now the rose.diag function has two new parameters: sub and control.circle
 
@@ -9,10 +12,10 @@ dgenvonmises, Density for the Generalized von Mises circular distribution.
 djonespewsey, Density for the Jones and Pewsey circular distribution.
 dkatojones, Density for the Kato and Jones distribution
 dcarthwrite, Density for the Carthwrite's power-of-cosine distribution
-Fix a bug in density.circular
+Fixed a bug in density.circular
 
 Version 0.4, 2010/08/01
-Refix range.circular
+Refixed range.circular
 
 Version 0.3-9, 2010/07/31
 Fixed bug #729 on watson.two.test function.
