@@ -70,10 +70,10 @@ circular <- function(x, type=c("angles", "directions"), units=c("radians", "degr
 #   c.circular function                                     #
 #   Author: Claudio Agostinelli                             #
 #   E-mail: claudio@unive.it                                #
-#   Date: May, 17, 2006                                     #
-#   Version: 0.1                                            #
+#   Date: March, 30, 2011                                   #
+#   Version: 0.2                                            #
 #                                                           #
-#   Copyright (C) 2006 Claudio Agostinelli                  #
+#   Copyright (C) 2011 Claudio Agostinelli                  #
 #                                                           #
 #############################################################
 
@@ -86,7 +86,7 @@ c.circular <- function (..., recursive = FALSE) {
          x[[i]] <- conversion.circular(x[[i]], type=value$type, units=value$units, template=value$template, modulo=value$modulo, zero=value$zero, rotation=value$rotation)
       }
    }
-   x <- structure(c(unlist(lapply(x, unclass))), class = "circular")
+   x <- structure(c(unlist(lapply(x, unclass))), class = c("circular", "numeric"))
    attr(x, "circularp") <- value
    return(x)
 }
