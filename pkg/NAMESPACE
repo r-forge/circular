@@ -150,7 +150,9 @@ export(
 # file jonespewsey.R
  djonespewsey,
 # file katojones.R
- dkatojones, rkatojones
+ dkatojones, rkatojones,
+# file watson.williams.test.R
+ watson.williams.test, watson.williams.test.default, watson.williams.test.list, watson.williams.test.formula
 )
 
 
@@ -260,3 +262,7 @@ S3method(var, default)
 S3method(var, data.frame)
 S3method(var, circular)
 
+# tests
+S3method(watson.williams.test, default)
+S3method(watson.williams.test, list)
+S3method(watson.williams.test, formula)
