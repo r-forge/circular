@@ -85,7 +85,7 @@ data <- list(
 wallraff.test(data)
 
 # compare the homing performance
-# home azimuth is 40º for both groups
+# home azimuth is 40 degrees for both groups
 wallraff.test(data, 
               ref = circular(c(40, 40), units="degrees",
                                  template="geographics")
