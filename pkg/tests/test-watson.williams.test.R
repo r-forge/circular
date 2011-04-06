@@ -29,7 +29,7 @@ xd = data.frame(group=group, angles=angles)
 watson.williams.test(angles ~ group, xd)
 
 # Test the influence of ordering the groups
-id = sample(1:length(angles))
+id = c(9, 8, 7, 4, 6, 5, 12, 18, 10, 17, 1, 19, 3, 20, 2, 16, 15, 14, 13, 11)
 angles = angles[id]
 group = group[id]
 
