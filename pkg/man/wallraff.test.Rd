@@ -10,7 +10,7 @@ Performs the Wallraff test of angular distances or angular dispersion around the
 }
 
 \usage{
-wallraff.test(x, ref=NULL, ...)
+wallraff.test(x, ...)
 
 \method{wallraff.test}{default}(x, group, ref=NULL, ...)
 

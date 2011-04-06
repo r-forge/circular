@@ -16,7 +16,7 @@
 #------------------------------------------------------------
 
 # Generic function
-wallraff.test <- function(x, ref, ...) {
+wallraff.test <- function(x, ...) {
 	UseMethod("wallraff.test", x)
 }
 
