@@ -108,12 +108,7 @@ WatsonWilliamsTestRad <- function(x, group, kt) {
 	# total sample size
 	n <- length(x)
 	# sample size per group
-	group <- sort(group)
-	y <- group[-1] != group[-n]
-	i <- c(which(y), n)
-	ns <- diff(c(0, i))
-	# TODO use as.numeric(table(group)) ?
-	# TODO compute that before and check that no group has no data
+	ns <- as.numeric(table(group))
 	# correction factor
 	g <- 1 + 3 / (8 * kt$kappa.all)
 	# sum of resultant vectors lengths
