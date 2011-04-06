@@ -1,5 +1,5 @@
 \name{watson.williams.test}
-\title{Watson's Test of Homogeneity of Means}
+\title{Watson-Williams Test of Homogeneity of Means}
 \alias{watson.williams.test}
 \alias{watson.williams.test.default}
 \alias{watson.williams.test.list}
@@ -23,7 +23,7 @@ watson.williams.test(x, ...)
 	\item{x}{a vector of angles (coerced to class \code{\link{circular}}) or a list of such angles.}
 	\item{group}{a vector or factor object giving the group for the corresponding elements of \code{x}. Ignored if \code{x} is a list}
 	\item{formula}{a formula of the form \code{lhs ~ rhs} where \code{lhs} is a vector of angles and \code{rhs} a vector or factor giving the corresponding groups.}
-	\item{data}{a optional data.frame containing the variables in the formula \code{\link{formula}}.}
+	\item{data}{an optional data.frame containing the variables in the formula \code{\link{formula}}.}
 	\item{\dots}{further arguments passed to or from other methods.}
 }
 
