@@ -49,7 +49,7 @@ Modulo = asis
 Zero = 1.570796 
 Rotation = clock 
 mean of bar mean of foo 
-  -9.000615    1.988969 
+   1.988969   -9.000615 
 
 > 
 > xl = split(xn, group)
@@ -107,7 +107,7 @@ Modulo = asis
 Zero = 1.570796 
 Rotation = clock 
 mean of bar mean of foo 
-  -9.000615    1.988969 
+   1.988969   -9.000615 
 
 > 
 > # Test the influence of ordering the groups
@@ -131,7 +131,7 @@ Modulo = asis
 Zero = 1.570796 
 Rotation = clock 
 mean of bar mean of foo 
-  -5.015277   -2.032060 
+   1.988969   -9.000615 
 
 > xl = split(xn, group)
 > watson.williams.test(xl)
@@ -167,7 +167,7 @@ Modulo = asis
 Zero = 1.570796 
 Rotation = clock 
 mean of bar mean of foo 
-  -5.015277   -2.032060 
+   1.988969   -9.000615 
 
 > 
 > # Test NAs
@@ -189,6 +189,6 @@ Modulo = asis
 Zero = 1.570796 
 Rotation = clock 
 mean of bar mean of foo 
-  -5.015277   -2.032060 
+   1.988969   -9.000615 
 
 > 
