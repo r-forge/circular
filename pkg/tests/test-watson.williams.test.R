@@ -14,6 +14,7 @@ group = rep(c("foo", "bar"), each=10)
 # mean of bar mean of foo 
 #    1.988969   -9.000615 
 
+# Test interfaces
 xn = angles
 watson.williams.test(xn, group)
 
@@ -26,3 +27,21 @@ watson.williams.test(xl)
 
 xd = data.frame(group=group, angles=angles)
 watson.williams.test(angles ~ group, xd)
+
+# Test the influence of ordering the groups
+id = sample(1:length(angles))
+angles = angles[id]
+group = group[id]
+
+xn = angles
+watson.williams.test(xn, group)
+xl = split(xn, group)
+watson.williams.test(xl)
+xd = data.frame(group=group, angles=angles)
+watson.williams.test(angles ~ group, xd)
+
+# Test NAs
+angles[length(angles)+1] = NA
+group[length(group)+1] = "bar"
+xn = angles
+watson.williams.test(xn, group)

@@ -32,6 +32,7 @@ Type 'q()' to quit R.
 > # mean of bar mean of foo 
 > #    1.988969   -9.000615 
 > 
+> # Test interfaces
 > xn = angles
 > watson.williams.test(xn, group)
 
@@ -107,5 +108,87 @@ Zero = 1.570796
 Rotation = clock 
 mean of bar mean of foo 
   -9.000615    1.988969 
+
+> 
+> # Test the influence of ordering the groups
+> id = sample(1:length(angles))
+> angles = angles[id]
+> group = group[id]
+> 
+> xn = angles
+> watson.williams.test(xn, group)
+
+	Watson-Williams test for homogeneity of means
+
+data:  xn by group 
+F = 8.7329, df1 = 1, df2 = 18, p-value = 0.003108
+sample estimates:
+Circular Data: 
+Type = angles 
+Units = degrees 
+Template = geographics 
+Modulo = asis 
+Zero = 1.570796 
+Rotation = clock 
+mean of bar mean of foo 
+  -5.015277   -2.032060 
+
+> xl = split(xn, group)
+> watson.williams.test(xl)
+
+	Watson-Williams test for homogeneity of means
+
+data:  bar and foo 
+F = 8.7329, df1 = 1, df2 = 18, p-value = 0.003108
+sample estimates:
+Circular Data: 
+Type = angles 
+Units = degrees 
+Template = geographics 
+Modulo = asis 
+Zero = 1.570796 
+Rotation = clock 
+mean of bar mean of foo 
+   1.988969   -9.000615 
+
+> xd = data.frame(group=group, angles=angles)
+> watson.williams.test(angles ~ group, xd)
+
+	Watson-Williams test for homogeneity of means
+
+data:  angles by group 
+F = 8.7329, df1 = 1, df2 = 18, p-value = 0.003108
+sample estimates:
+Circular Data: 
+Type = angles 
+Units = degrees 
+Template = geographics 
+Modulo = asis 
+Zero = 1.570796 
+Rotation = clock 
+mean of bar mean of foo 
+  -5.015277   -2.032060 
+
+> 
+> # Test NAs
+> angles[length(angles)+1] = NA
+> group[length(group)+1] = "bar"
+> xn = angles
+> watson.williams.test(xn, group)
+
+	Watson-Williams test for homogeneity of means
+
+data:  xn by group 
+F = 8.7329, df1 = 1, df2 = 18, p-value = 0.003108
+sample estimates:
+Circular Data: 
+Type = angles 
+Units = degrees 
+Template = geographics 
+Modulo = asis 
+Zero = 1.570796 
+Rotation = clock 
+mean of bar mean of foo 
+  -5.015277   -2.032060 
 
 > 
