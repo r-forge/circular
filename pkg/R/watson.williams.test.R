@@ -55,7 +55,7 @@ watson.williams.test.default <- function(x, group, ...) {
 	result$data.name <- data.name
 
 	# convert means back in their original units
-	result$estimate <-  conversion.circular(circular(result$estimate), dc$units, dc$type, dc$template, dc$modulo, dc$zero, dc$rotation)
+	result$estimate <-  conversion.circular(circular(result$estimate), units=dc$units, type=dc$type, template=dc$template, modulo=dc$modulo, zero=dc$zero, dc$rotation)
 
 	return(result)
 }
