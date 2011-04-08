@@ -1,7 +1,10 @@
 Library circular
 =================
-Version 0.4-3 2011/03/30
+Version 0.4-3 2011/04/10
 Fixed a bug in c.circular function.
+New functions: watson.williams.test, wallraff.test.
+Add a summary introduction to the package.
+Add citation information
 
 Version 0.4-2 2011/03/15
 Fixed a bug in rose.diag function. Now the rose.diag function has two new parameters: sub and control.circle
