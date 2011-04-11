@@ -59,14 +59,14 @@ plot.circular <- function(x, pch=16, cex=1, stack=FALSE, axes=TRUE, sep=0.025, s
    }
    pch <- rep(pch, nseries, length.out=nseries)
 
-   if (axes) {
-      axis.circular(units=units, template=template, zero=zero, rotation=rotation, digits=digits, cex=cex, tcl=tcl, tcl.text=tcl.text)
-   }
-   
    if (!is.logical(ticks))
-      stop("ticks must be logical")
-   
-   if (ticks) {
+     stop("ticks must be logical")
+
+   if (axes) {
+     axis.circular(at=NULL, labels=NULL, units=units, template=template, modulo=modulo, zero=zero, rotation=rotation, tick=ticks, cex=cex, tcl=tcl, tcl.text=tcl.text, digits=digits)
+   }
+      
+   if (axes==FALSE & ticks) {
       at <- circular((0:bins)/bins*2*pi, zero=zero, rotation=rotation)
       ticks.circular(at, tcl=tcl)
    }

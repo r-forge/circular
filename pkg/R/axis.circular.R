@@ -3,10 +3,10 @@
 #   axis.circular function                                  #
 #   Author: Claudio Agostinelli                             #
 #   E-mail: claudio@unive.it                                #
-#   Date: October, 19, 2009                                 #
-#   Version: 0.4-3                                          #
+#   Date: April, 11, 2011                                   #
+#   Version: 0.5                                            #
 #                                                           #
-#   Copyright (C) 2009 Claudio Agostinelli                  #
+#   Copyright (C) 2011 Claudio Agostinelli                  #
 #                                                           #
 #############################################################
  
@@ -92,6 +92,12 @@ axis.circular <- function(at=NULL, labels=NULL,  units = NULL, template=NULL, mo
                labels <- c("0", "90", "180", "270")      
             }
          }
+      } else if (length(atasis)==12 && all(atasis==0:11) && template=="clock12") {
+         labels <- c("0/12", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11")
+      } else if (length(atasis)==24 && all(atasis==0:23) && template=="clock24") {
+         labels <- c("0/24", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23")
+      } else if (units=="radians") {
+                labels <- as.character(round(atasis, digits=digits))
       } else if (units=="degrees") {
                 labels <- as.character(round(atasis, digits=digits))
       } else if (units=="hours") {
