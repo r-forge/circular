@@ -3,10 +3,10 @@
 #   plot.circular function                                  #
 #   Author: Claudio Agostinelli                             #
 #   E-mail: claudio@unive.it                                #
-#   Date: October, 19, 2009                                 #
-#   Version: 0.5                                            #
+#   Date: April, 20, 2011                                   #
+#   Version: 0.6                                            #
 #                                                           #
-#   Copyright (C) 2009 Claudio Agostinelli                  #
+#   Copyright (C) 2011 Claudio Agostinelli                  #
 #                                                           #
 #############################################################
  
@@ -32,7 +32,6 @@ plot.circular <- function(x, pch=16, cex=1, stack=FALSE, axes=TRUE, sep=0.025, s
    } else if (template=="clock12") {
       zero <- pi/2
       rotation <- "clock"
-      modulo <- "pi"
    } else {
       if (is.null(zero))
          zero <- xcircularp$zero
@@ -80,9 +79,9 @@ plot.circular <- function(x, pch=16, cex=1, stack=FALSE, axes=TRUE, sep=0.025, s
          attr(x, "circularp") <- attr(x, "class") <- NULL
          if (rotation=="clock")
             x <- -x
-         x <- x+zero
          if (template=="clock12")
-           x <- 2*x
+           x <- 2*x          
+         x <- x+zero
          x <- x%%(2*pi)
          PointsCircularRad(x, bins, stack, col, pch, iseries, nseries, sep, 0, shrink, cex, ...)
       }
