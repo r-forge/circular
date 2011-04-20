@@ -25,12 +25,12 @@ Type 'q()' to quit R.
 > # ?watson.williams.test
 > 
 > angles = circular( c(rep(c(-20, -10, 0), c(1,7,2)), rep(c(-10, 0, 10, 20), c(3,3,3,1))), units="degrees", template="geographics")
-> group = rep(c("foo", "bar"), each=10)
+> group = rep(c("exp", "control"), each=10)
 > 
 > # expect this:
 > # F = 8.7329, df1 = 1, df2 = 18, p-value = 0.003108
-> # mean of bar mean of foo 
-> #    1.988969   -9.000615 
+> # mean of control     mean of exp 
+> #        1.988969       -9.000615 
 > 
 > # Test interfaces
 > xn = angles
@@ -48,8 +48,8 @@ Template = geographics
 Modulo = asis 
 Zero = 1.570796 
 Rotation = clock 
-mean of bar mean of foo 
-   1.988969   -9.000615 
+mean of control     mean of exp 
+       1.988969       -9.000615 
 
 > 
 > xl = split(xn, group)
@@ -57,7 +57,7 @@ mean of bar mean of foo
 
 	Watson-Williams test for homogeneity of means
 
-data:  bar and foo 
+data:  control and exp 
 F = 8.7329, df1 = 1, df2 = 18, p-value = 0.003108
 sample estimates:
 Circular Data: 
@@ -67,8 +67,8 @@ Template = geographics
 Modulo = asis 
 Zero = 1.570796 
 Rotation = clock 
-mean of bar mean of foo 
-   1.988969   -9.000615 
+mean of control     mean of exp 
+       1.988969       -9.000615 
 
 > 
 > xl = split(xn, group)
@@ -106,8 +106,8 @@ Template = geographics
 Modulo = asis 
 Zero = 1.570796 
 Rotation = clock 
-mean of bar mean of foo 
-   1.988969   -9.000615 
+mean of control     mean of exp 
+       1.988969       -9.000615 
 
 > 
 > # Test the influence of ordering the groups
@@ -130,15 +130,15 @@ Template = geographics
 Modulo = asis 
 Zero = 1.570796 
 Rotation = clock 
-mean of bar mean of foo 
-   1.988969   -9.000615 
+mean of control     mean of exp 
+       1.988969       -9.000615 
 
 > xl = split(xn, group)
 > watson.williams.test(xl)
 
 	Watson-Williams test for homogeneity of means
 
-data:  bar and foo 
+data:  control and exp 
 F = 8.7329, df1 = 1, df2 = 18, p-value = 0.003108
 sample estimates:
 Circular Data: 
@@ -148,8 +148,8 @@ Template = geographics
 Modulo = asis 
 Zero = 1.570796 
 Rotation = clock 
-mean of bar mean of foo 
-   1.988969   -9.000615 
+mean of control     mean of exp 
+       1.988969       -9.000615 
 
 > xd = data.frame(group=group, angles=angles)
 > watson.williams.test(angles ~ group, xd)
@@ -166,8 +166,8 @@ Template = geographics
 Modulo = asis 
 Zero = 1.570796 
 Rotation = clock 
-mean of bar mean of foo 
-   1.988969   -9.000615 
+mean of control     mean of exp 
+       1.988969       -9.000615 
 
 > 
 > # Test NAs
@@ -188,7 +188,7 @@ Template = geographics
 Modulo = asis 
 Zero = 1.570796 
 Rotation = clock 
-mean of bar mean of foo 
-   1.988969   -9.000615 
+mean of control     mean of exp 
+       1.988969       -9.000615 
 
 > 

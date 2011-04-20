@@ -7,12 +7,12 @@ suppressMessages(library("circular"))
 # ?watson.williams.test
 
 angles = circular( c(rep(c(-20, -10, 0), c(1,7,2)), rep(c(-10, 0, 10, 20), c(3,3,3,1))), units="degrees", template="geographics")
-group = rep(c("foo", "bar"), each=10)
+group = rep(c("exp", "control"), each=10)
 
 # expect this:
 # F = 8.7329, df1 = 1, df2 = 18, p-value = 0.003108
-# mean of bar mean of foo 
-#    1.988969   -9.000615 
+# mean of control     mean of exp 
+#        1.988969       -9.000615 
 
 # Test interfaces
 xn = angles
