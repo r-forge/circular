@@ -51,7 +51,7 @@ density.circular <- function(x, z=NULL, bw, adjust = 1, type = c("K", "L"), kern
     if (is.null(dc$rotation))
        dc$rotation <- datacircularp$rotation
 
-    if (cd$modulo=="pi")
+    if (dc$modulo=="pi")
       stop("The function does not work yet for modulo='pi'")
 
     x <- conversion.circular(x, units="radians", zero=0, rotation="counter")
