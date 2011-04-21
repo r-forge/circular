@@ -62,7 +62,7 @@ plot.circular <- function(x, pch=16, cex=1, stack=FALSE, axes=TRUE, sep=0.025, s
      stop("ticks must be logical")
 
    if (axes) {
-     axis.circular(at=NULL, labels=NULL, units=units, template=template, modulo=modulo, zero=zero, rotation=rotation, tick=ticks, cex=cex, tcl=tcl, tcl.text=tcl.text, digits=digits)
+     axis.circular(at=NULL, labels=NULL, units=units, template=template, modulo="2pi", zero=zero, rotation=rotation, tick=ticks, cex=cex, tcl=tcl, tcl.text=tcl.text, digits=digits)
    }
       
    if (axes==FALSE & ticks) {
@@ -75,7 +75,7 @@ plot.circular <- function(x, pch=16, cex=1, stack=FALSE, axes=TRUE, sep=0.025, s
       x <- na.omit(x)
       n <- length(x)      
       if (n) {
-         x <- conversion.circular(x, units="radians", modulo=modulo)
+         x <- conversion.circular(x, units="radians", modulo="2pi")
          attr(x, "circularp") <- attr(x, "class") <- NULL
          if (rotation=="clock")
             x <- -x

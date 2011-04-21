@@ -27,7 +27,6 @@ circular <- function(x, type=c("angles", "directions"), units=c("radians", "degr
   } else if (template=="clock12") {
     zero <- pi/2
     rotation <- "clock"
-    modulo <- "pi"
   }
 
   if (is.data.frame(x))
@@ -131,7 +130,6 @@ conversion.circular <- function(x, units=c("radians", "degrees", "hours"), type=
        } else if (template=="clock12") {
           zero <- pi/2
           rotation <- "clock"
-          modulo <- "pi"
        }
        value$template <- template 
     }
