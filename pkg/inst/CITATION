@@ -1,6 +1,6 @@
 citHeader("To cite the 'circular' package in publications use:")
 
-if(!exists("meta") || is.null(meta)) meta <- packageDescription("sn")
+if(!exists("meta") || is.null(meta)) meta <- packageDescription("circular")
 
 citEntry(entry="manual",
          title = paste("{R} package \\texttt{circular}: Circular Statistics",
