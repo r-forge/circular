@@ -6,7 +6,7 @@
 #   date: April, 11, 2011                                   #
 #   Copyright (C) 2011 Claudio Agostinelli                  #
 #                                                           #
-#   Version 0.2-4                                           #
+#   Version 0.2-5                                           #
 #                                                           #
 #############################################################
 
@@ -50,7 +50,6 @@ density.circular <- function(x, z=NULL, bw, adjust = 1, type = c("K", "L"), kern
        dc$zero <- datacircularp$zero
     if (is.null(dc$rotation))
        dc$rotation <- datacircularp$rotation
-
     if (dc$modulo=="pi")
       stop("The function does not work yet for modulo='pi'")
 
