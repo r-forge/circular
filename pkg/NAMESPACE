@@ -238,7 +238,7 @@ S3method(print, rao.test)
 S3method(print, rayleigh.test)
 S3method(print, watson.test)
 S3method(print, watson.two.test)
-
+S3method(print, var.circular)
 #plot
 S3method(plot, density.circular)
 S3method(plot, circular)
