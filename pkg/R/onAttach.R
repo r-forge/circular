@@ -8,7 +8,7 @@
     meta <- packageDescription("circular")
     packageStartupMessage(
          "Package 'circular', ", meta$Version, " (", meta$Date, "). ",
-         "Type 'help(Circular)' for summary information")
+         "Type 'help(Circular)' for summary information. \n Since version 0.4-3 the default value for the var.circular function has changed. \n Please see ?var.circular for further information")
   }
   invisible()
 }
