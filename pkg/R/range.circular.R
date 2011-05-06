@@ -11,10 +11,10 @@
 #   range.circular function                                 #
 #   Author: Claudio Agostinelli                             #
 #   Email: claudio@unive.it                                 #
-#   Date: March, 18, 2011                                   #
+#   Date: May, 06, 2011                                     #
 #   Copyright (C) 2011 Claudio Agostinelli                  #
 #                                                           #
-#   Version 0.4-2                                           #
+#   Version 0.5                                             #
 #############################################################
 
 range.circular <- function(x, test = FALSE, na.rm=FALSE, finite=FALSE, control.circular=list(), ...) {
@@ -69,7 +69,7 @@ RangeCircularRad <- function(x, test=TRUE) {
    if (test == TRUE) {
        stop <- floor(1/(1 - range/(2*pi)))
        index <- c(1:stop)
-       sequence <- ((-1)^(index - 1)) * exp(log(gamma(n + 1)) - log(gamma(index + 1)) - log(gamma(n - index + 1))) * (1 - index * (1 - range/(2 * pi)))^(n - 1)
+       sequence <- ((-1)^(index - 1)) * exp(lgamma(n + 1) - lgamma(index + 1) - lgamma(n - index + 1)) * (1 - index * (1 - range/(2 * pi)))^(n - 1)
        p.value <- sum(sequence)
        result <- list(range=range, p.value=p.value)
    } else {
