@@ -3,10 +3,10 @@
 #   density.circular function                               #
 #   Author: Claudio Agostinelli                             #
 #   Email: claudio@unive.it                                 #
-#   date: April, 11, 2011                                   #
+#   date: May, 17, 2011                                     #
 #   Copyright (C) 2011 Claudio Agostinelli                  #
 #                                                           #
-#   Version 0.2-5                                           #
+#   Version 0.2-6                                           #
 #                                                           #
 #############################################################
 
@@ -108,7 +108,7 @@ density.circular <- function(x, z=NULL, bw, adjust = 1, type = c("K", "L"), kern
     if (bw <= 0) 
         stop("`bw' is not positive.")
     
-    y <- DensityCircularRad(x, z, bw, kernel)
+    y <- DensityCircularRad(x=x, z=z, bw=bw, kernel=kernel, K=K, min.k=min.k)
 
     structure(list(data = data, x = zz, y = y, bw = bw, n = nx, kernel=kernel, call = match.call(), data.name=name, has.na = FALSE), class = "density.circular")
 } 
