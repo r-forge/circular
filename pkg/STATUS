@@ -8,6 +8,8 @@ Add citation information.
 Fixed the behaviour of axis.circular for template 'clock12' and 'clock24'.
 Fixed windrose and plot.density.circular for template 'clock12' and 'clock24'.
 Function range.circular use lgamma(x) instead of log(gamma(x)).
+Fixed a bug in density.circular. Now the arguments K and min.k are passed to the internal function.
+Added functions bw.cv.mse.circular and bw.cv.ml.circular for bandwidth selection using crossvalidation and mse or ml.
 
 Version 0.4-2 2011/03/15
 Fixed a bug in rose.diag function. Now the rose.diag function has two new parameters: sub and control.circle

@@ -29,6 +29,9 @@ export(
  as.data.frame.circular,
 # file axialvonmises.R
  daxialvonmises,
+# file bw.circular.R
+ bw.cv.mse.circular,
+ bw.cv.ml.circular,
 # file cardioid.R
  rcardioid, dcardioid,
 # file change.point.R
