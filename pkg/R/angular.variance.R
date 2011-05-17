@@ -9,7 +9,7 @@
 #   Version 0.1                                             #
 #############################################################
 
-angular.variance <- function (x, na.rm=FALSE, ...)  {
+angular.variance <- function (x, na.rm=FALSE)  {
   if (is.matrix(x)) {
     apply(x, 2, angular.variance, na.rm=na.rm)
   } else {

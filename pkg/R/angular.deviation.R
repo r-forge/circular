@@ -9,7 +9,7 @@
 #   Version 0.1                                             #
 #############################################################
 
-angular.deviation <- function (x, na.rm=FALSE, ...)  {
+angular.deviation <- function (x, na.rm=FALSE)  {
   if (is.matrix(x)) {
     apply(x, 2, angular.deviation, na.rm=na.rm)
   } else {
