@@ -19,6 +19,10 @@ export(
  I.1,
 # file I.p.R
  I.p,
+# file angular.deviation.R
+ angular.deviation,
+# file angular.variance.R
+ angular.variance,       
 # file aov.circular.R
  aov.circular,
 # file arrows.circular.R
@@ -144,6 +148,8 @@ export(
  range.circular,
 # file unique.circular.R
  unique.circular,       
+# fiel sd.circular.R
+ sd, sd.default, sd.data.frame, sd.circular,
 # file var.circular.R
  var, var.default, var.data.frame, var.circular,
 # file carthwrite.R
@@ -241,7 +247,6 @@ S3method(print, rao.test)
 S3method(print, rayleigh.test)
 S3method(print, watson.test)
 S3method(print, watson.two.test)
-S3method(print, var.circular)
 #plot
 S3method(plot, density.circular)
 S3method(plot, circular)
@@ -254,6 +259,11 @@ S3method(points, circular)
 
 #range
 S3method(range, circular)
+
+S3method(sd, default)
+#S3method(sd, matrix)
+S3method(sd, data.frame)
+S3method(sd, circular)
 
 #summary
 S3method(summary, circular)
