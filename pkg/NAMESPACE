@@ -36,6 +36,7 @@ export(
 # file bw.circular.R
  bw.cv.mse.circular,
  bw.cv.ml.circular,
+ bw.nrd.circular,
 # file cardioid.R
  rcardioid, dcardioid,
 # file change.point.R
