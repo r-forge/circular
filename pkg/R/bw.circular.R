@@ -84,3 +84,42 @@ bw.cv.ml.circular <- function(x, hmax=NULL, lower=NULL, upper=NULL, tol = 1e-4, 
   bw <- optimize(function(bw) ml.internal(bw, x), lower=lower, upper=upper, tol=tol, maximum = TRUE)$maximum
   return(bw)
 }
+
+#############################################################
+#
+#   bw.nrd.circular function
+#   Author: Claudio Agostinelli
+#   Email: claudio@unive.it
+#   date: May, 17, 2011
+#   Copyright (C) 2011 Claudio Agostinelli
+#
+#   Version 0.1
+#
+#############################################################
+
+###References: Taylor (2008) CSDA formula (7)
+
+bw.nrd.circular <- function(x) {
+  if ((n <- length(x)) < 2L) 
+    stop("need at least 2 data points")  
+  x <- conversion.circular(x, units="radians", zero=0, rotation="counter", modulo="2pi")
+  attr(x, "class") <- attr(x, "circularp") <- NULL
+  if (!is.numeric(x)) 
+    stop("invalid 'x'")
+  sinr <- sum(sin(x))
+  cosr <- sum(cos(x))
+  mu <- atan2(sinr, cosr)
+  V <- mean.default(cos(x - mu))
+  if (V > 0) {
+    kappa <- A1inv(V)
+  } else {
+    kappa <- 0
+  }
+  if (kappa < 2) {
+    kappa <- max(kappa - 2 * (n * kappa)^-1, 0)
+  } else {
+    kappa <- ((n - 1)^3 * kappa)/(n^3 + n)
+  }
+  bw <- (3*n*kappa^2*besselI(x=2*kappa, nu=2, expon.scaled = FALSE)*(4*sqrt(pi)*besselI(x=kappa, nu=0, expon.scaled = FALSE)^2)^-1)^(2/5)
+  return(bw)
+}
