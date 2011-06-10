@@ -4,7 +4,7 @@
 
 \description{
 Returns the standard deviation of a vector of circular data which is
-defined as the square root of minus 2 the log of the mean resultant
+defined as the square root of minus 2 times the log of the mean resultant
 length divided by the number of observations.
 }
 
@@ -39,7 +39,7 @@ Fisher, N.I. (1993) Statistical analysis of circular data. Cambridge University 
   
 Jammalamadaka, S. Rao and SenGupta, A. (2001). Topics in Circular Statistics, Section 1.3, World Scientific Press, Singapore.
 
-Zar, J H (2010). Biostatistical analysis. sec. 26.5, p. 617
+Zar, J H (2010). Biostatistical analysis. Prentice Hall. sec. 26.5, p. 617
 }
 
 \seealso{
@@ -47,7 +47,9 @@ Zar, J H (2010). Biostatistical analysis. sec. 26.5, p. 617
 }
 
 \examples{
-x <- rvonmises(n=100, mu=circular(0), kappa=1)
+# Compute the circular standard deviation of a random
+# sample of observations from a von Mises distribution
+x <- rvonmises(n=100, mu=circular(0, units="degrees"), kappa=10)
 sd(x)
 }
 
