@@ -1,13 +1,15 @@
 \name{sd.circular}
-\title{A measure of deviation for Circular Data}
+\title{Circular Standard Deviation}
 \alias{sd.circular}
 
 \description{
-Returns the square root of minus 2 the log of the mean resultant length divided by the sample size of a vector of circular data.
+Returns the standard deviation of a vector of circular data which is
+defined as the square root of minus 2 the log of the mean resultant
+length divided by the number of observations.
 }
 
 \usage{
-\method{sd}{circular}(x, na.rm = FALSE, \dots)
+\method{sd}{circular}(x, na.rm = FALSE, control.circular=list(), \dots)
 }
 
 \arguments{
@@ -15,22 +17,29 @@ Returns the square root of minus 2 the log of the mean resultant length divided 
     \code{\link{circular}}.}
   \item{na.rm}{logical, indicating if \code{\link{NA}}'s should be
     omitted.}
+  \item{control.circular}{the attributes of the resulting object.}  
   \item{\dots}{further arguments passed to or from other methods.}
 }
 
-\value{
-Returns the square root of minus 2 the log of the mean resultant length
-divided by the sample size of the data.
+\details{
+Computes the circular standard deviation as defined by Mardia (1972) \deqn{\sqrt{-2\ln r}}{sqrt(-2 * ln(r))} where \code{r} is the mean resultant length of the data.
 }
 
-\author{Claudio Agostinelli}
+\value{
+Returns the standard deviation of the data as an object of class \code{\link{circular}} with the attributes given by \code{control.circular} or taken from \code{x} if missing in \code{control.circular}.
+}
+
+\author{Claudio Agostinelli and Jean-Olivier Irisson}
 
 \references{
-Mardia, K.V. (1972) Statistics of Directional Data. Academic Press, London. 
+Mardia, K.V. (1972) Statistics of Directional Data. Academic Press,
+London, sec. 26.5, p. 617
 
 Fisher, N.I. (1993) Statistical analysis of circular data. Cambridge University Press.
   
 Jammalamadaka, S. Rao and SenGupta, A. (2001). Topics in Circular Statistics, Section 1.3, World Scientific Press, Singapore.
+
+Zar, J H (2010). Biostatistical analysis. sec. 26.5, p. 617
 }
 
 \seealso{
