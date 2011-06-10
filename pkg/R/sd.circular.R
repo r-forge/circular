@@ -31,13 +31,14 @@ sd.circular <- function (x, na.rm=FALSE, ...)  {
 }
 
 SdCircularRad <- function(x) {
-   if (any(is.na(x)))
-      return(NA)
-   n <- length(x)
-   c <- sum(cos(x))
-   s <- sum(sin(x))
-   r <- sqrt(c^2 + s^2)
-   rbar <- r/n
-   circsd <- sqrt(-2*log(rbar))
-   return(circsd)
+  if (any(is.na(x)))
+    return(NA)
+#  n <- length(x)
+#  c <- sum(cos(x))
+#  s <- sum(sin(x))
+#  r <- sqrt(c^2 + s^2)
+#  rbar <- r/n
+  rbar <- RhoCircularRad(x)
+  circsd <- sqrt(-2*log(rbar))
+  return(circsd)
 }
