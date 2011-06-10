@@ -41,7 +41,7 @@ A list with class \code{"htest"} containing the following components:
 \details{
 The Watson-Williams test for the homogeneity of means between two or more groups is performed and the results are printed. The null hypothesis is that means are equal across groups.
 
-The assumptions are that: (1) the samples are drawn from populations with a von Mises distribution; (2) the parameter of concentration has the same value in all populations; (3) this parameter is sufficiently large (i.e. > 2). Assumptions 2 and 3 are checked and a warning is issued if they are not met.
+The assumptions are that: (1) the samples are drawn from populations with a von Mises distribution; (2) the parameter of concentration has the same value in all populations; (3) this parameter is sufficiently large (i.e. > 1). Assumptions 2 and 3 are checked and a warning is issued if they are not met.
 
 In the default method, \code{x} is a vector of angles and \code{group} must be a vector or factor object of the same length as \code{x} giving the group for the corresponding elements of \code{x}.
 
@@ -56,6 +56,8 @@ All angles should be of class \code{\link{circular}} and will be coerced as such
 
 \references{
 Batschelet, E (1981). Circular Statistics in Biology. chap. 6.2, p. 99
+
+Mardia, KV and Jupp, PE (2000). Directional statistics. p. 135
 }
 
 \examples{

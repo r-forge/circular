@@ -6,7 +6,11 @@
 #
 #	Based on
 #		Circular statistics in biology, Batschelet, E (1981)
-#		§6.2, p99
+#		§6.2, p. 99
+#		Biostatistical analysis, Zar, J H (1999)
+#		§27.4, p. 634
+#		Directional statistics, Mardia, K.V. and Jupp, P.E. (2000)
+#		p. 135
 #
 # (c) Copyright 2010-211 Jean-Olivier Irisson
 #     GNU General Public License, v.3
@@ -43,11 +47,16 @@ watson.williams.test.default <- function(x, group, ...) {
 
 	# compute concentration parameters and check assumptions
 	kt <- EqualKappaTestRad(x, group)
+	# equality of concentration parameters
 	if (kt$p.value < 0.05) {
 		warning("Concentration parameters: ", format(kt$kappa, digits=5) ," not equal between groups. The test might not be applicable")
 	}
-	if ( any(kt$kappa < 2) | kt$kappa.all < 2 ) {
-		warning("Concentration parameters: ", format(list(c(kt$kappa, kt$kappa.all)), digits=3)," < 2. The test might not be applicable")
+	# sufficiently large concentration
+	# Batschelet provides kappa > 2 in the two sample case but no indication in the multisample one
+	# Zar's conditions are sample size dependent
+	# Mardia & Jupp cite Stephens 1972 to justify that kappa >= 1 is OK
+	if ( kt$kappa.all < 1 ) {
+		warning("Global concentration parameter: ", format(kt$kappa.all, digits=3)," < 1. The test is probably not applicable")
 	}
 	# TODO : also check that distributions conform to Von Mises?
 
