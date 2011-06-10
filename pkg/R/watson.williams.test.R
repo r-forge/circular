@@ -127,7 +127,7 @@ WatsonWilliamsTestRad <- function(x, group, kt) {
 
 	statistic <- g * ((n - k) * (sRi - R)) / ((k - 1) * (n - sRi))
 
-	p.value <- df(statistic, k-1, n-k)
+	p.value <- pf(statistic, k-1, n-k, lower.tail=FALSE)
 
 	# compute estimates of means
 	means <- tapply(x, group, MeanCircularRad)
