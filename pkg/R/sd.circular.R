@@ -12,7 +12,7 @@ sd.data.frame <- function(x, ...) {
 #   sd.circular function                                     #
 #   Author: Claudio Agostinelli and Jean-Olivier Irisson     #
 #   Email: claudio@unive.it                                  #
-#   Date: June, 10, 2011                                     #
+#   Date: June, 24, 2011                                     #
 #   Copyright (C) 2011 Claudio Agostinelli                   #
 #                                                            #
 #   As defined in                                            #
@@ -20,10 +20,10 @@ sd.data.frame <- function(x, ...) {
 #   Formula actually taken from                              #
 #   Zar, JH. Biostatistical analysis. 2010, 26.5, p 617      #
 #                                                            #
-#   Version 0.2                                              #
+#   Version 0.3                                              #
 ##############################################################
 
-sd.circular <- function (x, na.rm=FALSE, control.circular=list(), ...)  {
+sd.circular <- function (x, na.rm=FALSE, ...)  {
   if (is.matrix(x)) {
 	  # NB: matrices cannot be handled by a method because a matrix of circular data would have "circular" as its first class
     apply(x, 2, sd.circular, na.rm=na.rm)
@@ -53,15 +53,14 @@ sd.circular <- function (x, na.rm=FALSE, control.circular=list(), ...)  {
 
     # Determine circular attributes of interest for the result,
     # based on the attributes of the data and on control.circular
-    dc <- control.circular
-    if (is.null(dc$type))
-      dc$type <- datacircularp$type
-    if (is.null(dc$units))
-      dc$units <- datacircularp$units
+##    dc <- control.circular
+##    if (is.null(dc$type))
+##      dc$type <- datacircularp$type
+##    if (is.null(dc$units))
+##     dc$units <- datacircularp$units
 
-    # Convert the standard deviation into the appropriate circular class
-    s <- conversion.circular(circular(s), units=dc$units, type=dc$type, template="none", modulo="2pi", zero=0, rotation="counter")
-
+##    # Convert the standard deviation into the appropriate circular class
+##    s <- conversion.circular(circular(s), units=dc$units, type=dc$type, template="none", modulo="2pi", zero=0, rotation="counter")
     return(s)
   }
 }

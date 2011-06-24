@@ -23,10 +23,10 @@ var.data.frame <- function(x, ...) {
 #   var.circular function                                   #
 #   Author: Claudio Agostinelli                             #
 #   Email: claudio@unive.it                                 #
-#   Date: May, 17, 2011                                     #
+#   Date: June, 24, 2011                                    #
 #   Copyright (C) 2011 Claudio Agostinelli                  #
 #                                                           #
-#   Version 0.4                                             #
+#   Version 0.5                                             #
 #############################################################
 
 var.circular <- function (x, na.rm=FALSE, ...)  {
@@ -42,13 +42,7 @@ var.circular <- function (x, na.rm=FALSE, ...)  {
 }
 
 VarCircularRad <- function(x) {
-   if (any(is.na(x)))
-      return(NA)
-   n <- length(x)
-   c <- sum(cos(x))
-   s <- sum(sin(x))
-   r <- sqrt(c^2 + s^2)
-   rbar <- r/n
-   circvar <- 1-rbar
-   return(circvar)
+  rbar <- RhoCircularRad(x)
+  circvar <- 1-rbar
+  return(circvar)
 }
