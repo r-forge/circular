@@ -1,6 +1,6 @@
 Library circular
 =================
-Version 0.4-3 2011/04/10
+Version 0.4-3 2011/06/24
 Fixed a bug in c.circular function.
 New functions: watson.williams.test, wallraff.test.
 Add a summary introduction to the package.
