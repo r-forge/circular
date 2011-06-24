@@ -3,13 +3,13 @@
 \alias{sd.circular}
 
 \description{
-Returns the standard deviation of a vector of circular data which is
+Returns the circular standard deviation of a vector of circular data which is
 defined as the square root of minus 2 times the log of the mean resultant
 length divided by the number of observations.
 }
 
 \usage{
-\method{sd}{circular}(x, na.rm = FALSE, control.circular=list(), \dots)
+\method{sd}{circular}(x, na.rm = FALSE, \dots)
 }
 
 \arguments{
@@ -17,7 +17,7 @@ length divided by the number of observations.
     \code{\link{circular}}.}
   \item{na.rm}{logical, indicating if \code{\link{NA}}'s should be
     omitted.}
-  \item{control.circular}{the attributes of the resulting object.}  
+%%%  \item{control.circular}{the attributes of the resulting object.}  
   \item{\dots}{further arguments passed to or from other methods.}
 }
 
@@ -26,7 +26,9 @@ Computes the circular standard deviation as defined by Mardia (1972) \deqn{\sqrt
 }
 
 \value{
-Returns the standard deviation of the data as an object of class \code{\link{circular}} with the attributes given by \code{control.circular} or taken from \code{x} if missing in \code{control.circular}.
+  Returns the circular standard deviation.
+
+ %%%%% of the data as an object of class \code{\link{circular}} with the attributes given by \code{control.circular} or taken from \code{x} if missing in \code{control.circular}.
 }
 
 \author{Claudio Agostinelli and Jean-Olivier Irisson}
