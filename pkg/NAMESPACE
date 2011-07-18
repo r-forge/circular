@@ -3,6 +3,7 @@ useDynLib(circular)
 #Import directive
 importFrom(graphics, axis)
 importFrom(stats, density)
+importFrom(stats, quantile)
 ###importFrom(stats, median)
 
 #Export directive
@@ -79,6 +80,8 @@ export(
  plot.edf, lines.edf,
 # file pp.plot.R
  pp.plot,
+# file quantile.circular.R
+ quantile.circular,
 # file rad.R
  rad,
 # file rao.spacing.test.R
@@ -100,7 +103,7 @@ export(
 # file uniform.R
  rcircularuniform, dcircularuniform,      
 # file vonmises.R
- rvonmises, dvonmises, pvonmises, qvonmises, rmixedvonmises, dmixedvonmises,
+ rvonmises, dvonmises, pvonmises, qvonmises, rmixedvonmises, dmixedvonmises, pmixedvonmises,
 # file var.circular.R 
 ### var,
 # file watson.test.R
@@ -254,9 +257,11 @@ S3method(plot, circular)
 ###S3method(plot, edf)
 S3method(plot, lsfit.circle)
 
-
 #points
 S3method(points, circular)
+
+#quantile
+S3method(quantile, circular)
 
 #range
 S3method(range, circular)

@@ -1,6 +1,6 @@
 Library circular
 =================
-Version 0.4-3 2011/06/24
+Version 0.4-3 2011/07/18
 Fixed a bug in c.circular function.
 New functions: watson.williams.test, wallraff.test.
 Add a summary introduction to the package.
@@ -11,6 +11,8 @@ Function range.circular use lgamma(x) instead of log(gamma(x)).
 Fixed a bug in density.circular. Now the arguments K and min.k are passed to the internal function.
 Added functions bw.cv.mse.circular and bw.cv.ml.circular for bandwidth selection using crossvalidation and mse or ml.
 Added functions sd.default, sd.data.frame, sd.circular (with sd method), angular.variance and angular.deviation. 
+Added pmixedvonmises function. Now *mixedvonmises functions use argument prop instead of p.
+Added function quantile.circular
 
 Version 0.4-2 2011/03/15
 Fixed a bug in rose.diag function. Now the rose.diag function has two new parameters: sub and control.circle
