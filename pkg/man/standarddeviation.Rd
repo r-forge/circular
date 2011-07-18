@@ -24,14 +24,7 @@ sd(x, \dots)
 
 \arguments{
   \item{x}{a numeric vector, matrix or data frame.}
-  \item{y}{\code{NULL} (default) or a vector, matrix or data frame with
-    compatible dimensions to \code{x}.  The default is equivalent to
-    \code{y = x} (but more efficient).}
   \item{na.rm}{logical. Should missing values be removed?}
-  \item{use}{an optional character string giving a
-    method for computing covariances in the presence
-    of missing values.  This must be (an abbreviation of) one of the strings
-    \code{"all.obs"}, \code{"complete.obs"} or \code{"pairwise.complete.obs"}.}
   \item{\dots}{further arguments passed to or from other methods.}
 }
 

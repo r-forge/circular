@@ -67,7 +67,7 @@
 	 \item{number.calm}{The number of calm observations omitted from the wind rose plot.}
          \item{breaks}{extremes of the pedals.}
          \item{mids}{midpoints of pedals.}
-         \item{call}{the \code{\link{match.call}} result.}
+         \item{call}{the \code{\link[base]{match.call}} result.}
 }
 
 \note{some codes from \code{\link{eqscplot}} in 'MASS' is used.}
