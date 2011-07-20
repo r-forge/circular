@@ -1,17 +1,17 @@
 ### This is necessary since stats::median do not have ... argument
 ### Work around suggested by Kurt but does not work.
-##median <- function(x, na.rm, ...) UseMethod("median")
-##median.default <- function(x, na.rm, ...) stats::median(x, na.rm)
+###median <- function(x, na.rm, ...) UseMethod("median")
+###median.default <- function(x, na.rm, ...) stats::median.default(x, na.rm)
 
 #############################################################
 #                                                           
-#   medianCircular function                                  
+#   median.circular function                                  
 #   Author: Claudio Agostinelli                             
 #   E-mail: claudio@unive.it                                
-#   Date: October, 12, 2009                                  
-#   Version: 0.2                                          
+#   Date: July, 20, 2011                                  
+#   Version: 0.2-1                                          
 #                                                           
-#   Copyright (C) 2009 Claudio Agostinelli                  
+#   Copyright (C) 2011 Claudio Agostinelli                  
 #                                                           
 #############################################################
 
@@ -58,6 +58,30 @@ medianCircular <- function(x, na.rm=FALSE, type="Fisher", deviation=FALSE, contr
      return(circmedian)
    else
      return(circmedian$median)
+}
+
+median.circular <- function(x, na.rm=FALSE) {
+  ## equations 2.32 & 2.33
+  ## from N.I. Fisher's 'Statistical Analysis of Circular Data',
+  ## Cambridge Univ. Press 1993.
+  ## is implemented
+   if (na.rm)
+       x <- x[!is.na(x)]
+   if (length(x)==0) {
+        warning("No observations (at least after removing missing values)")
+        return(NULL)
+   }
+
+   if (is.circular(x)) {
+      dc <- circularp(x)
+   } else {
+      dc <- list(type="angles", units="radians", template="none", modulo="asis", zero=0, rotation="counter")
+   }
+   x <- conversion.circular(x, units="radians", zero=0, rotation="counter")
+   attr(x, "class") <- attr(x, "circularp") <-  NULL
+   circmedian <- MedianFisherCircularRad(x)
+   circmedian <- conversion.circular(circular(circmedian$median), dc$units, dc$type, dc$template, dc$modulo, dc$zero, dc$rotation)
+   return(circmedian)
 }
 
 MedianFisherCircularRad <- function(x) {
