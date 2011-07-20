@@ -4,7 +4,7 @@ useDynLib(circular)
 importFrom(graphics, axis)
 importFrom(stats, density)
 importFrom(stats, quantile)
-###importFrom(stats, median)
+importFrom(stats, median)
 
 #Export directive
 
