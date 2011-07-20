@@ -32,6 +32,8 @@ export(
  as.circular,
 # file as.data.frame.circular.R
  as.data.frame.circular,
+# asytriangular.R
+ dasytriangular,
 # file axialvonmises.R
  daxialvonmises,
 # file bw.circular.R
@@ -137,6 +139,7 @@ export(
 # file mean.circular.R
  mean.circular,
 # file median.circular.R
+ median.circular,
  medianCircular,
 # file axis.circular.R
  axis.circular,
@@ -232,7 +235,7 @@ S3method(mean, circular)
 
 #median
 ####S3method(median, default)
-##S3method(median, circular)
+S3method(median, circular)
 
 #print
 S3method(print, aov.circular)
