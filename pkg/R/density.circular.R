@@ -132,10 +132,10 @@ DensityCircularRad <- function(x, z, bw, kernel, K=NULL, min.k=10) {
 #   plot.density.circular function                          #
 #   Author: Claudio Agostinelli                             #
 #   Email: claudio@unive.it                                 #
-#   Date: July, 5, 2011                                     #
+#   Date: July, 22, 2011                                     #
 #   Copyright (C) 2011 Claudio Agostinelli                  #
 #                                                           #
-#   Version 0.5-1                                           #
+#   Version 0.5-12                                           #
 #                                                           #
 #############################################################
 
@@ -200,7 +200,7 @@ plot.density.circular <- function(x, main = NULL, sub=NULL, xlab = NULL, ylab ="
       x$x <- x$x[xorder]
       x$y <- x$y[xorder]
       
-      plot.default(x, type = type, xlim=xlim, ylim=ylim, main = main, xlab = xlab, ylab = ylab, ...)
+      plot.default(x, type = type, xlim=xlim, ylim=ylim, main=main, xlab=xlab, ylab=ylab, axes=axes, ...)
       if (zero.line) 
          abline(h = 0, lwd = 0.2, col = "gray")
       if (points.plot)
