@@ -4,8 +4,8 @@
 #       GNU General Public Licence 2.0 
 #	Author: Claudio Agostinelli
 #	E-mail: claudio@unive.it
-#	Date: May, 4, 2011
-#	Version: 0.4
+#	Date: July, 21, 2011
+#	Version: 0.5
 #
 #	Copyright (C) 2011 Claudio Agostinelli
 #
@@ -14,14 +14,9 @@
 totalvariation.circular <- function(x, y, z=NULL, q=0.95, bw, adjust = 1, type = c("K", "L"), kernel = c("vonmises", "wrappednormal"), na.rm = FALSE, step=0.001, eps.lower=10^(-4), eps.upper=10^(-4), ...) {
   if (is.null(z))
     z <- circular(seq(0,2*pi+step,step))
-  if (!is.circular(x)) {
-    x <- circular(x)
-    cat("'x' is coerced to circular object assuming default values for the 'circular' function\n")
-  }
-  if (!is.circular(y)) {
-    y <- circular(y)
-    cat("'y' is coerced to circular object assuming default values for the 'circular' function\n")    
-  }    
+  x <- conversion.circular(x, units="radians", zero=0, rotation="counter", modulo="2pi")
+  y <- conversion.circular(y, units="radians", zero=0, rotation="counter", modulo="2pi")
+  z <- conversion.circular(z, units="radians", zero=0, rotation="counter", modulo="asis")  
   modalx <- modal.region.circular(x=x, z=z, q=q, bw=bw, adjust=adjust, type=type, kernel=kernel, na.rm=na.rm, step=step, eps.lower=eps.lower, eps.upper=eps.upper, ...)
   modaly <- modal.region.circular(x=y, z=z, q=q, bw=bw, adjust=adjust, type=type, kernel=kernel, na.rm=na.rm, step=step, eps.lower=eps.lower, eps.upper=eps.upper, ...)
   zerosx <- modalx$zeros
@@ -54,7 +49,7 @@ totalvariation.circular <- function(x, y, z=NULL, q=0.95, bw, adjust = 1, type =
 ##  byhand <- 0    
   for (i in 1:nx) {
 ##    byhand <- byhand + step*sum(den[z >= zerosx[i,1] & z <= zerosx[i,2]])
-    tv <- tv +  integrate(denmax, lower=zerosx[i,1], upper=zerosx[i,2])$value
+    tv <- tv +  integrate(denmax, lower=zerosx[i,1]+step, upper=zerosx[i,2]-step)$value
   }
   result <- list()
   result$tv <- tv
