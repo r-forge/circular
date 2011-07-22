@@ -20,7 +20,7 @@ bw.cv.ml.circular(x, lower=NULL, upper=NULL, tol = 1e-4,
   kernel = c("vonmises", "wrappednormal"), K = NULL, min.k = 10)
 
 bw.nrd.circular(x, kappa.est=c("ML","robust"), kappa.bias=FALSE, P=3,
-lower=0, upper=50)
+lower=NULL, upper=NULL)
 }
 \arguments{
   \item{x}{the data from which the bandwidth is to be computed. The object is coerced to class \code{circular}.}
@@ -40,9 +40,6 @@ lower=0, upper=50)
   \item{P}{integer, the maximum order of the sample trigonometric
     moments used in the estimation of \code{kappa} when
     \code{kappa.est=="robust"}, see Details.}
-  \item{lower, upper}{nonnegative numbers and \code{lower < upper}
-    passed to the function \code{\link{uniroot}} for solving the
-    equation when \code{kappa.est=="robust"}, see Details.}
 }
 
 \details{
