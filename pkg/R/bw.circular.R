@@ -108,7 +108,11 @@ bw.cv.ml.circular <- function(x, lower=NULL, upper=NULL, tol = 1e-4, kernel = c(
 #############################################################
 
 ###References: Taylor (2008) CSDA formula (7)
-bw.nrd.circular <- function(x, kappa.est=c("ML","robust"), kappa.bias=FALSE, P=3, lower=0, upper=50) {
+bw.nrd.circular <- function(x, lower=NULL, upper=NULL, kappa.est=c("ML","robust"), kappa.bias=FALSE, P=3) {
+  if (is.null(upper))
+    upper = 50
+  if (is.null(lower))
+    lower = 0.1  
   if ((n <- length(x)) < 2L) 
     stop("need at least 2 data points")  
   x <- conversion.circular(x, units="radians", zero=0, rotation="counter", modulo="2pi")
