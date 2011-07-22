@@ -19,7 +19,8 @@ bw.cv.mse.circular(x, lower=NULL, upper=NULL, tol = 1e-4,
 bw.cv.ml.circular(x, lower=NULL, upper=NULL, tol = 1e-4,
   kernel = c("vonmises", "wrappednormal"), K = NULL, min.k = 10)
 
-bw.nrd.circular(x, kappa.est=c("ML","robust"), kappa.bias=FALSE)
+bw.nrd.circular(x, kappa.est=c("ML","robust"), kappa.bias=FALSE, P=3,
+lower=0, upper=50)
 }
 \arguments{
   \item{x}{the data from which the bandwidth is to be computed. The object is coerced to class \code{circular}.}
@@ -36,13 +37,33 @@ bw.nrd.circular(x, kappa.est=c("ML","robust"), kappa.bias=FALSE)
   \item{kappa.est}{a numerical value or one available method.}
   \item{kappa.bias}{logical. If \code{TRUE}, when \code{kappa.est=="ML"}
     a bias correction in the estimation of kappa is applied.}
+  \item{P}{integer, the maximum order of the sample trigonometric
+    moments used in the estimation of \code{kappa} when
+    \code{kappa.est=="robust"}, see Details.}
+  \item{lower, upper}{nonnegative numbers and \code{lower < upper}
+    passed to the function \code{\link{uniroot}} for solving the
+    equation when \code{kappa.est=="robust"}, see Details.}
 }
 
 \details{
 
 \code{bw.cv.mse.circular} and \code{bw.cv.ml.circular} implement cross validatory bandwidths minimizing squared--error loss and Kullback--Leibler loss, respectively. This is done by minimizing the second and third equations in section 5 of Hall, Watson and Cabrera (1987). Kullback--Leibler loss is equivalent to maximize the cross validation log--likelihood with respect to the bandwidth parameter.
 
-\code{bw.nrd.circular} implements a rule-of-thumb for choosing the bandwidth of a von Mises kernel density estimator with underlaying population von Mises. It was proposed by Taylor (2008, equation (7)) and is the circular analogue of the usual rule of thumb used for the normal distribution. The only remarkable difference between them is that Taylor's bandwidth supposes a von Mises population for the derivation of AMISE, while normal rule of thumb only introduces distribution assumption to compute the density curvature. Estimation of the spread is done by maximum likelihood. Other robust estimates are not yet implemented.
+\code{bw.nrd.circular} implements a rule-of-thumb for choosing the
+bandwidth of a von Mises kernel density estimator with underlaying
+population von Mises. It was proposed by Taylor (2008, equation (7)) and
+is the circular analogue of the usual rule of thumb used for the normal
+distribution. The only remarkable difference between them is that
+Taylor's bandwidth supposes a von Mises population for the derivation of
+AMISE, while normal rule of thumb only introduces distribution
+assumption to compute the density curvature. Estimation of the spread is
+done by maximum likelihood. A "robust" method for the estimation of
+\code{kappa} is implemented as follows. Let \eqn{\mu_p} be the p-th
+sample trigonometric moment. Let \eqn{k_p} be the estimates of
+\code{kappa} using the p-th sample trigonometric moment, as solution
+(using \code{uniroot} function) of the equation \eqn{A_p(k) = \frac{1}{n}
+  \sum_{i=1}^n \cos(p x_i - \mu_p)}. We let \code{kappa} equal to
+\eqn{min(k_1, k_2, \cdots, k_P)}, see Taylor (2008) for further details.
 
 Note that circular bandwidth has a differet scale from linear bandwidth (see Hall, Watson and Cabrera (1987)). The behaviour of the circular bandwidth is the \emph{inverse} of the linear: large values overestimate the density, whereas small values underestimate. 
 }
