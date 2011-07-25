@@ -53,6 +53,7 @@ totalvariation.circular <- function(x, y, z=NULL, q=0.95, bw, adjust = 1, type =
   }
   result <- list()
   result$tv <- tv
+  result$ovl <- 1 - tv
 ##  result$byhand <- byhand
   result$q <- q
   result$bw <- bw
@@ -65,7 +66,7 @@ totalvariation.circular <- function(x, y, z=NULL, q=0.95, bw, adjust = 1, type =
   return(result)
 }
 
-plot.totalvariation.circular <- function(x, units=c('radians', 'degrees', 'hours'), xlab=NULL, ylab=NULL, main=NULL, from=0, to=2*pi, add=FALSE, n=1000, polygon.control=list(), xlty=1, ylty=1, xcol=1, ycol=1, xlwd=1, ylwd=1, ...) {
+plot.totalvariation.circular <- function(x, tv=TRUE, ovl=TRUE, units=c('radians', 'degrees', 'hours'), xlab=NULL, ylab=NULL, main=NULL, from=0, to=2*pi, add=FALSE, n=1000, polygon.control.tv=list(), polygon.control.ovl=list(), xlty=1, ylty=1, xcol=1, ycol=1, xlwd=1, ylwd=1, ...) {
   units <- match.arg(units)
   if (is.null(xlab))
     xlab <- paste('bw=', round(x$bw, 3), sep='')
@@ -74,9 +75,11 @@ plot.totalvariation.circular <- function(x, units=c('radians', 'degrees', 'hours
   if (is.null(main))
     main <- 'Common area under the curves'  
   polygon.control.default <- list(density = NULL, angle = 45, border = NA, col = NA, lty = par("lty"), fillOddEven = FALSE)
-  npc <- names(polygon.control)
+  npc.tv <- names(polygon.control.tv)
+  npc.ovl <- names(polygon.control.ovl)  
   npcd <- names(polygon.control.default)
-  polygon.control <- c(polygon.control, polygon.control.default[setdiff(npcd, npc)])
+  polygon.control.tv <- c(polygon.control.tv, polygon.control.default[setdiff(npcd, npc.tv)])
+  polygon.control.ovl <- c(polygon.control.ovl, polygon.control.default[setdiff(npcd, npc.ovl)])  
   if (add==TRUE)
     plot(x$density.x, from=from, to=to, add=TRUE, n=n, xlab=xlab, ylab=ylab, main=main, lty=xlty, col=xcol, lwd=xlwd, ...)
   else {
@@ -96,7 +99,14 @@ plot.totalvariation.circular <- function(x, units=c('radians', 'degrees', 'hours
   }
   plot(x$density.y, from=from, to=to, add=TRUE, n=n, lty=ylty, col=ycol, lwd=ylwd, ...)
   z <- seq(from, to, length.out=n)
-  denmax <- pmin(x$density.x(z), x$density.y(z))
-  polygon(x=c(from, z, to, from), y=c(0,denmax, 0, 0), density = polygon.control$density, angle = polygon.control$angle, border = polygon.control$border, col = polygon.control$col, lty = polygon.control$lty, fillOddEven = polygon.control$fillOddEven)
+  denmin <- pmin(x$density.x(z), x$density.y(z))
+  denmax <- pmax(x$density.x(z), x$density.y(z))  
+  if (tv)
+    polygon(x=c(from, z, to, rev(z), from), y=c(0, denmin, 0, rev(denmax), 0), density = polygon.control.tv$density, angle = polygon.control.tv$angle, border = polygon.control.tv$border, col = polygon.control.tv$col, lty = polygon.control.tv$lty, fillOddEven = polygon.control.tv$fillOddEven)
+  if (ovl)
+    polygon(x=c(from, z, to, from), y=c(0,denmin, 0, 0), density = polygon.control.ovl$density, angle = polygon.control.ovl$angle, border = polygon.control.ovl$border, col = polygon.control.ovl$col, lty = polygon.control.ovl$lty, fillOddEven = polygon.control.ovl$fillOddEven)
+  abline(v=c(x$modal.x$zeros), lty=2)
+  abline(v=c(x$modal.y$zeros), lty=2)  
+  invisible(x)
 }
 
