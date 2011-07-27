@@ -108,16 +108,16 @@ bw.cv.ml.circular <- function(x, lower=NULL, upper=NULL, tol = 1e-4, kernel = c(
 #############################################################
 
 ###References: Taylor (2008) CSDA formula (7)
-bw.nrd.circular <- function(x, lower=NULL, upper=NULL, kappa.est=c("ML","robust"), kappa.bias=FALSE, P=3) {
+bw.nrd.circular <- function(x, lower=NULL, upper=NULL, kappa.est=c("ML","trigmoments"), kappa.bias=FALSE, P=3) {
   if (is.null(upper))
     upper = 50
   if (is.null(lower))
-    lower = 0.1  
-  if ((n <- length(x)) < 2L) 
-    stop("need at least 2 data points")  
+    lower = 0.01
+  if ((n <- length(x)) < 2L)
+    stop("need at least 2 data points")
   x <- conversion.circular(x, units="radians", zero=0, rotation="counter", modulo="2pi")
   attr(x, "class") <- attr(x, "circularp") <- NULL
-  if (!is.numeric(x)) 
+  if (!is.numeric(x))
     stop("invalid 'x'")
   if (is.numeric(kappa.est)) {
     if (length(kappa.est) != 1)
@@ -127,7 +127,7 @@ bw.nrd.circular <- function(x, lower=NULL, upper=NULL, kappa.est=c("ML","robust"
     kappa.est <- match.arg(kappa.est)
     if(kappa.est=="ML"){
       kappa <- MlevonmisesRad(x, mu=NULL, kappa=NULL, bias=kappa.bias)[4]
-    } else if(kappa.est=="robust"){
+    } else if(kappa.est=="trigmoments"){
       kappa <- rep(NA, P)
       for (p in 1:P) {
         mup <- TrigonometricMomentRad(x, p, center=FALSE)[1]
@@ -135,11 +135,11 @@ bw.nrd.circular <- function(x, lower=NULL, upper=NULL, kappa.est=c("ML","robust"
         Apzero <- function(x) besselI(x, nu=p, expon.scaled = FALSE)/besselI(x, nu=0, expon.scaled = FALSE) - const
         kappa[p] <- uniroot(f=Apzero, lower=lower, upper=upper)$root
       }
-      kappa <- min(kappa)
+       kappa <- max(kappa)
     } else {
       .NotYetImplemented()
     }
   }
-  bw <- (3*n*kappa^2*besselI(x=2*kappa, nu=2, expon.scaled = FALSE)*(4*sqrt(pi)*besselI(x=kappa, nu=0, expon.scaled = FALSE)^2)^-1)^(2/5)
+  bw <- (3*n*kappa2*besselI(x=2*kappa, nu=2, expon.scaled = FALSE)*(4*sqrt(pi)*besselI(x=kappa, nu=0, expon.scaled = FALSE)2)-1)^(2/5)
   return(bw)
 }
