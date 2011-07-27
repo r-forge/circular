@@ -76,8 +76,10 @@ export(
  mle.wrappedcauchy,
 # file mle.wrappednormal.R
  mle.wrappednormal,
-# file ticks.circular.R
- ticks.circular,
+# file modal.region.R
+ modal.region,
+ modal.region.default,
+ modal.region.circular,
 # file plot.edf.R
  plot.edf, lines.edf,
 # file pp.plot.R
@@ -100,8 +102,12 @@ export(
  rstable,
 # file triangular.R
  rtriangular, dtriangular,
+# file ticks.circular.R
+ ticks.circular,
 # file trigonometric.moment.R
  trigonometric.moment,
+# file totalvariation.R
+ totalvariation.circular,      
 # file uniform.R
  rcircularuniform, dcircularuniform,      
 # file vonmises.R
@@ -227,6 +233,7 @@ S3method(density, circular)
 #lines
 S3method(lines, circular)
 S3method(lines, density.circular)
+S3method(lines, modal.region.circular)
 
 ###S3method(lines, edf)
 
@@ -259,7 +266,8 @@ S3method(plot, density.circular)
 S3method(plot, circular)
 ###S3method(plot, edf)
 S3method(plot, lsfit.circle)
-
+S3method(plot, modal.region.circular)
+S3method(plot, totalvariation.circular)
 #points
 S3method(points, circular)
 
