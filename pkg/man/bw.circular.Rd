@@ -1,5 +1,6 @@
 % File created by Eduardo Garcia-Portugues
 % Modified by Claudio Agostinelli (2011/06/24)
+% Modified by Claudio Agostinelli (2011/07/27)
 \name{bandwidth}
 \alias{bw.cv.mse.circular}
 \alias{bw.cv.ml.circular}
@@ -19,7 +20,7 @@ bw.cv.mse.circular(x, lower=NULL, upper=NULL, tol = 1e-4,
 bw.cv.ml.circular(x, lower=NULL, upper=NULL, tol = 1e-4,
   kernel = c("vonmises", "wrappednormal"), K = NULL, min.k = 10)
 
-bw.nrd.circular(x, kappa.est=c("ML","robust"), kappa.bias=FALSE, P=3,
+bw.nrd.circular(x, kappa.est=c("ML","trigmoments"), kappa.bias=FALSE, P=3,
 lower=NULL, upper=NULL)
 }
 \arguments{
@@ -39,7 +40,7 @@ lower=NULL, upper=NULL)
     a bias correction in the estimation of kappa is applied.}
   \item{P}{integer, the maximum order of the sample trigonometric
     moments used in the estimation of \code{kappa} when
-    \code{kappa.est=="robust"}, see Details.}
+    \code{kappa.est=="trigmoments"}, see Details.}
 }
 
 \details{
@@ -54,13 +55,13 @@ distribution. The only remarkable difference between them is that
 Taylor's bandwidth supposes a von Mises population for the derivation of
 AMISE, while normal rule of thumb only introduces distribution
 assumption to compute the density curvature. Estimation of the spread is
-done by maximum likelihood. A "robust" method for the estimation of
+done by maximum likelihood. The "trigmoments" method for the estimation of
 \code{kappa} is implemented as follows. Let \eqn{\mu_p} be the p-th
 sample trigonometric moment. Let \eqn{k_p} be the estimates of
 \code{kappa} using the p-th sample trigonometric moment, as solution
 (using \code{uniroot} function) of the equation \eqn{A_p(k) = \frac{1}{n}
   \sum_{i=1}^n \cos(p x_i - \mu_p)}. We let \code{kappa} equal to
-\eqn{min(k_1, k_2, \cdots, k_P)}, see Taylor (2008) for further details.
+\eqn{max(k_1, k_2, \cdots, k_P)}, see Taylor (2008) for further details.
 
 Note that circular bandwidth has a differet scale from linear bandwidth (see Hall, Watson and Cabrera (1987)). The behaviour of the circular bandwidth is the \emph{inverse} of the linear: large values overestimate the density, whereas small values underestimate. 
 }
@@ -68,7 +69,9 @@ Note that circular bandwidth has a differet scale from linear bandwidth (see Hal
 \section{Warning}{
 Plug-in bandwidth selector \code{bw.nrd.circular} assumes that the
 underlaying population is von Mises. If this is not true, it might lead
-to serious misestimations of the circular bandwidth. Example 2 below shows how this behaviour can appear with multimodality populations. 
+to serious misestimations of the circular bandwidth. Example 2 below
+shows how this behaviour can appear with multimodality populations. In
+those cases, the use of \code{kappa.est="trigmoments"} could be of help.
 }
 
 \value{
