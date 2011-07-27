@@ -140,6 +140,6 @@ bw.nrd.circular <- function(x, lower=NULL, upper=NULL, kappa.est=c("ML","trigmom
       .NotYetImplemented()
     }
   }
-  bw <- (3*n*kappa2*besselI(x=2*kappa, nu=2, expon.scaled = FALSE)*(4*sqrt(pi)*besselI(x=kappa, nu=0, expon.scaled = FALSE)2)-1)^(2/5)
+  bw <- (3*n*kappa^2*besselI(x=2*kappa, nu=2, expon.scaled = FALSE)*(4*sqrt(pi)*besselI(x=kappa, nu=0, expon.scaled = FALSE)^2)^(-1))^(2/5)
   return(bw)
 }
