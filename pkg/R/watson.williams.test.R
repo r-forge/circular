@@ -50,7 +50,7 @@ watson.williams.test.default <- function(x, group, ...) {
 
 	# equality of concentration parameters
 	if (kt$p.value < 0.05) {
-		warning("Concentration parameters: ", format(kt$kappa, digits=5) ," not equal between groups. The test might not be applicable")
+		warning("Concentration parameters (", paste(format(kt$kappa, digits=3), collapse=", ") ,") not equal between groups. The test might not be applicable")
 	}
 
 	# sufficiently large concentration
