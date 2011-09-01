@@ -175,6 +175,8 @@ export(
  dkatojones, rkatojones,
 # file watson.williams.test.R
  watson.williams.test, watson.williams.test.default, watson.williams.test.list, watson.williams.test.formula,
+# file watson.wheeler.test.R
+ watson.wheeler.test, watson.wheeler.test.default, watson.wheeler.test.list, watson.wheeler.test.formula,
 # file wallraff.test.R
  wallraff.test, wallraff.test.default, wallraff.test.list, wallraff.test.formula
 )
@@ -298,6 +300,9 @@ S3method(var, circular)
 S3method(watson.williams.test, default)
 S3method(watson.williams.test, list)
 S3method(watson.williams.test, formula)
+S3method(watson.wheeler.test, default)
+S3method(watson.wheeler.test, list)
+S3method(watson.wheeler.test, formula)
 S3method(wallraff.test, default)
 S3method(wallraff.test, list)
 S3method(wallraff.test, formula)
