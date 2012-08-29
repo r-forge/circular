@@ -81,7 +81,7 @@ rvonmises <- function(n, mu, kappa, control.circular=list()) {
 #}
 
 RvonmisesRad <- function(n, mu, kappa) {
-   x <- vector(len = n)
+   x <- vector(length = n)
    if (kappa) {
      vm <- .C("rvm",
        as.double(x),
