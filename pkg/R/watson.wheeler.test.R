@@ -109,7 +109,7 @@ WatsonWheelerTestRad <- function(x, group) {
 	ns <- as.numeric(table(group))
 
 	# ranks
-	r <- rank(x, ties="random")
+	r <- rank(x, ties.method="random")
 	# circular rank (or uniform score)
 	cr <- r * 2*pi / n
 
