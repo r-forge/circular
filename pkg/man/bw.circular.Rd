@@ -20,9 +20,9 @@ bw.cv.mse.circular(x, lower=NULL, upper=NULL, tol = 1e-4,
 bw.cv.ml.circular(x, lower=NULL, upper=NULL, tol = 1e-4,
   kernel = c("vonmises", "wrappednormal"), K = NULL, min.k = 10)
 
-bw.nrd.circular(x, kappa.est=c("ML","trigmoments"), kappa.bias=FALSE, P=3,
-lower=NULL, upper=NULL)
+bw.nrd.circular(x, lower=NULL, upper=NULL, kappa.est=c("ML","trigmoments"), kappa.bias=FALSE, P=3)
 }
+
 \arguments{
   \item{x}{the data from which the bandwidth is to be computed. The object is coerced to class \code{circular}.}
   \item{lower, upper}{range over which to minimize for cross validatory
