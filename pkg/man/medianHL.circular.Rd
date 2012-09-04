@@ -14,7 +14,7 @@
   \item{method}{The method used to calculate median.}
   \item{prop}{The proportion of pairs that are sampled. If \code{NULL}
     all combinations are used. It must be a number in the interval (0,1)
-    or \code{NULL}.
+    or \code{NULL}.}
   \item{na.rm}{logical, indicating if \code{\link{NA}}'s should be omitted.}
 }
 \details{
@@ -40,7 +40,7 @@ If \code{prop} is not \code{NULL}, the algorithm will consider a
 subsample following the rules specified by \code{method}, however, the
 number of pairs considered is prop * (number of pairs defined by \code{method}).
 
-For more details see Otieno and B.Sango, 'An Alternative Estimate of
+For more details see Bennett Sango Otieno, 'An Alternative Estimate of
 Preferred Direction for Circular Data', Virginia Tech (2002) pag. 27-28 and 46-47.
 }
 
@@ -62,7 +62,7 @@ Preferred Direction for Circular Data', Virginia Tech (2002) pag. 27-28 and 46-4
 }
 
 \seealso{
-  \code{\link{mean.circular}}, \code{\link{meadian.circular}}}.
+  \code{\link{mean.circular}}, \code{\link{median.circular}}.
 }
 \examples{
 # Compute the median direction of a random sample of observations.
