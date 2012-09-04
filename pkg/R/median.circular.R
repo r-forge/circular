@@ -6,16 +6,60 @@
 #############################################################
 #                                                           
 #   median.circular function                                  
-#   Author: Claudio Agostinelli                             
+#   Author: Claudio Agostinelli and Alessandro Gagliardi
 #   E-mail: claudio@unive.it                                
-#   Date: July, 20, 2011                                  
-#   Version: 0.2-1                                          
+#   Date: August, 29, 2012                                  
+#   Version: 0.3                                          
 #                                                           
-#   Copyright (C) 2011 Claudio Agostinelli                  
+#   Copyright (C) 2012 Claudio Agostinelli                  
 #                                                           
 #############################################################
 
+median.circular <- function(x, na.rm=FALSE) {
+  if (na.rm)
+    x <- x[!is.na(x)]
+  if (length(x)==0) {
+    warning("No observations (at least after removing missing values)")
+    return(NULL)
+  }   
+  if (is.circular(x)) {
+    dc <- circularp(x)
+  } else {
+    dc <- list(type="angles", units="radians", template="none", modulo="asis", zero=0, rotation="counter")
+  }
+  x <- conversion.circular(x, units="radians", zero=0, rotation="counter")
+  attr(x, "class") <- attr(x, "circularp") <-  NULL
+  circmedian <- MedianCircularRad(x)
+  circmedian <- conversion.circular(circular(drop(circmedian)), dc$units, dc$type, dc$template, dc$modulo, dc$zero, dc$rotation)
+  attr(circmedian, "medians") <- conversion.circular(circular(drop(attr(circmedian, "medians"))), dc$units, dc$type, dc$template, dc$modulo, dc$zero, dc$rotation)  
+  attr(attr(circmedian, "medians"), "class") <- attr(attr(circmedian, "medians"), "circularp") <-  NULL
+  return(circmedian)
+}
+
+MedianCircularRad <- function(x, tol=4*.Machine$double.eps) {
+      ## equations 2.32 & 2.33
+      ## from N.I. Fisher's 'Statistical Analysis of Circular Data',
+      ## Cambridge Univ. Press 1993.
+
+  dev <- function(x, theta) {
+  ## x = median
+    res <- pi - mean(abs(pi-abs(MinusPiPlusPiRad(theta-x))))
+    return(res)
+  }
+  z <- unique(x) #different values
+  value <- sapply(z, function(z) dev(x=z, theta=x))
+  ##Function at the different observed values
+  values <- z[which(abs(value-min(value)) <= tol)]
+  ##Find all minimizers
+  values <- unique(values %% (2*pi))
+  median <- MeanCircularRad(values)
+  attr(median, "medians") <- values
+  return(median)
+}
+
 medianCircular <- function(x, na.rm=FALSE, type="Fisher", deviation=FALSE, control.circular=list(), ...) {
+  .Deprecated(new="median.circular")
+  
   ## For now only the definition in
   ## equations 2.32 & 2.33
   ## from N.I. Fisher's 'Statistical Analysis of Circular Data',
@@ -49,59 +93,17 @@ medianCircular <- function(x, na.rm=FALSE, type="Fisher", deviation=FALSE, contr
       dc$rotation <- datacircularp$rotation
    x <- conversion.circular(x, units="radians", zero=0, rotation="counter")
    attr(x, "class") <- attr(x, "circularp") <-  NULL
+  circmedian <- list()
    if (type=="Fisher")
-     circmedian <- MedianFisherCircularRad(x)
+     circmedian$median <- MedianCircularRad(x)
    else
      stop("Others 'type' not yet implemented")
    circmedian$median <- conversion.circular(circular(circmedian$median), dc$units, dc$type, dc$template, dc$modulo, dc$zero, dc$rotation)
-   if (deviation)
+   if (deviation) {
+     circmedian$deviation <- MeanDeviationRad(x)
      return(circmedian)
+   }
    else
      return(circmedian$median)
 }
-
-median.circular <- function(x, na.rm=FALSE) {
-  ## equations 2.32 & 2.33
-  ## from N.I. Fisher's 'Statistical Analysis of Circular Data',
-  ## Cambridge Univ. Press 1993.
-  ## is implemented
-   if (na.rm)
-       x <- x[!is.na(x)]
-   if (length(x)==0) {
-        warning("No observations (at least after removing missing values)")
-        return(NULL)
-   }
-
-   if (is.circular(x)) {
-      dc <- circularp(x)
-   } else {
-      dc <- list(type="angles", units="radians", template="none", modulo="asis", zero=0, rotation="counter")
-   }
-   x <- conversion.circular(x, units="radians", zero=0, rotation="counter")
-   attr(x, "class") <- attr(x, "circularp") <-  NULL
-   circmedian <- MedianFisherCircularRad(x)
-   circmedian <- conversion.circular(circular(circmedian$median), dc$units, dc$type, dc$template, dc$modulo, dc$zero, dc$rotation)
-   return(circmedian)
-}
-
-MedianFisherCircularRad <- function(x) {
-  dev <- function(x, theta, shift=0) {
-  ## x = median
-    n <- length(theta)
-    res <- pi - sum(abs(pi-abs(MinusPiPlusPiRad(theta-x-shift))))/n
-    return(res)
-  }
-  grid <- res <- seq(0, 2*pi, pi/50)
-  for (i in 1:length(grid)) {
-    res[i] <- dev(x=grid[i], theta=x)
-  }
-  
-  pos <- which.min(res)
-  res <- optim(par=0, fn=dev, lower=MinusPiPlusPiRad(grid[(pos-4)%%length(grid)]-grid[pos]), upper=MinusPiPlusPiRad(grid[(pos+4)%%length(grid)]-grid[pos]), theta=x, shift=grid[pos], method="L-BFGS-B")
-  median <- (res$par+grid[pos])%%(2*pi)
-  md <- dev(x=median, theta=x, shift=0)
-  res <- list(median=median, deviation=md)
-  return(res)
-}
-
 
