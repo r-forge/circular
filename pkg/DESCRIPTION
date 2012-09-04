@@ -5,7 +5,7 @@ Package: circular
 Version: 0.4-4
 Author: Ulric Lund <ulund@calpoly.edu>, Claudio Agostinelli <claudio@unive.it>
 Maintainer: Claudio Agostinelli <claudio@unive.it>
-Date: 2011-??-??
+Date: 2012-08-29
 Depends: R (>= 2.12.2), boot
 Description: Circular Statistics, from "Topics in circular Statistics" (2001) S. Rao Jammalamadaka and A. SenGupta, World Scientific.
 License: GPL-2
