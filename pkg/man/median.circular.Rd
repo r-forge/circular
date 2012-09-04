@@ -63,7 +63,7 @@ Claudio Agostinelli and Alessandro Gagliardi
 x <- circular(runif(50, circular(0), pi))
 median(x) #only the median is returned
 meandeviation(x) #mean deviation is reported
-\notrun{
+\dontrun{
   medianCircular(x) #only the median is returned
   medianCircular(x, deviation=TRUE) #both median and deviation are reported
 }
