@@ -28,7 +28,13 @@ medianCircular(x, na.rm = FALSE, type = "Fisher",
 }
 \details{
 For now only the definition in equations 2.32 & 2.33 from N.I. Fisher's 'Statistical Analysis of Circular Data', Cambridge Univ. Press 1993. is implemented.
+Since version 0.4-4, the algorithm (not the definition) for the
+calculation of the median is changed. The function \code{medianCircular}
+is deprecated and it will be remove in the next release of the
+package. For a measure of spread associated to the circular median use
+function \code{\link{meandeviation}}.
 }
+
 \value{
 If \code{dispersion==FALSE} a scalar with the median of the data otherwise a list with the following two components
 \item{median}{the median.}
@@ -38,20 +44,28 @@ The median is returned as an object of class \code{circular} with the attribute 
 }
 
 \references{
-  N.I. Fisher (1993) Statistical Analysis of Circular Data, Cambridge University Press.
+  N.I. Fisher (1993) Statistical Analysis of Circular Data, Cambridge
+  University Press.
+  R.Y. Liu and K. Singh (1992) Ordering Directional Data: Concepts of
+  Data Depth on Circles and Spheres, The Annals of Statistics, vol. 20,
+  n. 3, 1468-1484.
 }
+
 \author{
-Claudio Agostinelli
+Claudio Agostinelli and Alessandro Gagliardi
 }
 
 \seealso{
-\code{\link{mean.circular}}, \code{\link{var.circular}}, \code{\link{summary.circular}} and \code{\link{rho.circular}}.
+\code{\link{meandeviation}}, \code{\link{mean.circular}}, \code{\link{var.circular}}, \code{\link{summary.circular}} and \code{\link{rho.circular}}.
 }
 \examples{
 # Compute the median direction of a random sample of observations.
 x <- circular(runif(50, circular(0), pi))
-medianCircular(x) #only the median is returned
 median(x) #only the median is returned
-medianCircular(x, deviation=TRUE) #both median and deviation are reported
+meandeviation(x) #mean deviation is reported
+\notrun{
+  medianCircular(x) #only the median is returned
+  medianCircular(x, deviation=TRUE) #both median and deviation are reported
+}
 }
 \keyword{univar}
