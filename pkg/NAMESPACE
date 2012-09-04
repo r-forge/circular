@@ -74,6 +74,8 @@ export(
  lm.circular,
 # file lsfit.circle.R
  lsfit.circle,
+# file meandeviation.R
+ meandeviation,
 # file mle.vonmises.R
  mle.vonmises,
 # file mle.vonmises.bootstrap.ci.R
