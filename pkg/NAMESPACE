@@ -155,8 +155,8 @@ export(
 # file median.circular.R
  median.circular,
  medianCircular,
-#file medianHL.circular.R
-	medianHL.circular
+# file medianHL.circular.R
+ medianHL.circular,
 # file axis.circular.R
  axis.circular,
 # file lines.circular.R
