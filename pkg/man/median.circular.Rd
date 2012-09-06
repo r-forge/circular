@@ -27,7 +27,7 @@ medianCircular(x, na.rm = FALSE, type = "Fisher",
   \item{\dots}{NotYetUsed.}
 }
 \details{
-For now only the definition in equations 2.32 & 2.33 from N.I. Fisher's 'Statistical Analysis of Circular Data', Cambridge Univ. Press 1993. is implemented.
+The Definition in equations 2.32 & 2.33 from N.I. Fisher's 'Statistical Analysis of Circular Data', Cambridge Univ. Press 1993. is implemented.
 Since version 0.4-4, the algorithm (not the definition) for the
 calculation of the median is changed. The function \code{medianCircular}
 is deprecated and it will be remove in the next release of the
@@ -56,7 +56,7 @@ Claudio Agostinelli and Alessandro Gagliardi
 }
 
 \seealso{
-\code{\link{meandeviation}}, \code{\link{mean.circular}}, \code{\link{var.circular}}, \code{\link{summary.circular}} and \code{\link{rho.circular}}.
+\code{\link{meandeviation}}, \code{\link{mean.circular}}, \code{\link{var.circular}}, \code{\link{summary.circular}}, \code{\link{rho.circular}} and  \code{\link{medianHL.circular}}.
 }
 \examples{
 # Compute the median direction of a random sample of observations.
