@@ -8,8 +8,8 @@
 #   median.circular function                                  
 #   Author: Claudio Agostinelli and Alessandro Gagliardi
 #   E-mail: claudio@unive.it                                
-#   Date: August, 29, 2012                                  
-#   Version: 0.3                                          
+#   Date: September, 11, 2012                                  
+#   Version: 0.4                                          
 #                                                           
 #   Copyright (C) 2012 Claudio Agostinelli                  
 #                                                           
@@ -27,11 +27,11 @@ median.circular <- function(x, na.rm=FALSE) {
   } else {
     dc <- list(type="angles", units="radians", template="none", modulo="asis", zero=0, rotation="counter")
   }
-  x <- conversion.circular(x, units="radians", zero=0, rotation="counter")
+  x <- conversion.circular(x, units="radians")
   attr(x, "class") <- attr(x, "circularp") <-  NULL
   circmedian <- MedianCircularRad(x)
-  circmedian <- conversion.circular(circular(drop(circmedian)), dc$units, dc$type, dc$template, dc$modulo, dc$zero, dc$rotation)
-  attr(circmedian, "medians") <- conversion.circular(circular(drop(attr(circmedian, "medians"))), dc$units, dc$type, dc$template, dc$modulo, dc$zero, dc$rotation)  
+  circmedian <- conversion.circular(circular(drop(circmedian), template=dc$template, zero=dc$zero, rotation=dc$rotation), dc$units, dc$type, dc$template, dc$modulo, dc$zero, dc$rotation)
+  attr(circmedian, "medians") <- conversion.circular(circular(drop(attr(circmedian, "medians")), template=dc$template, zero=dc$zero, rotation=dc$rotation), dc$units, dc$type, dc$template, dc$modulo, dc$zero, dc$rotation)  
   attr(attr(circmedian, "medians"), "class") <- attr(attr(circmedian, "medians"), "circularp") <-  NULL
   return(circmedian)
 }
@@ -91,14 +91,14 @@ medianCircular <- function(x, na.rm=FALSE, type="Fisher", deviation=FALSE, contr
       dc$zero <- datacircularp$zero
    if (is.null(dc$rotation))
       dc$rotation <- datacircularp$rotation
-   x <- conversion.circular(x, units="radians", zero=0, rotation="counter")
+   x <- conversion.circular(x, units="radians")
    attr(x, "class") <- attr(x, "circularp") <-  NULL
   circmedian <- list()
    if (type=="Fisher")
      circmedian$median <- MedianCircularRad(x)
    else
      stop("Others 'type' not yet implemented")
-   circmedian$median <- conversion.circular(circular(circmedian$median), dc$units, dc$type, dc$template, dc$modulo, dc$zero, dc$rotation)
+   circmedian$median <- conversion.circular(circular(circmedian$median, template=datacircularp$template, zero=datacircularp$zero, rotation=datacircularp$rotation), dc$units, dc$type, dc$template, dc$modulo, dc$zero, dc$rotation)
    if (deviation) {
      circmedian$deviation <- MeanDeviationRad(x)
      return(circmedian)
@@ -106,4 +106,3 @@ medianCircular <- function(x, na.rm=FALSE, type="Fisher", deviation=FALSE, contr
    else
      return(circmedian$median)
 }
-
