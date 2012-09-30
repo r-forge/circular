@@ -46,6 +46,7 @@ The median is returned as an object of class \code{circular} with the attribute 
 \references{
   N.I. Fisher (1993) Statistical Analysis of Circular Data, Cambridge
   University Press.
+
   R.Y. Liu and K. Singh (1992) Ordering Directional Data: Concepts of
   Data Depth on Circles and Spheres, The Annals of Statistics, vol. 20,
   n. 3, 1468-1484.
