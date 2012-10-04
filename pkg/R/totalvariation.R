@@ -4,10 +4,10 @@
 #       GNU General Public Licence 2.0 
 #	Author: Claudio Agostinelli
 #	E-mail: claudio@unive.it
-#	Date: July, 21, 2011
-#	Version: 0.5
+#	Date: September, 17, 2012
+#	Version: 0.6
 #
-#	Copyright (C) 2011 Claudio Agostinelli
+#	Copyright (C) 2012 Claudio Agostinelli
 #
 #############################################################
 
@@ -66,12 +66,12 @@ totalvariation.circular <- function(x, y, z=NULL, q=0.95, bw, adjust = 1, type =
   return(result)
 }
 
-plot.totalvariation.circular <- function(x, tv=TRUE, ovl=TRUE, units=c('radians', 'degrees', 'hours'), xlab=NULL, ylab=NULL, main=NULL, from=0, to=2*pi, add=FALSE, n=1000, polygon.control.tv=list(), polygon.control.ovl=list(), xlty=1, ylty=1, xcol=1, ycol=1, xlwd=1, ylwd=1, ...) {
+plot.totalvariation.circular <- function(x, tv=TRUE, ovl=TRUE, units=c('radians', 'degrees', 'hours'), xlab=NULL, ylab=NULL, main=NULL, from=0, to=2*pi, add=FALSE, n=1000, polygon.control.tv=list(), polygon.control.ovl=list(), xlty=1, ylty=1, xcol=1, ycol=1, xlwd=1, ylwd=1, axes=TRUE, ...) {
   units <- match.arg(units)
   if (is.null(xlab))
     xlab <- paste('bw=', round(x$bw, 3), sep='')
   if (is.null(ylab))
-    ylab <- 'Kernel Density Estimates'
+    ylab <- 'Kernel density estimates'
   if (is.null(main))
     main <- 'Common area under the curves'  
   polygon.control.default <- list(density = NULL, angle = 45, border = NA, col = NA, lty = par("lty"), fillOddEven = FALSE)
@@ -84,18 +84,20 @@ plot.totalvariation.circular <- function(x, tv=TRUE, ovl=TRUE, units=c('radians'
     plot(x$density.x, from=from, to=to, add=TRUE, n=n, xlab=xlab, ylab=ylab, main=main, lty=xlty, col=xcol, lwd=xlwd, ...)
   else {
     plot(x$density.x, from=from, to=to, add=FALSE, axes=FALSE, n=n, xlab=xlab, ylab=ylab, main=main, lty=xlty, col=xcol, lwd=xlwd, ...)
-    axis(2)
-    if (units=='degrees') {
-      labels <- c(0, 45, 90, 135, 180, 225, 270, 315, 360)
-      at <- labels*pi/180
-    } else if (units=='hours') {
-      labels <- c(0, 3, 6, 9, 12, 15, 18, 21, 24)
-      at <- labels*pi/12
-    } else {
-      labels <- NULL
-      at <- axTicks(1)
+    if (axes) {
+      axis(2)
+      if (units=='degrees') {
+        labels <- c(0, 45, 90, 135, 180, 225, 270, 315, 360)
+        at <- labels*pi/180
+      } else if (units=='hours') {
+        labels <- c(0, 3, 6, 9, 12, 15, 18, 21, 24)
+        at <- labels*pi/12
+      } else {
+        labels <- NULL
+        at <- axTicks(1)
+      }
+      axis(1, at=at, labels=labels)
     }
-    axis(1, at=at, labels=labels)
   }
   plot(x$density.y, from=from, to=to, add=TRUE, n=n, lty=ylty, col=ycol, lwd=ylwd, ...)
   z <- seq(from, to, length.out=n)
