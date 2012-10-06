@@ -5,7 +5,7 @@ names(fisherB18) <- c("theta","x")
 
 #require(circular)
 #fisherB18c <- fisherB18
-#fisherB18c$theta <- circular(fisherB18$theta,units="degrees",type="directions",zero=pi/2,rotation="clock")
+#fisherB18c$theta <- circular(fisherB18$theta,units="degrees",zero=pi/2,rotation="clock")
 #save(fisherB18,file="fisherB18.rda",ascii=TRUE)
 #save(fisherB18c,file="fisherB18c.rda",ascii=TRUE)
 
