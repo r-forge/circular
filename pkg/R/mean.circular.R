@@ -51,17 +51,12 @@ mean.circular <- function(x, na.rm=FALSE, control.circular=list(), ...) {
    return(circmean)
 }
 
-MeanCircularRad <- function(x) {
+MeanCircularRad <- function(x)
+{
    if (any(is.na(x))) {
        circmean <- NA
    } else {
-       sinr <- sum(sin(x))
-       cosr <- sum(cos(x))
-       if (sqrt((sinr^2 + cosr^2))/length(x) > .Machine$double.eps) {
-           circmean <- atan2(sinr, cosr)
-       } else {
-           circmean <- NA
-       }
+      circmean <- .C(name="MeanCircularRad",x=x,n=length(x),result=0,PACKAGE="circular")$result
    }
    return(circmean)
 }

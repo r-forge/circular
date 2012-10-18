@@ -1,8 +1,9 @@
 Library circular
 =================
-Version 0.4-4 2001/??/??
+Version 0.4-4 2012/??/??
 Added function dasytriangular for the density of asymmetric triangular distribution as described in Mardia (1972)
 In this version two functions are available for evaluating the median (medianCircular which allows for the dispersion parameter and median.circular with only the median reported)
+Added mean.circular.c to calculate the circular mean in language C.
 
 Version 0.4-3 2011/07/18
 Fixed a bug in c.circular function.
