@@ -56,7 +56,7 @@ MeanCircularRad <- function(x)
    if (any(is.na(x))) {
        circmean <- NA
    } else {
-      circmean <- .C(name="MeanCircularRad",x=x,n=length(x),result=0,PACKAGE="circular")$result
+      circmean <- .C(name="MeanCircularRad",x=as.double(x),n=as.integer(length(x)),result=as.double(0),PACKAGE="circular")$result
    }
    return(circmean)
 }
