@@ -1,13 +1,14 @@
-/****************************************************************
-*								*
-*	AUTHORS : CLAUDIO AGOSTINELLI and ALESSANDRO GAGLIARDI	*
-*	AIM : COMPUTE THE MEAN CIRCULAR				*
-*	DATA : 18 OCTOBER 2012.					*
-*								*
-*****************************************************************/
-#include <R.h>
 
-void MeanCircularRad(double*,int*,double*); //prototype of function
+/******************************************************************
+*																						*
+*	AUTHORS : CLAUDIO AGOSTINELLI and ALESSANDRO GAGLIARDI			*
+*	AIM : COMPUTE THE MEAN CIRCULAR											*
+*	DATA : 18 OCTOBER 2012.														*
+*																						*
+*******************************************************************/
+
+#include <R.h>
+#include "mean.circular.h"
 
 void MeanCircularRad(double *x,int *n,double *result)
 {
