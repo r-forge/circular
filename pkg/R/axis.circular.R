@@ -21,12 +21,12 @@ axis.circular <- function(at=NULL, labels=NULL,  units = NULL, template=NULL, mo
 
   if (is.null(at)) {
     if (is.null(template) | template=="none" | template=="geographics") {
-      at <- circular(c(0, pi/2, pi, 3/2*pi))
+      at <- circular(c(0, pi/2, pi, 3/2*pi),rotation=rotation,zero=zero)
     } else if (template=="clock24") {
-      at <- circular(seq(0, 23), units="hours")
+      at <- circular(seq(0, 23), units="hours",rotation=rotation,zero=zero)
       units <- "hours"
     } else if (template=="clock12") {
-      at <- circular(seq(0, 11), units="hours")
+      at <- circular(seq(0, 11), units="hours",rotation=rotation,zero=zero)
       units <- "hours"
     }
   }

@@ -36,25 +36,13 @@ median.circular <- function(x, na.rm=FALSE) {
   return(circmedian)
 }
 
-MedianCircularRad <- function(x, tol=4*.Machine$double.eps) {
-      ## equations 2.32 & 2.33
-      ## from N.I. Fisher's 'Statistical Analysis of Circular Data',
-      ## Cambridge Univ. Press 1993.
-
-  dev <- function(x, theta) {
-  ## x = median
-    res <- pi - mean(abs(pi-abs(MinusPiPlusPiRad(theta-x))))
-    return(res)
-  }
-  z <- unique(x) #different values
-  value <- sapply(z, function(z) dev(x=z, theta=x))
-  ##Function at the different observed values
-  values <- z[which(abs(value-min(value)) <= tol)]
-  ##Find all minimizers
-  values <- unique(values %% (2*pi))
-  median <- MeanCircularRad(values)
-  attr(median, "medians") <- values
-  return(median)
+MedianCircularRad <- function(x)
+{
+	n <- length(x)
+	res <- .C("MedianCircularRad",x=as.double(x),n=as.integer(n),result=as.double(0),medians=as.double(x),lMedians=as.integer(n))
+	median <- res$result
+	attr(median, "medians") <- unique(res$medians[1:res$lMedians])
+	return(median)
 }
 
 medianCircular <- function(x, na.rm=FALSE, type="Fisher", deviation=FALSE, control.circular=list(), ...) {

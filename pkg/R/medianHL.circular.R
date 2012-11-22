@@ -1,8 +1,8 @@
 medianHL.circular <- function(x, method=c("HL1","HL2","HL3"), prop=NULL, na.rm=FALSE) {
    method <- match.arg(method)
    if (!is.null(prop))
-     if (prop <= 0 | prop >=1)
-       stop("'prop' is outside (0,1)")
+      if (prop <= 0 | prop >=1)
+         stop("'prop' is outside (0,1)")
    if (na.rm)
       x <- x[!is.na(x)]
    if (length(x)==0) {
@@ -24,45 +24,19 @@ medianHL.circular <- function(x, method=c("HL1","HL2","HL3"), prop=NULL, na.rm=F
 }
 
 MedianHLCircularRad <- function(x, method, prop) {
-  x <- x%%(2*pi)
-  x <- MinusPiPlusPiRad(x)
-  n <- length(x)
-  mediancirc = NA
-  if (is.null(prop)) {
-    if (method=='HL3') {
-      datatemp <- expand.grid(x,x)
-      datatemp <- apply(X=datatemp,FUN=MeanCircularRad,MARGIN=1)
-      mediancirc <- MedianCircularRad(datatemp[!is.na(datatemp)])
-    } else {
-      whichMethod <- ifelse(method=='HL1',1,0)      
-      datatemp <- rep(NA, length.out=(n*(n+1-whichMethod*2)/2))
- ## HL1 with n*(n-1)/2 and HL2 with n*(n+1)/2 obs.
-      k <- 0
-      for (i in 1:(n-whichMethod)) {
-        for (j in (i+whichMethod):n) {
-          k <- k + 1
-          datatemp[k] <- MeanCircularRad(c(x[i],x[j]))
-        }
-      }
-      datatemp <- datatemp[!is.na(datatemp)]
-      mediancirc <- ifelse(length(datatemp)==0,NA,MedianCircularRad(datatemp))
-    }
-  } else {
-    ## method subsampling
-    nrep <- switch(method,
-              HL3=n^2,
-              HL1=n*(n-1)/2,
-              HL2=n*(n+1)/2
-            )
-    nrep <- max(1,round(nrep*prop))
-    datatemp <- rep(NA, length.out=nrep)
-    for (i in 1:nrep) {
-      pos <- sample(1:n, size=2, replace=ifelse(method==1, FALSE, TRUE))
-      datatemp[i] <- MeanCircularRad(c(x[pos[1]],x[pos[2]]))
-    }
-    datatemp <- datatemp[!is.na(datatemp)]
-    mediancirc <- ifelse(length(datatemp)==0,NA,MedianCircularRad(datatemp))
-  }
-  return(mediancirc)
+   x <- x%%(2*pi)
+   x <- MinusPiPlusPiRad(x)
+   n <- length(x)
+   mediancirc = NA
+	methods <- c("HL2","HL1","HL3")
+   if (is.null(prop))
+	{
+   	mediancirc <- .C("MedianHLCircularRad",x=as.double(x),y=as.double(x),n=as.integer(n),whichMethod=as.integer(which(methods==method) - 1),result=as.double(0))$result
+   }
+	else
+	{
+		mediancirc <- .C("MedianHLCircularPropRad",x=as.double(x),n=as.integer(n),whichMethod=as.integer(which(methods==method) - 1),prop=as.double(prop),result=as.double(0))$result
+   }
+   return(mediancirc)
 }
 

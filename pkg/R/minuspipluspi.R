@@ -10,8 +10,9 @@
 #                                                           
 #############################################################
 
-MinusPiPlusPiRad  <- function(x) {
-  x <- ifelse(x < -pi, x + 2 * pi, x) 
-  x <- ifelse(x > pi, x - 2 * pi, x) 
-  return(x) 
+MinusPiPlusPiRad  <- function(x)
+{
+	x <- .C("MinusPiPlusPiRad",x=as.double(x),n=as.integer(length(x)))$x
+ 	return(x) 
 } 
+
