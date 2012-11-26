@@ -66,7 +66,8 @@ void MedianHLCircularRad(double *x,double *y,int *n,int *whichMethod,double *res
 	}
 
 	int a = 0;
-	MedianCircularRad(x,n,result,(double*)NULL,&a);
+	double tmp[(*n)];
+	MedianCircularRad(x,n,result,tmp,&a);
 }
 
 void MedianHLCircularPropRad(double *x,int *n,int *whichMethod,double *prop,double *result)
@@ -116,7 +117,8 @@ void MedianHLCircularPropRad(double *x,int *n,int *whichMethod,double *prop,doub
 		}
 
 			int a = 0;
-			MedianCircularRad(x,n,result,(double*)NULL,&a);
+			double tmp[(*n)];
+			MedianCircularRad(x,n,result,tmp,&a);
 	}	
 	else
 	{

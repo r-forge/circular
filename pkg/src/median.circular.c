@@ -20,14 +20,14 @@
 *	To use this function witohut all candidate observations for median values, write as follow :
 *
 *			int a = 0;
-*			MedianCircularRad(x,n,result,(double*)NULL,&a);
+*			double tmp[(*n)];
+*			MedianCircularRad(x,n,result,tmp,&a);
 */
 
 void MedianCircularRad(double *x,int *n,double *result,double *medians,int *lMedians)
 {
 	double valueOfDev;
 	int i,k=0;
-	double minimumObs[(*n)];
 	double minimum = PI;
 	for(i=0;i<(*n);i++)
 	{
@@ -35,20 +35,16 @@ void MedianCircularRad(double *x,int *n,double *result,double *medians,int *lMed
 		if(valueOfDev - minimum < -DOUBLE_EPS)
 		{
 			minimum = valueOfDev;
-			minimumObs[0] = x[i];
+			medians[0] = x[i];
 			k=1;
 		}
-		else if(fabs(valueOfDev-minimum)/(*n)<=DOUBLE_EPS)
+		else if(fabs(valueOfDev-minimum)/(*n) <= DOUBLE_EPS)
 		{
-			minimumObs[k++] = x[i];
+			medians[k++] = x[i];
 		}
 	}
-	MeanCircularRad(minimumObs,&k,result);
-	if((*lMedians)>0)
-	{
-		memcpy(medians,minimumObs,sizeof(double)*k);
-		*lMedians = k;
-	}
+	MeanCircularRad(medians,&k,result);
+	*lMedians = k;
 
 }
 
