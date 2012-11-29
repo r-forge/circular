@@ -39,7 +39,7 @@ median.circular <- function(x, na.rm=FALSE) {
 MedianCircularRad <- function(x)
 {
 	n <- length(x)
-	res <- .C("MedianCircularRad",x=as.double(x),n=as.integer(n),result=as.double(0),medians=as.double(x),lMedians=as.integer(n))
+	res <- .C("MedianCircularRad",x=as.double(x),n=as.integer(n),result=as.double(0),medians=double(length(x)),lMedians=as.integer(n))
 	median <- res$result
 	attr(median, "medians") <- unique(res$medians[1:res$lMedians])
 	return(median)
