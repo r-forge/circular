@@ -12,12 +12,10 @@ importFrom(stats, median)
 export(
 # file A1.R
  A1,
-
 # file A1FirstDerivative.R
  A1FirstDerivative,
 # file A1SecondDerivative.R
-	A1SecondDerivative,
-
+ A1SecondDerivative,
 # file A1inv.R
  A1inv,
 # file I.0.R
