@@ -1,3 +1,14 @@
+#####################################################################
+#                                                                   #
+#   trigonometric.polynomials function                              #
+#   Author: Claudio Agostinelli and Alessandro Gagliardi            #
+#   Email: claudio@unive.it                                         #
+#   Date: January, 04, 2013                                         #
+#   Copyright (C) 2013 Claudio Agostinelli and Alessandro Gagliardi #
+#                                                                   #
+#   Version 0.1                                                     #
+#####################################################################
+
 make.circular.link <- function (link)
 {
     switch(link,
@@ -9,6 +20,11 @@ make.circular.link <- function (link)
            "exp" = {
                linkfun <- function(eta) exp(eta)
                linkder <- function(eta) exp(eta)
+               valideta <- function(eta) TRUE
+           },
+           "probit" = { ## see Mardia and Jupp (2000) pag. 258
+               linkfun <- function(eta) 2*pi*(pnorm(eta) - 0.5)
+               linkder <- function(eta) 2*pi*dnorm(eta)
                valideta <- function(eta) TRUE
            },
            "identity" = {
