@@ -1,7 +1,7 @@
 #####################################################################
 #                                                                   #
 #   trigonometric.polynomials function                              #
-#   Author: Claudio Agostinelli                                     #
+#   Author: Claudio Agostinelli and Alessandro Gagliardi            #
 #   Email: claudio@unive.it                                         #
 #   Date: January, 04, 2013                                         #
 #   Copyright (C) 2013 Claudio Agostinelli and Alessandro Gagliardi #
