@@ -111,10 +111,8 @@ cm.fit <- function(x, y, weights = rep(1, nobs), start = NULL, etastart = NULL, 
                 }
             else family$linkfun(mustart)
     mulinear <- linkinv(eta)
-    if (!(validmu(result$mu) && valideta(eta)))
+    if (!(validmu(mulinear) && valideta(eta)))
       stop("cannot find valid starting values: please specify some", call. = FALSE)
-## calculate initial deviance and coefficient
-    devold <- sum(dev.resids(y, result$mu, mulinear, weights))
     result <- CmLocationCircularRad(x=x,y=y,weights=weights,offset=offset,beta=start,eta,mulinear,family=family,epsilon=control$epsilon,maxit=control$maxit,trace=control$trace,intercept=intercept)
   }
     
