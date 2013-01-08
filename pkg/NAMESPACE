@@ -52,6 +52,9 @@ export(
  circular, conversion.circular, circularp, "circularp<-", is.circular,
 # file circular.colors.R
  circular.colors,
+# cm.R,
+ cm.fit,
+ cm.control,
 # file coord2rad.R
  coord2rad,
 # file cor.circular.R
@@ -64,10 +67,14 @@ export(
  dist.circular,
 # file equal.kappa.test.R
  equal.kappa.test,
+# file family.circular.R
+ vonMises,      
 # file heatmap.circular.R
  heatmap.circular,
 # file kuiper.test.R
  kuiper.test,
+# file make.circular.link.R
+ make.circular.link,
 # file lm.circular.R
  lm.circular,
 # file lsfit.circle.R
