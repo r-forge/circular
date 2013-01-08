@@ -177,6 +177,6 @@ CmLocationCircularRad <- function(x, y, weights, offset, beta, eta, mulinear, fa
     warning("cm.fit: algorithm did not converge", call. = FALSE)
   fitted.values <- muhat + linkinv(drop(x%*%beta+offset))
   residuals <- y - fitted.values
-  result <- list(coefficients=drop(beta), residuals=residuals, fitted.values=fitted.values, mu=muhat, kappa=khat, effects = fit$effects, rank = fit$rank, qr = structure(fit[c("qr", "rank", "qraux", "pivot", "tol")], class = "qr"), family = family, linear.predictors = eta, deviance = NA, aic = NA, null.deviance = NA, iter = iter, weights = g^2, prior.weights = weights, df.residual = NA, df.null = NA, y = y, converged = conv)
+  result <- list(coefficients=drop(beta), residuals=residuals, fitted.values=fitted.values, mu=muhat, kappa=khat, effects = fit$effects, rank = fit$rank, qr = structure(fit[c("qr", "rank", "qraux", "pivot", "tol")], class = "qr"), family = family, linear.predictors = eta, deviance = NA, aic = NA, null.deviance = NA, iter = iter, weights = weights*g^2, prior.weights = weights, df.residual = NA, df.null = NA, y = y, converged = conv)
   return(result)
 }
