@@ -24,9 +24,9 @@ vonMises <- function (link = "tan") {
     linkfun = stats$linkfun,
     linkinv = stats$linkinv,
     variance = function(mu) rep.int(1, length(mu)),
-    dev.resids = function(y, mu, wt) NA,
+    dev.resids = function(y, mu, mulinear, wt) NA,
 #####    dev.resids = function(y, mu, wt) wt * ((y - mu)^2),
-    aic = function(y, n, mu, wt, dev) NA,                
+    aic = function(y, n, mu, mulinear, wt, dev) NA,                
     ## aic = function(y, n, mu, wt, dev) {
     ##   nobs <- length(y)
     ##   nobs*(log(dev/nobs*2*pi)+1)+2 - sum(log(wt))
