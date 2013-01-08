@@ -143,7 +143,7 @@ CmLocationCircularRad <- function(x, y, weights, offset, beta, eta, mulinear, fa
     mulinear <- linkinv(eta)
     if (intercept) {
       S <- sum(weights * sin(y - mulinear))/sum(weights)
-      C <- sum(cos(y - mulinear))/sum(weights)
+      C <- sum(weights * cos(y - mulinear))/sum(weights)
       R <- sqrt((S^2+C^2))
       muhat <- atan2(S/R,C/R)
     } else
