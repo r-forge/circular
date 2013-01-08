@@ -111,10 +111,10 @@ cm.fit <- function(x, y, weights = rep(1, nobs), start = NULL, etastart = NULL, 
                 }
             else family$linkfun(mustart)
     mulinear <- linkinv(eta)
-    if (!(validmu(mu) && valideta(eta)))
+    if (!(validmu(result$mu) && valideta(eta)))
       stop("cannot find valid starting values: please specify some", call. = FALSE)
 ## calculate initial deviance and coefficient
-    devold <- sum(dev.resids(y, mu, mulinear, weights))
+    devold <- sum(dev.resids(y, result$mu, mulinear, weights))
     result <- CmLocationCircularRad(x=x,y=y,weights=weights,offset=offset,beta=start,eta,mulinear,family=family,epsilon=control$epsilon,maxit=control$maxit,trace=control$trace,intercept=intercept)
   }
     
@@ -129,8 +129,8 @@ cm.fit <- function(x, y, weights = rep(1, nobs), start = NULL, etastart = NULL, 
 
 CmLocationCircularRad <- function(x, y, weights, offset, beta, eta, mulinear, family, epsilon, maxit, trace, intercept=TRUE) {
       
-  logLikelihood <- function(khat,muhat,mulinear,y)
-    -n*log(besselI(khat,nu=0)) + khat * sum(cos(y-muhat-mulinear))
+  logLikelihood <- function(khat,muhat,mulinear,weights,y)
+    -sum(weights)*log(besselI(khat,nu=0)) + khat * sum(weights * cos(y-muhat-mulinear))
    
   linkinv <- family$linkinv
   mu.eta <- family$mu.eta
@@ -144,8 +144,8 @@ CmLocationCircularRad <- function(x, y, weights, offset, beta, eta, mulinear, fa
     eta <- drop(x%*%beta + offset)
     mulinear <- linkinv(eta)
     if (intercept) {
-      S <- sum(sin(y - mulinear))/nobs
-      C <- sum(cos(y - mulinear))/nobs
+      S <- sum(weights * sin(y - mulinear))/sum(weights)
+      C <- sum(cos(y - mulinear))/sum(weights)
       R <- sqrt((S^2+C^2))
       muhat <- atan2(S/R,C/R)
     } else
@@ -158,13 +158,13 @@ CmLocationCircularRad <- function(x, y, weights, offset, beta, eta, mulinear, fa
 #### Update Step    
     lastbeta <- beta
     ustar <- uvector/(A1(khat)*g)
-    fit <- lm.wfit(y=ustar,x=x,w=g^2)
+    fit <- lm.wfit(y=ustar,x=x,w=weights*(g^2))
     beta <- fit$coefficients + beta
     if (trace) {
       cat("At iteration ",iter," :","\n")
-      cat("log likelihood ",logLikelihood(khat=khat,muhat=muhat,mulinear=mulinear,y=y),"\n")
+      cat("log likelihood ",logLikelihood(khat=khat,muhat=muhat,mulinear=mulinear,weights=weights,y=y),"\n")
       cat("coefficients =", beta, "mu =", muhat, " kappa =", khat,"\n")
-      cat("Value of equation=",t(x)%*%diag(g)%*%uvector,"\n\n")
+      cat("Value of equation=",t(x)%*%diag(weights)%*%diag(g)%*%uvector,"\n\n")
     }
 
     if (max(abs(beta-lastbeta)) < epsilon) {
