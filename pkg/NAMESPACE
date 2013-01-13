@@ -5,6 +5,7 @@ importFrom(graphics, axis)
 importFrom(stats, density)
 importFrom(stats, quantile)
 importFrom(stats, median)
+importFrom(utils, packageDescription)
 
 #Export directive
 
