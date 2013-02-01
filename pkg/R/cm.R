@@ -8,6 +8,8 @@ cm.control <- function(epsilon = 1e-8, maxit = 25, trace = FALSE) {
 
 cm.fit <- function(x, y, weights = rep(1, nobs), start = NULL, etastart = NULL, mustart = NULL, offset = rep(0, nobs), family = vonMises(), center=TRUE, control = list(), control.circular = list(), intercept = TRUE) {
 
+  if (!is.logical(intercept))
+    stop("'intercept' must be logical")
   control <- do.call("cm.control", control)
 ### Dependent variables
   if (is.circular(y)) {
@@ -86,17 +88,20 @@ cm.fit <- function(x, y, weights = rep(1, nobs), start = NULL, etastart = NULL, 
     ## calculate initial deviance and coefficient
     if (!validmu(mulinear))
       stop("invalid fitted means in empty model", call. = FALSE)
-    S <- sum(sin(y))/nobs
-    C <- sum(cos(y))/nobs
+    S <- sum(weights * sin(y-mulinear)) / sum(weights)
+    C <- sum(weights * cos(y-mulinear)) / sum(weights)
     R <- sqrt((S^2+C^2))
-    muhat <- atan2(S/R,C/R)
     khat <- A1inv(R)
+    if (intercept)
+      muhat <- atan2(S/R,C/R)
+    else
+      muhat <- 0
     dev <- sum(dev.resids(y, muhat, mulinear, weights))
     result <- list(coefficients = numeric(),
                    mu = muhat,
                    kappa = khat,
                    fitted.values = rep(muhat, nobs),
-                   residuals = y - muhat,
+                   residuals = y - muhat - mulinear,
                    iter = 0L,
                    y = y,
                    converged = TRUE)
@@ -117,10 +122,10 @@ cm.fit <- function(x, y, weights = rep(1, nobs), start = NULL, etastart = NULL, 
   }
     
   class(result) <- "cm"
-  result$fitted.values <- conversion.circular(circular(result$fitted.values), dc$units,dc$type, dc$template, dc$modulo, dc$zero, dc$rotation)
-  result$mu <- conversion.circular(circular(result$mu), dc$units,dc$type, dc$template, dc$modulo, dc$zero, dc$rotation)
-  result$residuals <- conversion.circular(circular(result$residuals), dc$units,dc$type, dc$template, dc$modulo, dc$zero, dc$rotation)
-  
+  result$fitted.values <- conversion.circular(circular(result$fitted.values), dc$units, dc$type, dc$template, dc$modulo, dc$zero, dc$rotation)
+  result$mu <- conversion.circular(circular(result$mu), dc$units, dc$type, dc$template, dc$modulo, dc$zero, dc$rotation)
+  result$residuals <- conversion.circular(circular(result$residuals), dc$units, dc$type, dc$template, dc$modulo, dc$zero, dc$rotation)
+  result$y <- conversion.circular(circular(result$y), dc$units, dc$type, dc$template, dc$modulo, dc$zero, dc$rotation)
   attr(result$mu,"class") <- attr(result$residuals,"class") <- "circular"  
   return(result)
 }
@@ -173,10 +178,14 @@ CmLocationCircularRad <- function(x, y, weights, offset, beta, eta, mulinear, fa
     }
   }
 
+  ### Per ora usiamo la somma dei pesi normalizzati!
+  ### df.residual <- nobs - fit.rank - as.numeric(intercept)
+  df.residual <- sum(weights)/max(weights) - fit.rank - as.numeric(intercept)
+  
   if (!conv)
     warning("cm.fit: algorithm did not converge", call. = FALSE)
   fitted.values <- muhat + linkinv(drop(x%*%beta+offset))
   residuals <- y - fitted.values
-  result <- list(coefficients=drop(beta), residuals=residuals, fitted.values=fitted.values, mu=muhat, kappa=khat, effects = fit$effects, rank = fit$rank, qr = structure(fit[c("qr", "rank", "qraux", "pivot", "tol")], class = "qr"), family = family, linear.predictors = eta, deviance = NA, aic = NA, null.deviance = NA, iter = iter, weights = weights*g^2, prior.weights = weights, df.residual = NA, df.null = NA, y = y, converged = conv)
+  result <- list(coefficients=drop(beta), residuals=residuals, fitted.values=fitted.values, mu=muhat, kappa=khat, effects = fit$effects, rank = fit$rank, qr = structure(fit[c("qr", "rank", "qraux", "pivot", "tol")], class = "qr"), family = family, linear.predictors = eta, deviance = NA, aic = NA, null.deviance = NA, iter = iter, weights = weights*g^2, prior.weights = weights, df.residual = df.residual, df.null = NA, y = y, converged = conv)
   return(result)
 }
