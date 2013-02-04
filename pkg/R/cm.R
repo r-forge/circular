@@ -160,7 +160,7 @@ CmLocationCircularRad <- function(x, y, weights, offset, beta, eta, mulinear, fa
     uvector <- sin(y-muhat-mulinear)
 #### Update Step    
     lastbeta <- beta
-    ustar <- uvector/(A1(khat)*g)
+    ustar <- uvector/(R*g)  ### R=A1(khat)
     fit <- lm.wfit(y=ustar,x=x,w=weights*(g^2))
     beta <- fit$coefficients + beta
     if (trace) {
@@ -179,13 +179,13 @@ CmLocationCircularRad <- function(x, y, weights, offset, beta, eta, mulinear, fa
   }
 
   ### Per ora usiamo la somma dei pesi normalizzati!
-  ### df.residual <- nobs - fit.rank - as.numeric(intercept)
-  df.residual <- sum(weights)/max(weights) - fit.rank - as.numeric(intercept)
+  ### df.residual <- nobs - fit$rank - as.numeric(intercept)
+  df.residual <- sum(weights)/max(weights) - fit$rank - as.numeric(intercept)
   
   if (!conv)
     warning("cm.fit: algorithm did not converge", call. = FALSE)
   fitted.values <- muhat + linkinv(drop(x%*%beta+offset))
   residuals <- y - fitted.values
-  result <- list(coefficients=drop(beta), residuals=residuals, fitted.values=fitted.values, mu=muhat, kappa=khat, effects = fit$effects, rank = fit$rank, qr = structure(fit[c("qr", "rank", "qraux", "pivot", "tol")], class = "qr"), family = family, linear.predictors = eta, deviance = NA, aic = NA, null.deviance = NA, iter = iter, weights = weights*g^2, prior.weights = weights, df.residual = df.residual, df.null = NA, y = y, converged = conv)
+  result <- list(coefficients=drop(beta), residuals=residuals, fitted.values=fitted.values, mu=muhat, kappa=khat, R=R, effects = fit$effects, rank = fit$rank, qr = structure(fit[c("qr", "rank", "qraux", "pivot", "tol")], class = "qr"), family = family, linear.predictors = eta, deviance = NA, aic = NA, null.deviance = NA, iter = iter, weights = weights*g^2, prior.weights = weights, df.residual = df.residual, df.null = NA, y = y, converged = conv)
   return(result)
 }
