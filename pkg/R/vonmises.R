@@ -125,7 +125,7 @@ dvonmises <- function (x, mu, kappa, log=FALSE) {
   DvonmisesRad(x, mu, kappa, log)
 }
 
-DvonmisesRad <- function(x, mu, kappa, log) {
+DvonmisesRad <- function(x, mu, kappa, log=FALSE) {
   if (log) {
     if (kappa == 0)
       vm <- log(rep(1/(2*pi), length(x)))
