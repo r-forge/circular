@@ -3,10 +3,10 @@
 #   density.circular function                               #
 #   Author: Claudio Agostinelli                             #
 #   Email: claudio@unive.it                                 #
-#   date: July, 02, 2011                                    #
-#   Copyright (C) 2011 Claudio Agostinelli                  #
+#   date: February, 14, 2013                                #
+#   Copyright (C) 2013 Claudio Agostinelli                  #
 #                                                           #
-#   Version 0.3                                             #
+#   Version 0.3-1                                           #
 #                                                           #
 #############################################################
 
@@ -116,7 +116,7 @@ density.circular <- function(x, z=NULL, bw, adjust = 1, type = c("K", "L"), kern
 DensityCircularRad <- function(x, z, bw, kernel, K=NULL, min.k=10) {
    nx <- length(x)
    if (kernel=="vonmises") {
-       y <- sapply(z, DvonmisesRad, mu=x, kappa=bw)
+       y <- sapply(z, DvonmisesRad, mu=x, kappa=bw, log=FALSE)
    } else if (kernel=="wrappednormal") {
        rho <- exp(-bw^2/2)
        y <- sapply(z, DwrappednormalRad, mu=x, rho=rho, K=K, min.k=min.k)
