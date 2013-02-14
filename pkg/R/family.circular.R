@@ -24,13 +24,16 @@ vonMises <- function (link = "tan") {
     linkfun = stats$linkfun,
     linkinv = stats$linkinv,
     variance = function(mu) rep.int(1, length(mu)),
-    dev.resids = function(y, mu, mulinear, wt) NA,
-#####    dev.resids = function(y, mu, wt) wt * ((y - mu)^2),
-    aic = function(y, n, mu, mulinear, wt, dev) NA,                
-    ## aic = function(y, n, mu, wt, dev) {
-    ##   nobs <- length(y)
-    ##   nobs*(log(dev/nobs*2*pi)+1)+2 - sum(log(wt))
-    ## },
+    dev.resids = function(y, mu, mulinear, kappa, wt) {
+      if (kappa < 100000)
+        llik <- 2*sum(wt)*(log(2*pi)+log(besselI(kappa,nu=0,expon.scaled=TRUE))+kappa) -2*sum(wt * kappa * cos(y-mu-mulinear))
+      else
+        llik <- ifelse((y-mu-mulinear)==0, -Inf, Inf)
+      return(llik)
+    },
+    aic = function(dev,wt,rank){
+      dev + 2*rank
+    },
     mu.eta = stats$mu.eta,
     initialize = expression({
       n <- rep.int(1, nobs)
