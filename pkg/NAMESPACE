@@ -53,9 +53,12 @@ export(
  circular, conversion.circular, circularp, "circularp<-", is.circular,
 # file circular.colors.R
  circular.colors,
-# cm.R,
- cm.fit,
- cm.control,
+# clm.R,
+ clm,
+ clm.fit,
+ summary.clm,
+ model.frame.clm,
+ clm.control,
 # file coord2rad.R
  coord2rad,
 # file cor.circular.R
@@ -80,6 +83,8 @@ export(
  lm.circular,
 # file lsfit.circle.R
  lsfit.circle,
+# file make.circular.link.R
+ make.circular.link,
 # file meandeviation.R
  meandeviation,
 # file mle.vonmises.R
@@ -248,6 +253,9 @@ S3method(c, circular)
 #density
 S3method(density, circular)
 
+#formula
+S3method(formula, clm)
+
 #lines
 S3method(lines, circular)
 S3method(lines, density.circular)
@@ -277,6 +285,7 @@ S3method(print, mle.wrappednormal)
 S3method(print, rao.spacing.test)
 S3method(print, rao.test)
 S3method(print, rayleigh.test)
+S3method(print, summary.clm)
 S3method(print, watson.test)
 S3method(print, watson.two.test)
 #plot
@@ -311,6 +320,9 @@ S3method(var, default)
 #S3method(var, matrix)
 S3method(var, data.frame)
 S3method(var, circular)
+
+#weights
+S3method(weights, clm)
 
 # tests
 S3method(watson.williams.test, default)
