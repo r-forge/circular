@@ -53,7 +53,7 @@ RayleighTestRad <- function(x, mu=NULL) {
        else
           temp <- 1
        p.value <- min(max(p.value * temp,0),1)
-       result <- list(statistic = rbar, p.value = , mu=NA)
+       result <- list(statistic = rbar, p.value = p.value, mu=NA)
     } else {
        r0.bar <- (sum(cos(x - mu)))/n
        z0 <- sqrt(2 * n) * r0.bar
