@@ -32,13 +32,13 @@ void MedianCircularRad(double *x,int *n,double *result,double *medians,int *lMed
 	for(i=0;i<(*n);i++)
 	{
 		valueOfDev = dev(x,x[i],n);
-		if(valueOfDev - minimum < -DOUBLE_EPS)
+		if((valueOfDev - minimum)/(*n) < -DOUBLE_EPS)
 		{
 			minimum = valueOfDev;
 			medians[0] = x[i];
 			k=1;
 		}
-		else if(fabs(valueOfDev-minimum)/(*n) <= DOUBLE_EPS)
+		else if(fabs(valueOfDev-minimum) <= pow(10,-8))
 		{
 			medians[k++] = x[i];
 		}
@@ -56,7 +56,7 @@ double dev(double *theta,double xv,int *n)
 	{
 		values += fabs(PI-fabs(theta[j]-xv));
 	}
-	values /= (*n);
+	values = values / (*n);
 	values = PI - values;
 	return(values);
 }
