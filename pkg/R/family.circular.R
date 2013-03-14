@@ -31,7 +31,7 @@ vonMises <- function (link = "tan") {
         llik <- ifelse((y-mu-mulinear)==0, -Inf, Inf)
       return(llik)
     },
-    aic = function(dev,wt,rank){
+    aic = function(dev,rank){
       dev + 2*rank
     },
     mu.eta = stats$mu.eta,
@@ -40,7 +40,7 @@ vonMises <- function (link = "tan") {
       if(is.null(etastart) && is.null(start) &&
         is.null(mustart) && (family$link == "log" && any(y <= 0)))
         stop("cannot find valid starting values: please specify some")
-        mustart <- y - MeanCircularRad(y)}),
+        mustart <- y - circular:::MeanCircularRad(y)}),
     validmu = function(mu) TRUE,
     valideta = stats$valideta
   ),

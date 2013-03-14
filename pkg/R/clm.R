@@ -1,6 +1,6 @@
-utils::globalVariables("n", add = TRUE)
 
-clm.control <- function(epsilon = 1e-8, maxit = 25, trace = FALSE) {
+clm.control <- function(epsilon = 1e-8, maxit = 25, trace = FALSE)
+{
     if(!is.numeric(epsilon) || epsilon <= 0)
 	stop("value of 'epsilon' must be > 0")
     if(!is.numeric(maxit) || maxit <= 0)
@@ -200,7 +200,10 @@ clm.fit <- function(x, y, weights = rep(1, nobs), start = NULL, etastart = NULL,
     C0 <- sum(weights * cos(y))/sum(weights)
     R0 <- sqrt((S0^2+C0^2))
     k0 <- A1inv(R0)
-	 null.dev <- sum(family$dev.resids(y, 0, 0, k0, weights))
+	muhat0 <- 0
+    if (intercept)
+      muhat0 <- atan2(S0/R0,C0/R0)
+	 null.dev <- sum(family$dev.resids(y, muhat0, 0, k0, weights))
 	df.residual <- nobs - as.numeric(intercept)
     result <- list(coefficients = numeric(),
                    mu = muhat,
@@ -209,7 +212,7 @@ clm.fit <- function(x, y, weights = rep(1, nobs), start = NULL, etastart = NULL,
                    residuals = y - muhat - mulinear,
                    iter = 0L,
 						 family = family,
-						 aic = family$aic(dev=dev,wt=weights,rank=df.residual),
+						 aic = family$aic(dev=dev,rank=df.residual),
 						 deviance = dev,
 						 null.deviance = null.dev,
                    y = y,
@@ -257,7 +260,41 @@ logLikelihood <- function(khat,muhat,mulinear,weights,y)
   linkinv <- family$linkinv
   mu.eta <- family$mu.eta
   if (is.null(beta))
-    beta <- rep(0, NCOL(x))
+  {
+  		res <- mle.vonmises(circular(y))
+  		if(!is.finite(res$kappa))
+  			res$kappa <- 1e5-1L
+  		betainit1 <- c(rep(0,NCOL(x)), res$mu, res$kappa)
+		opt1 <- optim(par=betainit1, fn=function(x,y,z,wt)
+		{
+			nc <- NCOL(z)
+			mulinear <- linkinv(drop(z%*%(x[1L:nc])))
+			muhat <- x[nc + 1]
+			khat <- x[nc + 2]
+			llik <- -logLikelihood(khat = khat, muhat = muhat, mulinear=mulinear, weights=wt, y=y)
+			return(llik)
+		}
+		, y=y, z=x, wt=weights,
+						lower=c(rep(-Inf,NCOL(x)), -pi, 0.1), upper=c(rep(Inf,NCOL(x)), pi, Inf), method="L-BFGS-B")
+
+		betainit2 <- c(rep(0,NCOL(x)),(res$mu+pi)%%(2*pi), res$kappa)
+		opt2 <- optim(par=betainit2, fn=function(x,y,z,res,wt)
+		{
+			nc <- NCOL(z)
+			mulinear <- linkinv(drop(z%*%(x[1L:nc])))
+			muhat <- x[nc + 1]
+			khat <- x[nc + 2]
+			llik <- -logLikelihood(khat = khat, muhat = muhat, mulinear=mulinear, weights=wt, y=y)
+			return(llik)
+		}
+		, y=y, z=x, res=res, wt=weights,
+						lower=c(rep(-Inf,NCOL(x)), -pi, 0.1), upper=c(rep(Inf,NCOL(x)), pi, Inf), method="L-BFGS-B")
+		
+		if(opt1$value < opt2$value)
+			beta <- drop(opt1$par[1L:NCOL(x)])
+		else
+			beta <- drop(opt2$par[1L:NCOL(x)])
+  }
   lastbeta <- beta + 1 + epsilon
   nobs <- length(y)
   conv <- FALSE
@@ -274,12 +311,7 @@ logLikelihood <- function(khat,muhat,mulinear,weights,y)
       muhat <- 0}
 
     khat <- A1inv(R)
-	if(khat>=1e5)
-	{
-		khat<- 1e5-1
-		conv <- TRUE
-		break
-	}
+
 #### Get g values
     g <- mu.eta(eta)
 #### Get u values
@@ -288,7 +320,23 @@ logLikelihood <- function(khat,muhat,mulinear,weights,y)
     lastbeta <- beta
     ustar <- uvector/(R*g)  ### R=A1(khat)
     fit <- lm.wfit(y=ustar,x=x,w=weights*(g^2))
+	 if(khat>=1e5)
+	 {
+		khat<- 1e5-1
+		conv <- TRUE
+		break
+	 }    
     beta <- fit$coefficients + beta
+	 if(any(is.na(beta)))
+	 {
+			conv <- FALSE
+			break
+	 }
+	 xgu <- t(x)%*%diag(weights)%*%diag(g)%*%uvector
+	 if(max(abs(xgu)) < 1e-7 & max(abs(beta-lastbeta)) > epsilon)
+	 {
+	 		beta <- (beta + lastbeta)/2
+	 }
     if (trace) {
       cat("At iteration ",iter," :","\n")
       cat("log likelihood ",logLikelihood(khat=khat,muhat=muhat,mulinear=mulinear,weights=weights,y=y),"\n")
@@ -316,7 +364,7 @@ logLikelihood <- function(khat,muhat,mulinear,weights,y)
   residuals <- y - fitted.values
 
 	deviance <- sum(family$dev.resids(y=y, mu=muhat, mulinear=mulinear, kappa=khat, wt=weights))
-	aic <- family$aic(dev=deviance,wt=weights,rank=df.residual)
+	aic <- family$aic(dev=deviance,rank=df.residual)
 	if(is.infinite(aic))
 		aic <- -Inf
 
@@ -324,8 +372,11 @@ logLikelihood <- function(khat,muhat,mulinear,weights,y)
   C0 <- sum(weights * cos(y))/sum(weights)
   R0 <- sqrt((S0^2+C0^2))
   k0 <- A1inv(R0)
-
-  null.deviance <- sum(family$dev.resids(y=y, mu=0, mulinear=0, kappa=k0, wt=weights))
+  mu0 <- 0
+  if (intercept) {
+      mu0 <- atan2(S0/R0,C0/R0)
+	}
+  null.deviance <- sum(family$dev.resids(y=y, mu=mu0, mulinear=0, kappa=k0, wt=weights))
   result <- list(coefficients=drop(beta), residuals=residuals, fitted.values=fitted.values, mu=muhat, kappa=khat, R=R, effects = fit$effects, rank = fit$rank, qr = fit$qr, family = family, linear.predictors = eta, deviance = deviance, aic = aic, null.deviance = null.deviance, iter = iter, weights = weights*g^2, prior.weights = weights, df.residual = df.residual, df.null = df.null, y = y, converged = conv)
   return(result)
 }
@@ -383,6 +434,8 @@ summary.clm <- function(object, correlation = FALSE, symbolic.cor = FALSE, ...)
         tvalue <- coef.p/s.err
 		  if(intercept){
 		    s.mu.err <- sqrt(dispersion/(object$df.residual+2))
+			 if(attr(object$mu, "circularp")$units=="degrees")
+				s.mu.err <- s.mu.err * 180/pi
         mu.tvalue <- object$mu/s.mu.err
  		  }
         dn <- c("Estimate", "Std. Error")
@@ -420,6 +473,8 @@ summary.clm <- function(object, correlation = FALSE, symbolic.cor = FALSE, ...)
 		  {
 			
 		    s.mu.err <- sqrt(dispersion/(object$df.residual+2))
+			 if(attr(object$mu, "circularp")$units=="degrees")
+				s.mu.err <- s.mu.err * 180/pi
 			  mu.tvalue <- object$mu/s.mu.err
 	 		  mu.pvalue <- 2 * pt(-abs(mu.tvalue), df.r)
 			  coef.table[1,] <- c(as.numeric(object$mu),s.mu.err,mu.tvalue,mu.pvalue)
@@ -466,7 +521,7 @@ print.summary.clm <-
 	paste(deparse(x$call), sep = "\n", collapse = "\n"), "\n\n", sep = "")
     cat("Residuals: \n")
     if(x$df.residual > 5) {
-      summre <- circular:::MinusPiPlusPiRad(quantile(x$deviance.resid,na.rm = TRUE))
+      summre <- as.numeric(minusPiPlusPi(quantile(x$deviance.resid,na.rm = TRUE)))
       x$deviance.resid <- setNames(summre, c("Min", "1Q", "Median", "3Q", "Max"))
     }
     xx <- zapsmall(x$deviance.resid, digits + 1L)
@@ -545,7 +600,6 @@ model.frame.clm <- function (formula, ...) {
 weights.clm <- function(object, type = c("prior", "working"), ...)
 {
     type <- match.arg(type)
-print("superpippo")
     res <- if(type == "prior") object$prior.weights else object$weights
     if(is.null(object$na.action)) res
     else naresid(object$na.action, res)
