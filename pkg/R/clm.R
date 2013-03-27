@@ -1,11 +1,14 @@
 
-clm.control <- function(epsilon = 1e-8, maxit = 25, trace = FALSE)
+clm.control <- function(epsilon = 1e-8, maxit = 25, nstart=2, trace = FALSE)
 {
     if(!is.numeric(epsilon) || epsilon <= 0)
 	stop("value of 'epsilon' must be > 0")
     if(!is.numeric(maxit) || maxit <= 0)
 	stop("maximum number of iterations must be > 0")
-    list(epsilon = epsilon, maxit = maxit, trace = trace)
+	if(!is.numeric(nstart) || nstart != round(nstart))
+	 stop("'nstart' must be an integer")
+   
+   list(epsilon = epsilon, maxit = maxit, nstart=nstart, trace = trace)
 }
 
 clm <- function(formula, family = vonMises, data, weights,
@@ -220,7 +223,9 @@ clm.fit <- function(x, y, weights = rep(1, nobs), start = NULL, etastart = NULL,
 						 rank = 0,
 						 df.residual = df.residual,
 						 df.null = nobs - as.numeric(intercept),
-                   converged = TRUE)
+                   converged = TRUE,
+                   weights = weights,
+                   prior.weights = weights)
   } else {
     eta <- if (!is.null(etastart)) etastart
               else if (!is.null(start))
@@ -234,7 +239,7 @@ clm.fit <- function(x, y, weights = rep(1, nobs), start = NULL, etastart = NULL,
     mulinear <- linkinv(eta)
     if (!(validmu(mulinear) && valideta(eta)))
       stop("cannot find valid starting values: please specify some", call. = FALSE)
-    result <- ClmLocationCircularRad(x=x,y=y,weights=weights,offset=offset,beta=start,eta,mulinear,family=family,epsilon=control$epsilon,maxit=control$maxit,trace=control$trace,intercept=intercept)
+    result <- ClmLocationCircularRad(x=x,y=y,weights=weights,offset=offset,beta=start,eta,mulinear,family=family,epsilon=control$epsilon,maxit=control$maxit,trace=control$trace,intercept=intercept, nstart=control$nstart)
   }
     
   class(result) <- "clm"
@@ -246,7 +251,7 @@ clm.fit <- function(x, y, weights = rep(1, nobs), start = NULL, etastart = NULL,
   return(result)
 }
 
-ClmLocationCircularRad <- function(x, y, weights, offset, beta, eta, mulinear, family, epsilon, maxit, trace, intercept=TRUE) {
+ClmLocationCircularRad <- function(x, y, weights, offset, beta, eta, mulinear, family, epsilon, maxit, trace, intercept=TRUE, nstart) {
       
 logLikelihood <- function(khat,muhat,mulinear,weights,y)
 {
@@ -261,40 +266,46 @@ logLikelihood <- function(khat,muhat,mulinear,weights,y)
   mu.eta <- family$mu.eta
   if (is.null(beta))
   {
-  		res <- mle.vonmises(circular(y))
-  		if(!is.finite(res$kappa))
-  			res$kappa <- 1e5-1L
-  		betainit1 <- c(rep(0,NCOL(x)), res$mu, res$kappa)
-		opt1 <- optim(par=betainit1, fn=function(x,y,z,wt)
-		{
-			nc <- NCOL(z)
-			mulinear <- linkinv(drop(z%*%(x[1L:nc])))
-			muhat <- x[nc + 1]
-			khat <- x[nc + 2]
-			llik <- -logLikelihood(khat = khat, muhat = muhat, mulinear=mulinear, weights=wt, y=y)
-			return(llik)
-		}
+  		res <- MlevonmisesRad(y)
+  		if(!is.finite(res[4L]))
+  			res[4L] <- 1e5-1L
+  		if(nstart > 2)
+  		{
+	  		stepstart <- pi/(nstart+1)
+  			sequence <- seq(from=stepstart, to=pi - stepstart, by=stepstart)
+	  		mustart <- res[1L]  +  c(0,sequence, -sequence, pi)	
+  		}
+  		else
+  		{
+  			mustart <- c(0,pi) + res[1L] 
+  		}
+  		mustart <- MinusPiPlusPiRad(mustart)
+  		opt2 <- list(value=Inf)
+  		for(i in 1L:nstart)
+  		{
+  		   betainit <- c(rep(0,NCOL(x)), mustart[i], res[4L])
+  			opt1 <- optim(par=betainit, fn=function(x,y,z,wt)
+			{
+				nc <- NCOL(z)
+				mulinear <- linkinv(drop(z%*%(x[1L:nc])))
+				muhat <- x[nc + 1]
+				khat <- x[nc + 2]
+				llik <- -logLikelihood(khat = khat, muhat = muhat, mulinear=mulinear, weights=wt, y=y)
+				return(llik)
+			}
 		, y=y, z=x, wt=weights,
 						lower=c(rep(-Inf,NCOL(x)), -pi, 0.1), upper=c(rep(Inf,NCOL(x)), pi, Inf), method="L-BFGS-B")
+						
+				if(opt1$value < opt2$value)
+					beta <- drop(opt1$par[1L:NCOL(x)])
+				else
+					beta <- drop(opt2$par[1L:NCOL(x)])
+				opt2 <- opt1
+  		}
 
-		betainit2 <- c(rep(0,NCOL(x)),(res$mu+pi)%%(2*pi), res$kappa)
-		opt2 <- optim(par=betainit2, fn=function(x,y,z,res,wt)
-		{
-			nc <- NCOL(z)
-			mulinear <- linkinv(drop(z%*%(x[1L:nc])))
-			muhat <- x[nc + 1]
-			khat <- x[nc + 2]
-			llik <- -logLikelihood(khat = khat, muhat = muhat, mulinear=mulinear, weights=wt, y=y)
-			return(llik)
-		}
-		, y=y, z=x, res=res, wt=weights,
-						lower=c(rep(-Inf,NCOL(x)), -pi, 0.1), upper=c(rep(Inf,NCOL(x)), pi, Inf), method="L-BFGS-B")
 		
-		if(opt1$value < opt2$value)
-			beta <- drop(opt1$par[1L:NCOL(x)])
-		else
-			beta <- drop(opt2$par[1L:NCOL(x)])
   }
+  
   lastbeta <- beta + 1 + epsilon
   nobs <- length(y)
   conv <- FALSE
