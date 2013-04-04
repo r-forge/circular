@@ -54,12 +54,16 @@ export(
  circular, conversion.circular, circularp, "circularp<-", is.circular,
 # file circular.colors.R
  circular.colors,
-# clm.R,
+# file clm.R,
  clm,
  clm.fit,
  summary.clm,
  model.frame.clm,
  clm.control,
+ 
+ #file clm2.R
+ clm2,
+ clm.fit2,
 # file coord2rad.R
  coord2rad,
 # file cor.circular.R
@@ -88,6 +92,8 @@ export(
  make.circular.link,
 # file meandeviation.R
  meandeviation,
+# file minuspipluspi.R
+ minusPiPlusPi,
 # file mle.vonmises.R
  mle.vonmises,
 # file mle.vonmises.bootstrap.ci.R
