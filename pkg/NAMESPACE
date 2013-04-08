@@ -61,9 +61,9 @@ export(
  model.frame.clm,
  clm.control,
  
- #file clm2.R
- clm2,
- clm.fit2,
+ ## #file clm2.R
+ ## clm2,
+ ## clm.fit2,
 # file coord2rad.R
  coord2rad,
 # file cor.circular.R
