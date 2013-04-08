@@ -3,10 +3,10 @@
 #   make.circular.link function                                     #
 #   Author: Claudio Agostinelli and Alessandro Gagliardi            #
 #   Email: claudio@unive.it                                         #
-#   Date: January, 04, 2013                                         #
+#   Date: April, 08, 2013                                           #
 #   Copyright (C) 2013 Claudio Agostinelli and Alessandro Gagliardi #
 #                                                                   #
-#   Version 0.1                                                     #
+#   Version 0.1-2                                                   #
 #####################################################################
 
 make.circular.link <- function (link) {
@@ -36,7 +36,7 @@ make.circular.link <- function (link) {
     identity = {
       linkfun <- function(mu) mu
       linkinv <- function(eta) eta
-      mu.eta <- function(eta) 1
+      mu.eta <- function(eta) rep(1, length(eta))
       valideta <- function(eta) TRUE
     },           
     ## else :
