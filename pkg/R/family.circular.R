@@ -35,12 +35,13 @@ vonMises <- function (link = "tan") {
       dev + 2*rank
     },
     mu.eta = stats$mu.eta,
-    initialize = expression({
-      n <- rep.int(1, nobs)
-      if(is.null(etastart) && is.null(start) &&
-        is.null(mustart) && (family$link == "log" && any(y <= 0)))
-        stop("cannot find valid starting values: please specify some")
-        mustart <- y - circular:::MeanCircularRad(y)}),
+    ## initialize = expression({
+    ##   n <- rep.int(1, nobs)
+    ##   if(is.null(start) && is.null(mustart) && is.null(kappastart)) {
+    ## It is not used and not implemented yet!
+
+    ##   }
+    ## }),
     validmu = function(mu) TRUE,
     valideta = stats$valideta
   ),
