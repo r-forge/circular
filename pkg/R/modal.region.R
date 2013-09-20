@@ -223,7 +223,7 @@ area <- function(x, object, ...) {
 #x: is a matrix with two columns
 #object: an object from density.circular
 #...: values passed to integrate function
-  den <- approxfun(x=object$x, y=object$y)
+  den <- approxfun(x=c(object$x-2*pi,object$x,object$x+2*pi), y=rep(object$y, 3))
   int <- function(x) integrate(f=den, lower=x[1], upper=x[2], ...)$value
   areas <- apply(x, 1, int)
   tot <- sum(areas)

@@ -1,3 +1,15 @@
+#############################################################
+#                                                           #
+#   quantile.circular function                              #
+#   Author: Claudio Agostinelli and Alessandro Gagliardi    #
+#   Email: claudio@unive.it                                 #
+#   Date: August, 26, 2013                                  #
+#   Copyright (C) 2013 Claudio Agostinelli                  #
+#                                                           #
+#   Version 0.2-1                                           #
+#############################################################
+
+
 quantile.circular <- function(x, probs = seq(0, 1, 0.25), na.rm=FALSE, names = TRUE, type = 7, ...) {
    if (na.rm)
       x <- x[!is.na(x)]
@@ -22,6 +34,8 @@ quantile.circular <- function(x, probs = seq(0, 1, 0.25), na.rm=FALSE, names = T
 }
 
 
+## quantile.default becomes quantile
+## 20130826
 QuantileCircularRad <- function(x, probs = seq(0, 1, 0.25), names = TRUE, type = 7, ...) {
    circularmedian <- MedianCircularRad(x)
    if(is.na(circularmedian))
@@ -29,6 +43,6 @@ QuantileCircularRad <- function(x, probs = seq(0, 1, 0.25), names = TRUE, type =
    attr(circularmedian, "medians") <- NULL
    tx <- (x-circularmedian)%%(2*pi)
    tx <- MinusPiPlusPiRad(tx)
-   circularQuantile <- quantile.default(x=tx, probs=probs, names=names, type=type, ...)
+   circularQuantile <- quantile(x=tx, probs=probs, names=names, type=type, ...)
    return((circularQuantile + circularmedian)%%(2*pi))   
 }
