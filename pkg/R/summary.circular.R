@@ -29,7 +29,7 @@ summary.circular <- function(object, digits = max(3, getOption("digits") -  3), 
     nas <- is.na(object)
     object <- object[!nas]
     n <- length(object)
-	 qq <- MinusPiPlusPiRad(quantile.circular(object))
+	 qq <- minusPiPlusPi(quantile.circular(object))
 	 qq <- signif(c(n, qq[1L:3L], mean.circular(object), qq[4L:5L], rho.circular(object)), digits)
     names(qq) <- c("n", "Min.", "1st Qu.", "Median", "Mean", "3rd Qu.", "Max.",  "Rho")
     if(any(nas))
