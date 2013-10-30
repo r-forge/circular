@@ -1,3 +1,14 @@
+#############################################################
+#
+#   clm.* and related functions
+#   Author: Claudio Agostinelli and Alessandro Gagliardi
+#   E-mail: claudio@unive.it
+#   Date: October, 30, 2013
+#   Version: 0.1
+#
+#   Copyright (C) 2013 Claudio Agostinelli and Alessandro Gagliardi
+#
+#############################################################
 
 clm.control <- function(epsilon = 1e-8, maxit = 50, nstart=2, trace = FALSE) {
   if (!is.numeric(epsilon) || epsilon <= 0)
@@ -88,27 +99,15 @@ clm <- function(formula, mu.est=TRUE, family = vonMises, data, weights,
   mustart <- model.extract(mf, "mustart")
   kappastart <- model.extract(mf, "kappastart")
 
-  ## We want to set the name on this call and the one below for the
-  ## sake of messages from the fitter function
   fit <- eval(call(if(is.function(method)) "method" else method,
     x = X, y = Y, weights = weights, start = start,
     mustart = mustart, kappastart = kappastart, offset = offset,
     family = family, control = control, mu.est = mu.est))
 
-  ## This calculated the null deviance from the intercept-only model
-  ## if there is one, otherwise from the offset-only model.
-  ## We need to recalculate by a proper fit if there is intercept and
-  ## offset.
-  ##
-  ## The clm.fit calculation could be wrong if the link depends on the
-  ## observations, so we allow the null deviance to be forced to be
-  ## re-calculated by setting an offset (provided there is an intercept).
-  ## Prior to 2.4.0 this was only done for non-zero offsets.
   if (length(offset) && mu.est) {
     fit2 <- eval(call(if(is.function(method)) "method" else method,
       x = matrix(,NROW(Y), 0L), y = Y, weights = weights, offset = offset,
       family = family, control = control, mu.est = mu.est))
-  ## That fit might not have converged ....
     if (!fit2$converged)
       warning("fitting to calculate the null deviance did not converge -- increase 'maxit'?")
     fit$null.deviance <- fit2$deviance
@@ -183,14 +182,6 @@ clm.fit <- function(x, y, mu.est=TRUE, weights = rep(1, nobs),
   unless.null <- function(x, if.null) if(is.null(x)) if.null else x
   valideta <- unless.null(family$valideta, function(eta) TRUE)
   validmu  <- unless.null(family$validmu,  function(mu) TRUE)
-  #if (is.null(mustart)) {
-## calculates mustart
-  #  eval(family$initialize)
-  #} else {
-  #  mukeep <- mustart
-  #  eval(family$initialize)
-  #  mustart <- mukeep
-  #}
   if(!is.null(mustart) & mu.est) {
     mustart <- conversion.circular(mustart, units = "radians", zero = 0, rotation = "counter", modulo = "2pi")
     attr(mustart, "circularp") <- attr(mustart, "class") <- NULL 
@@ -294,23 +285,19 @@ ClmLocationCircularRad <- function(x, y, mu.est=TRUE, weights, offset, beta, mu,
     }, y=y, z=x, wt=weights, lower=c(rep(-Inf,NCOL(x)), -pi, 0.1), upper=c(rep(Inf,NCOL(x)), pi, Inf), method="L-BFGS-B"), error=function(e)
 {
         return(list(value=0, par=rep(0,NCOL(x))))
-
 })
-
-      if (opt1$value < opt2$value) {
-        beta <- drop(opt1$par[1L:NCOL(x)])
-      } else {
-        beta <- drop(opt2$par[1L:NCOL(x)])
-      }
-      opt2 <- opt1
-
-  } 
+    if (opt1$value < opt2$value) {
+      beta <- drop(opt1$par[1L:NCOL(x)])
+    } else {
+      beta <- drop(opt2$par[1L:NCOL(x)])
+    }
+    opt2 <- opt1
+  }
   
   lastbeta <- beta + 1 + epsilon
   nobs <- length(y)
   conv <- FALSE
   lll <- 0
-#sink("loglik")
   for (iter in 1L:maxit) {
 #### Get muhat and khat
     eta <- drop(x%*%beta) + offset
@@ -324,12 +311,11 @@ ClmLocationCircularRad <- function(x, y, mu.est=TRUE, weights, offset, beta, mu,
       muhat <- 0
 
     khat <- A1inv(R)
-
 #### Get g values
     g <- mu.eta(eta)
 #### Get u values
     uvector <- sin(y-muhat-mulinear)
-#### Update Step    
+#### Update Step
     lastbeta <- beta
     ustar <- uvector/(R*g)  ### R=A1(khat)
     fit <- lm.wfit(y=ustar,x=x,w=weights*(g^2))
@@ -346,9 +332,6 @@ ClmLocationCircularRad <- function(x, y, mu.est=TRUE, weights, offset, beta, mu,
     }
     if (max(abs(xgu)) < 1e-7 & max(abs(beta-lastbeta)) > epsilon)
       beta <- (beta + lastbeta)/2
-      #lll[iter] <- logLikelihood(khat=khat,muhat=muhat,mulinear=mulinear,weights=weights,y=y)
-        #  cat(iter,"log likelihood ",lll[iter],"\n")    
-
     if (trace) {
       cat("At iteration ",iter," :","\n")
       cat("log likelihood ",logLikelihood(khat=khat,muhat=muhat,mulinear=mulinear,weights=weights,y=y),"\n")
@@ -362,8 +345,6 @@ ClmLocationCircularRad <- function(x, y, mu.est=TRUE, weights, offset, beta, mu,
     } else
       conv <- FALSE
   }
-#sink()
-  #assign("lll", lll, envir=.GlobalEnv)
   df.residual <- nobs - fit$rank - as.numeric(mu.est)
   df.null <- df.residual + fit$rank
   aic <- NA
@@ -392,9 +373,7 @@ ClmLocationCircularRad <- function(x, y, mu.est=TRUE, weights, offset, beta, mu,
   return(result)
 }
 
-
-print.clm <- function(x, digits = max(3L, getOption("digits") - 3L), ...) {
-  
+print.clm <- function(x, digits = max(3L, getOption("digits") - 3L), ...) {  
   cat("\nCall:  ",
     paste(deparse(x$call), sep = "\n", collapse = "\n"), "\n\n", sep = "")
   if (length(coef(x)) | x$mu.est) {
@@ -424,11 +403,10 @@ print.clm <- function(x, digits = max(3L, getOption("digits") - 3L), ...) {
   invisible(x)
 }
 
-summary.clm <- function(object, correlation = FALSE, symbolic.cor = FALSE, ...)
-{
+summary.clm <- function(object, correlation = FALSE, symbolic.cor = FALSE, ...) {
   df.r <- object$df.residual
   dispersion <- 1/(object$kappa*object$R)
-    ## calculate scaled and unscaled covariance matrix
+  ## calculate scaled and unscaled covariance matrix
   intercept <- attr(object$terms, "intercept")
 
   p <- object$rank
@@ -447,7 +425,6 @@ summary.clm <- function(object, correlation = FALSE, symbolic.cor = FALSE, ...)
       x$qr
     }
     Qr <- qr.clm(object)
-    ## WATCHIT! doesn't this rely on pivoting not permuting 1L:p? -- that's quaranteed
     coef.p <- object$coefficients[Qr$pivot[p1]]
     covmat.unscaled <- chol2inv(Qr$qr[p1,p1,drop=FALSE])
     dimnames(covmat.unscaled) <- list(names(coef.p),names(coef.p))
@@ -597,35 +574,35 @@ print.summary.clm <- function (x, digits = max(3L, getOption("digits") - 3L),
 }
 
 model.frame.clm <- function (formula, ...) {
-    dots <- list(...)
-    nargs <- dots[match(c("data", "na.action", "subset"), names(dots), 0L)]
-    if (length(nargs) || is.null(formula$model)) {
-	fcall <- formula$call
-	fcall$method <- "model.frame"
-	fcall[[1L]] <- as.name("clm")
-        fcall[names(nargs)] <- nargs
-#	env <- environment(fcall$formula)  # always NULL
-        env <- environment(formula$terms)
-	if (is.null(env)) env <- parent.frame()
-	eval(fcall, env)
-    }
-    else formula$model
+  dots <- list(...)
+  nargs <- dots[match(c("data", "na.action", "subset"), names(dots), 0L)]
+  if (length(nargs) || is.null(formula$model)) {
+    fcall <- formula$call
+    fcall$method <- "model.frame"
+    fcall[[1L]] <- as.name("clm")
+    fcall[names(nargs)] <- nargs
+##  env <- environment(fcall$formula)  # always NULL
+    env <- environment(formula$terms)
+    if (is.null(env))
+      env <- parent.frame()
+    eval(fcall, env)
+  } else formula$model
 }
 
-weights.clm <- function(object, type = c("prior", "working"), ...)
-{
-    type <- match.arg(type)
-    res <- if(type == "prior") object$prior.weights else object$weights
-    if(is.null(object$na.action)) res
-    else naresid(object$na.action, res)
+weights.clm <- function(object, type = c("prior", "working"), ...) {
+  type <- match.arg(type)
+  res <- if(type == "prior") object$prior.weights else object$weights
+  if(is.null(object$na.action))
+    res
+  else
+    naresid(object$na.action, res)
 }
 
-formula.clm <- function(x, ...)
-{
-    form <- x$formula
-    if( !is.null(form) ) {
-        form <- formula(x$terms) # has . expanded
-        environment(form) <- environment(x$formula)
-        form
-    } else formula(x$terms)
+formula.clm <- function(x, ...) {
+  form <- x$formula
+  if ( !is.null(form) ) {
+    form <- formula(x$terms) # has . expanded
+    environment(form) <- environment(x$formula)
+    form
+  } else formula(x$terms)
 }
