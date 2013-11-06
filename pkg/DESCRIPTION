@@ -2,7 +2,7 @@ Title: Circular Statistics
 LazyLoad: yes
 LazyData: yes
 Package: circular
-Version: 0.4-6
+Version: 0.4-7
 Author: Ulric Lund <ulund@calpoly.edu>, Claudio Agostinelli <claudio@unive.it>
 Maintainer: Claudio Agostinelli <claudio@unive.it>
 Date: 2013-11-06
