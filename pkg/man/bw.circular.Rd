@@ -20,7 +20,8 @@ bw.cv.mse.circular(x, lower=NULL, upper=NULL, tol = 1e-4,
 bw.cv.ml.circular(x, lower=NULL, upper=NULL, tol = 1e-4,
   kernel = c("vonmises", "wrappednormal"), K = NULL, min.k = 10)
 
-bw.nrd.circular(x, lower=NULL, upper=NULL, kappa.est=c("ML","trigmoments"), kappa.bias=FALSE, P=3)
+bw.nrd.circular(x, lower=NULL, upper=NULL,
+  kappa.est=c("ML","trigmoments"), kappa.bias=FALSE, P=3)
 }
 
 \arguments{

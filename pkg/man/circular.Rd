@@ -10,7 +10,8 @@ The function \code{circular} is used to create circular objects. \code{as.circul
 \usage{
 circular(x, type = c("angles", "directions"), 
   units = c("radians", "degrees", "hours"),
-  template = c("none", "geographics", "clock12", "clock24"), modulo = c("asis", "2pi", "pi"), 
+  template = c("none", "geographics", "clock12", "clock24"),
+  modulo = c("asis", "2pi", "pi"), 
   zero = 0, rotation = c("counter", "clock"), names)
 \method{as}{circular}(x, control.circular=list(), ...)
 \method{is}{circular}(x)

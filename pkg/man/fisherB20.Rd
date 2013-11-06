@@ -30,7 +30,8 @@ data(fisherB20c)
 par(mfcol=c(1,3))
 plot(fisherB20c$theta, xlab=expression(theta))
 boxplot(fisherB20c$x, xlab="x")
-plot(c(fisherB20$x, fisherB20$x), c(fisherB20$theta, fisherB20$theta+360), xlab="x", ylab=expression(theta))
+plot(c(fisherB20$x, fisherB20$x), c(fisherB20$theta,
+  fisherB20$theta+360), xlab="x", ylab=expression(theta))
 
 }
 

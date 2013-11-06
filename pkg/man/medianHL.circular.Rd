@@ -1,21 +1,31 @@
 \name{medianHL.circular}
 \alias{medianHL.circular}
+\alias{medianHL}
+\alias{medianHL.default}
 \title{
-  Median Direction using Hodges-Lehmann estimate.
+  Median using Hodges-Lehmann estimate.
 }
 \description{
-  Sample median direction measure for a vector of circular data using Hodges-Lehmann estimate.
+  Sample median for a vector of data using Hodges-Lehmann estimate
+  and Sample median direction measure for a vector of circular data
+  using Hodges-Lehmann estimate.
 }
 \usage{
-\method{medianHL}{circular}(x, method=c("HL1","HL2","HL3"), prop=NULL, na.rm=FALSE)
+medianHL(x, na.rm=FALSE, ...)
+\method{medianHL}{default}(x, na.rm=FALSE,
+       method=c("HL1","HL2","HL3"), prop=NULL)
+\method{medianHL}{circular}(x, na.rm=FALSE,
+       method=c("HL1","HL2","HL3"), prop=NULL)
 }
 \arguments{
-  \item{x}{a vector. The object is coerced to class \code{\link{circular}}.}
-  \item{method}{The method used to calculate median.}
+  \item{x}{a vector. For the function \code{medianHL.circular} the object is
+    coerced to class \code{\link{circular}}.}
+  \item{na.rm}{logical, indicating if \code{\link{NA}}'s should be omitted.}
+  \item{method}{The method used to calculate the median, see details below.}
   \item{prop}{The proportion of pairs that are sampled. If \code{NULL}
     all combinations are used. It must be a number in the interval (0,1)
     or \code{NULL}.}
-  \item{na.rm}{logical, indicating if \code{\link{NA}}'s should be omitted.}
+  \item{...}{further arguments passed to the next method.}
 }
 \details{
 The algorithm is as follows:
@@ -45,10 +55,10 @@ Preferred Direction for Circular Data', Virginia Tech (2002) pag. 27-28 and 46-4
 }
 
 \value{
-  The median is returned as an object of class \code{circular} with the
-  attribute given by those of \code{x}. An attributes \code{medians}
-  reports all the averages which are minimizer of the circular median
-  function.   
+  For \code{medianHL.circular} the median is returned as an object of
+  class \code{circular} with the attribute given by those of \code{x}.
+  An attributes \code{medians} reports all the averages which are
+  minimizer of the circular median function.   
 }
 
 \references{
