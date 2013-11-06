@@ -6,7 +6,9 @@ importFrom(stats, density)
 importFrom(stats, quantile)
 importFrom(stats, median)
 importFrom(stats, weights)
+importFrom(stats, runif)
 importFrom(utils, packageDescription)
+importFrom(boot, boot)
 
 #Export directive
 
@@ -54,16 +56,13 @@ export(
  circular, conversion.circular, circularp, "circularp<-", is.circular,
 # file circular.colors.R
  circular.colors,
-# file clm.R,
- clm,
- clm.fit,
- summary.clm,
- model.frame.clm,
- clm.control,
- 
- ## #file clm2.R
- ## clm2,
- ## clm.fit2,
+## # file clm.R,
+##  clm,
+##  clm.fit,
+##  summary.clm,
+##  model.frame.clm,
+##  clm.control,
+  
 # file coord2rad.R
  coord2rad,
 # file cor.circular.R
@@ -76,20 +75,18 @@ export(
  dist.circular,
 # file equal.kappa.test.R
  equal.kappa.test,
-# file family.circular.R
- vonMises,      
+## # file family.circular.R
+##  vonMises,      
 # file heatmap.circular.R
  heatmap.circular,
 # file kuiper.test.R
  kuiper.test,
-# file make.circular.link.R
- make.circular.link,
 # file lm.circular.R
  lm.circular,
 # file lsfit.circle.R
  lsfit.circle,
-# file make.circular.link.R
- make.circular.link,
+## # file make.circular.link.R
+##  make.circular.link,
 # file meandeviation.R
  meandeviation,
 # file minuspipluspi.R
@@ -260,8 +257,8 @@ S3method(c, circular)
 #density
 S3method(density, circular)
 
-#formula
-S3method(formula, clm)
+## #formula
+## S3method(formula, clm)
 
 #lines
 S3method(lines, circular)
@@ -274,7 +271,6 @@ S3method(lines, modal.region.circular)
 S3method(mean, circular)
 
 #median
-####S3method(median, default)
 S3method(median, circular)
 
 #print
