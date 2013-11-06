@@ -12,10 +12,12 @@
 #		Directional statistics, Mardia, K.V. and Jupp, P.E. (2000)
 #		p. 135
 #
-# (c) Copyright 2010-211 Jean-Olivier Irisson
+# (c) Copyright 2010-2011 Jean-Olivier Irisson
 #     GNU General Public License, v.3
 #
 #------------------------------------------------------------
+
+# added drop=TRUE 20131106 Claudio
 
 # Generic function
 watson.williams.test <- function(x, ...) {
@@ -31,7 +33,7 @@ watson.williams.test.default <- function(x, group, ...) {
 	# check arguments
 	ok <- complete.cases(x, group)
 	x <- x[ok]
-	group <- group[ok]
+	group <- group[ok,drop=TRUE]
 	if (length(x)==0 | length(table(group)) < 2) {
 		stop("No observations or no groups (at least after removing missing values)")
 	}
