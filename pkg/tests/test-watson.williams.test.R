@@ -7,7 +7,7 @@ suppressMessages(library("circular"))
 # ?watson.williams.test
 
 angles <- circular( c(rep(c(-20, -10, 0), c(1,7,2)), rep(c(-10, 0, 10, 20), c(3,3,3,1))), units="degrees", template="geographics")
-group = rep(c("exp", "control"), each=10)
+group <- factor(rep(c("exp", "control"), each=10))
 
 # expect this:
 # F = 8.7329, df1 = 1, df2 = 18, p-value = 0.003108
@@ -42,6 +42,7 @@ watson.williams.test(angles ~ group, xd)
 
 # Test NAs
 angles[length(angles)+1] <- NA
+levels(group) <- c("exp", "control", "bar")
 group[length(group)+1] <- "bar"
 xn <- angles
 watson.williams.test(xn, group)

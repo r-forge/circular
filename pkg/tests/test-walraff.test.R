@@ -7,13 +7,13 @@ suppressMessages(library("circular"))
 # ?wallraff.test
 
 angles <- circular(c(70, 80, 80, 85, 85, 90, 95, 95, 5, 5, 15, 55, 55, 65, 105, 120, 340), units="degrees", template="geographics")
-group = c(rep("control", 8), rep("experimental", 9))
+group <- factor(c(rep("control", 8), rep("experimental", 9)))
 
 homeDir <- 40
 
 # expect:
 # W = 2 (in wilcox.test) and p < 0.01 for the dispersion test
-# W = 26 (in wilcox test) and p > 0.05 for the homing test
+# W = 26 (in wilcox.test) and p > 0.05 for the homing test
 
 xn <- angles
 wallraff.test(xn, group)
