@@ -239,7 +239,7 @@ ClmLocationCircularRad <- function(x, y, mu.est=TRUE, weights, offset, start, mu
     if (khat < 100000)
       llik <- -sum(weights)*(log(2*pi)+log(besselI(khat,nu=0,expon.scaled=TRUE))+khat) + sum(weights * khat * cos(y-muhat-mulinear))
     else
-      llik <- ifelse(all((y-muhat-mulinear)==0), sqrt(Machine$double.xmax), -sqrt(.Machine$double.xmax))
+      llik <- ifelse(all((y-muhat-mulinear)==0), sqrt(.Machine$double.xmax), -sqrt(.Machine$double.xmax))
     return(llik)
   }
 
@@ -336,7 +336,7 @@ ClmLocationCircularStartRad <- function(x, y, mu.est, weights, offset, start, mu
     if (khat < 100000)
       llik <- -sum(weights)*(log(2*pi)+log(besselI(khat,nu=0,expon.scaled=TRUE))+khat) + sum(weights * khat * cos(y-muhat-mulinear))
     else
-      llik <- ifelse(all((y-muhat-mulinear)==0), sqrt(Machine$double.xmax), -sqrt(.Machine$double.xmax))
+      llik <- ifelse(all((y-muhat-mulinear)==0), sqrt(.Machine$double.xmax), -sqrt(.Machine$double.xmax))
     return(llik)
   }
 

@@ -11,7 +11,7 @@
 #   Date: September, 11, 2012                                  
 #   Version: 0.4                                          
 #                                                           
-#   Copyright (C) 2012 Claudio Agostinelli                  
+#   Copyright (C) 2012 Claudio Agostinelli and Alessandro Gagliardi
 #                                                           
 #############################################################
 

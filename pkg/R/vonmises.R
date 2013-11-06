@@ -10,10 +10,10 @@
 #   rvonmises function                                      #
 #   Author: Claudio Agostinelli                             #
 #   Email: claudio@unive.it                                 #
-#   Date: March, 31, 2009                                   #
-#   Copyright (C) 2009 Claudio Agostinelli                  #
+#   Date: November, 06, 2013                                #
+#   Copyright (C) 2013 Claudio Agostinelli                  #
 #                                                           #
-#   Version 0.2-5                                           #
+#   Version 0.2-6                                           #
 #############################################################
 
 rvonmises <- function(n, mu, kappa, control.circular=list()) {
@@ -90,7 +90,7 @@ RvonmisesRad <- function(n, mu, kappa) {
        as.double(kappa),
        PACKAGE="circular")[[1]] %% (2 * pi)
    } else {
-     vm <- stats:::runif(n=n, min=0, max=2*pi)
+     vm <- stats::runif(n=n, min=0, max=2*pi)
    }
    return(vm)
 }

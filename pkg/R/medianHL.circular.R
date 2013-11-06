@@ -1,4 +1,16 @@
-medianHL.circular <- function(x, method=c("HL1","HL2","HL3"), prop=NULL, na.rm=FALSE) {
+#############################################################
+#                                                           
+#   median.circular function                                  
+#   Author: Claudio Agostinelli and Alessandro Gagliardi
+#   E-mail: claudio@unive.it                                
+#   Date: October, 12, 2012                                  
+#   Version: 0.4                                          
+#                                                           
+#   Copyright (C) 2012 Claudio Agostinelli and Alessandro Gagliardi
+#                                                           
+#############################################################
+
+medianHL.circular <- function(x, na.rm=FALSE, method=c("HL1","HL2","HL3"), prop=NULL) {
    method <- match.arg(method)
    if (!is.null(prop))
       if (prop <= 0 | prop >=1)
@@ -39,4 +51,3 @@ MedianHLCircularRad <- function(x, method, prop) {
    }
    return(mediancirc)
 }
-
