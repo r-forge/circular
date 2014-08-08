@@ -57,11 +57,11 @@ export(
 # file circular.colors.R
  circular.colors,
 ## # file clm.R,
-##  clm,
-##  clm.fit,
-##  summary.clm,
-##  model.frame.clm,
-##  clm.control,
+ clm,
+ clm.fit,
+ summary.clm,
+ model.frame.clm,
+ clm.control,
   
 # file coord2rad.R
  coord2rad,
@@ -76,7 +76,7 @@ export(
 # file equal.kappa.test.R
  equal.kappa.test,
 ## # file family.circular.R
-##  vonMises,      
+ vonMises,      
 # file heatmap.circular.R
  heatmap.circular,
 # file kuiper.test.R
