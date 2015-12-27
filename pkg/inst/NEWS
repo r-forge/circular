@@ -1,5 +1,8 @@
 Library circular
 =================
+Version 0.4-91
+Fixed a bug in heatmap.circular
+
 Version 0.4-8 2014/08/08
 minusPiPlusPi now accepts missing values
 Added the start.sep argument to plot.circular and points.circular. Also the internal function PointsCircularRad has changed the API.
