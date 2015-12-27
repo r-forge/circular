@@ -99,6 +99,10 @@ export(
  mle.wrappedcauchy,
 # file mle.wrappednormal.R
  mle.wrappednormal,
+# file intersect.modal.region.R    
+ intersect.modal.region,
+ intersect.modal.region.default,
+ intersect.modal.region.circular,    
 # file modal.region.R
  modal.region,
  modal.region.default,
