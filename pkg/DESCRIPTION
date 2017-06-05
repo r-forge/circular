@@ -2,11 +2,11 @@ Title: Circular Statistics
 LazyLoad: yes
 LazyData: yes
 Package: circular
-Version: 0.4-91
+Version: 0.4-92
 Author: Ulric Lund <ulund@calpoly.edu>, Claudio Agostinelli <claudio.agostinelli@unitn.it>
 Maintainer: Claudio Agostinelli <claudio.agostinelli@unitn.it>
-Date: 2015-11-09
+Date: 2016-12-11
 Depends: R (>= 3.0.0)
-Imports: boot
+Imports: boot, mvtnorm
 Description: Circular Statistics, from "Topics in circular Statistics" (2001) S. Rao Jammalamadaka and A. SenGupta, World Scientific.
 License: GPL-2

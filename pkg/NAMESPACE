@@ -10,6 +10,8 @@ importFrom(stats, runif)
 importFrom(stats, weighted.mean)
 importFrom(utils, packageDescription)
 importFrom(boot, boot)
+importFrom(mvtnorm, rmvnorm)
+importFrom(mvtnorm, dmvnorm)
 
 #Export directive
 
@@ -111,6 +113,10 @@ export(
  plot.edf, lines.edf,
 # file pp.plot.R
  pp.plot,
+# file pp.unif.plot.R
+ pp.unif.plot,
+# file projectednormal.R
+ rpnorm, dpnorm, 
 # file quantile.circular.R
  quantile.circular,
 # file rad.R
