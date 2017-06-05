@@ -345,6 +345,230 @@ ClmLocationCircularRad <- function(x, y, mu.est=TRUE, weights, offset, start, mu
   return(result)
 }
 
+ClmLocationCircularRidgeRad <- function(x, y, lambda=0, mu.est=TRUE, weights, offset, start, mustart, kappastart, family, epsilon, maxit, trace, nstart, initsmooth) {
+      
+  logLikelihood <- function(khat,muhat,mulinear,weights,y) {
+    if (khat < 100000)
+      llik <- -sum(weights)*(log(2*pi)+log(besselI(khat,nu=0,expon.scaled=TRUE))+khat) + khat * sum(weights * cos(y-muhat-mulinear))
+    else
+      llik <- ifelse(all((y-muhat-mulinear)==0), sqrt(.Machine$double.xmax), -sqrt(.Machine$double.xmax))
+    return(llik)
+  }
+
+  linkinv <- family$linkinv
+  mu.eta <- family$mu.eta
+  if (is.null(start)) {
+    if(nstart == 0L)
+      stop("'nstart' must be positive if 'start' is null")
+  ### initial value for beta
+    beta <- ClmLocationCircularStartRad(x=x,y=y,mu.est=mu.est,weights=weights,offset=offset,start=start,mustart=mustart,kappastart=kappastart,family=family,nstart=nstart,smooth=initsmooth)$beta
+  } else {
+    beta <- start
+  }
+  initbeta <- beta
+  lastbeta <- beta + 1 + epsilon
+  nobs <- length(y)
+  conv <- FALSE
+  for (iter in 1L:maxit) {
+#### Get muhat and khat    
+    eta <- drop(x%*%beta) + offset
+    mulinear <- linkinv(eta)
+    S <- sum(weights * sin(y - mulinear))/sum(weights)
+    C <- sum(weights * cos(y - mulinear))/sum(weights)
+    R <- sqrt((S^2+C^2))
+    if (mu.est)
+      muhat <- atan2(S/R,C/R)
+    else
+      muhat <- 0
+    khat <- A1inv(R)
+
+#### Get g values
+    g <- mu.eta(eta)
+#### Get u values
+    uvector <- sin(y-muhat-mulinear)
+#### Update Step
+    lastbeta <- beta
+    ustar <- uvector/(R*g)  ### R=A1(khat)
+    ## if (iter > 10)
+      fit <- lm.wfit(y=ustar,x=x,w=weights*(g^2+lambda))
+####    cat(fit$coefficients, "\n")
+    ## else {
+    ##   w <- weights*(g^2)
+    ##   ustar <- ustar*sqrt(w)
+    ##   xx <- x*sqrt(w)
+    ##   fit <- lm.ridge(ustar~xx-1, lambda=0.1)
+    ##   fit$coefficients <- fit$coef
+    ## }
+    if (any(is.na(fit$coefficients)))
+      beta <- initbeta <- initbeta/4
+    else
+      beta <- fit$coefficients + beta    
+    xgu <- t(x)%*%diag(weights)%*%diag(g)%*%uvector
+    if (khat>=1e5) {
+      khat<- 1e5-1
+      conv <- TRUE
+      break
+    }
+    if (any(is.na(beta))) {
+      conv <- FALSE
+      break
+    }
+    if ((max(abs(xgu)) < 1e-7 | iter > maxit/2) & max(abs(beta-lastbeta)) > epsilon)
+      beta <- (beta + lastbeta)/2
+    if (trace) {
+      cat("At iteration ",iter," :","\n")
+      cat("log likelihood ",logLikelihood(khat=khat,muhat=muhat,mulinear=mulinear,weights=weights,y=y),"\n")
+      cat("coefficients =", beta, "mu =", muhat, " kappa =", khat,"\n")
+      cat("Value of equation=",t(x)%*%diag(weights)%*%diag(g)%*%uvector,"\n\n")
+    }
+
+    if (max(abs(beta-lastbeta)) < epsilon) {
+      conv <- TRUE
+      break
+    } else
+      conv <- FALSE
+  }
+  df.residual <- nobs - fit$rank - as.numeric(mu.est)
+  df.null <- df.residual + fit$rank
+  aic <- NA
+  if (!conv & maxit > 1)
+    warning("clm.fit: algorithm did not converge", call. = FALSE)
+  if (khat==1e5-1)
+    warning("clm.fit: Max 'kappa' value was reached", call. = FALSE)
+
+  fitted.values <- muhat + linkinv(drop(x%*%beta)+offset)
+  residuals <- y - fitted.values
+
+  deviance <- sum(family$dev.resids(y=y, mu=muhat, mulinear=mulinear, kappa=khat, wt=weights))
+  aic <- family$aic(dev=deviance,rank=df.residual)
+  if (is.infinite(aic))
+    aic <- -Inf
+
+  S0 <- sum(weights * sin(y))/sum(weights)
+  C0 <- sum(weights * cos(y))/sum(weights)
+  R0 <- sqrt((S0^2+C0^2))
+  khat0 <- A1inv(R0)
+  muhat0 <- atan2(S0/R0,C0/R0)
+  Xg <- t(x)%*%diag(weights)%*%g
+  
+  null.deviance <- sum(family$dev.resids(y=y, mu=muhat0, mulinear=0, kappa=khat0, wt=weights))
+  
+  result <- list(coefficients=drop(beta), mu=muhat, kappa=khat, fitted.values=fitted.values, residuals=residuals, mu.est=mu.est, iter=iter, family=family, aic=aic, deviance=deviance, null.deviance=null.deviance, y=y, R=R, rank = fit$rank, df.residual = df.residual, df.null = df.null, converged = conv, weights = weights*g^2, prior.weights = weights, effects=fit$effects, qr = fit$qr, linear.predictors = eta, XGu=xgu, Xg=Xg)
+  return(result)
+}
+
+ClmLocationCircularRidge2Rad <- function(x, y, lambda=0, mu.est=TRUE, weights, offset, start, mustart, kappastart, family, epsilon, maxit, trace, nstart, initsmooth) {
+      
+  logLikelihood <- function(khat,muhat,mulinear,weights,y) {
+    if (khat < 100000)
+      llik <- -sum(weights)*(log(2*pi)+log(besselI(khat,nu=0,expon.scaled=TRUE))+khat) + khat * sum(weights * cos(y-muhat-mulinear))
+    else
+      llik <- ifelse(all((y-muhat-mulinear)==0), sqrt(.Machine$double.xmax), -sqrt(.Machine$double.xmax))
+    return(llik)
+  }
+
+  linkinv <- family$linkinv
+  mu.eta <- family$mu.eta
+  if (is.null(start)) {
+    if(nstart == 0L)
+      stop("'nstart' must be positive if 'start' is null")
+  ### initial value for beta
+    beta <- ClmLocationCircularStartRad(x=x,y=y,mu.est=mu.est,weights=weights,offset=offset,start=start,mustart=mustart,kappastart=kappastart,family=family,nstart=nstart,smooth=initsmooth)$beta
+  } else {
+    beta <- start
+  }
+  initbeta <- beta
+  lastbeta <- beta + 1 + epsilon
+  nobs <- length(y)
+  conv <- FALSE
+  for (iter in 1L:maxit) {
+#### Get muhat and khat    
+    eta <- drop(x%*%beta) + offset
+    mulinear <- linkinv(eta)
+    S <- sum(weights * sin(y - mulinear))/sum(weights)
+    C <- sum(weights * cos(y - mulinear))/sum(weights)
+    R <- sqrt((S^2+C^2))
+    if (mu.est)
+      muhat <- atan2(S/R,C/R)
+    else
+      muhat <- 0
+    khat <- A1inv(R)
+
+#### Get g values
+    g <- mu.eta(eta)
+#### Get u values
+    uvector <- sin(y-muhat-mulinear)
+#### Update Step
+    lastbeta <- beta
+    ustar <- uvector/(R*g)  ### R=A1(khat)
+    ## ## if (iter > 10)
+    ##   fit <- lm.wfit(y=ustar,x=x,w=weights*(g^2+lambda))
+####    cat(fit$coefficients, "\n")
+    ## else {
+    w <- weights*(g^2)
+    ustar <- ustar*sqrt(w)
+    xx <- x*sqrt(w)
+    fit <- lm.ridge(ustar~xx-1, lambda=lambda)
+    fit$coefficients <- fit$coef
+    ## }
+    ## if (any(is.na(fit$coefficients)))
+    ##   beta <- initbeta <- initbeta/4
+    ## else
+    ##   beta <- fit$coefficients + beta    
+    xgu <- t(x)%*%diag(weights)%*%diag(g)%*%uvector
+    if (khat>=1e5) {
+      khat<- 1e5-1
+      conv <- TRUE
+      break
+    }
+    if (any(is.na(beta))) {
+      conv <- FALSE
+      break
+    }
+    if ((max(abs(xgu)) < 1e-7 | iter > maxit/2) & max(abs(beta-lastbeta)) > epsilon)
+      beta <- (beta + lastbeta)/2
+    if (trace) {
+      cat("At iteration ",iter," :","\n")
+      cat("log likelihood ",logLikelihood(khat=khat,muhat=muhat,mulinear=mulinear,weights=weights,y=y),"\n")
+      cat("coefficients =", beta, "mu =", muhat, " kappa =", khat,"\n")
+      cat("Value of equation=",t(x)%*%diag(weights)%*%diag(g)%*%uvector,"\n\n")
+    }
+
+    if (max(abs(beta-lastbeta)) < epsilon) {
+      conv <- TRUE
+      break
+    } else
+      conv <- FALSE
+  }
+  df.residual <- nobs - fit$rank - as.numeric(mu.est)
+  df.null <- df.residual + fit$rank
+  aic <- NA
+  if (!conv & maxit > 1)
+    warning("clm.fit: algorithm did not converge", call. = FALSE)
+  if (khat==1e5-1)
+    warning("clm.fit: Max 'kappa' value was reached", call. = FALSE)
+
+  fitted.values <- muhat + linkinv(drop(x%*%beta)+offset)
+  residuals <- y - fitted.values
+
+  deviance <- sum(family$dev.resids(y=y, mu=muhat, mulinear=mulinear, kappa=khat, wt=weights))
+  aic <- family$aic(dev=deviance,rank=df.residual)
+  if (is.infinite(aic))
+    aic <- -Inf
+
+  S0 <- sum(weights * sin(y))/sum(weights)
+  C0 <- sum(weights * cos(y))/sum(weights)
+  R0 <- sqrt((S0^2+C0^2))
+  khat0 <- A1inv(R0)
+  muhat0 <- atan2(S0/R0,C0/R0)
+  Xg <- t(x)%*%diag(weights)%*%g
+  
+  null.deviance <- sum(family$dev.resids(y=y, mu=muhat0, mulinear=0, kappa=khat0, wt=weights))
+  
+  result <- list(coefficients=drop(beta), mu=muhat, kappa=khat, fitted.values=fitted.values, residuals=residuals, mu.est=mu.est, iter=iter, family=family, aic=aic, deviance=deviance, null.deviance=null.deviance, y=y, R=R, rank = fit$rank, df.residual = df.residual, df.null = df.null, converged = conv, weights = weights*g^2, prior.weights = weights, effects=fit$effects, qr = fit$qr, linear.predictors = eta, XGu=xgu, Xg=Xg)
+  return(result)
+}
+
 ClmLocationCircularStartRad <- function(x, y, mu.est, weights, offset, start, mustart, kappastart, family, nstart, group=length(y)/4, boot=50, smooth=0.2) {
       
   logLikelihood <- function(khat,muhat,mulinear,weights,y) {
