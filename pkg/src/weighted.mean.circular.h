@@ -4,4 +4,4 @@
 * DATA : 12 May 2015
 *******************************************************************/
 
-void WeighetdMeanCircularRad(double*,double*,int*,double*);
+void WeightedMeanCircularRad(double*,double*,int*,double*);
