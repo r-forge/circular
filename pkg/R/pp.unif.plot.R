@@ -9,7 +9,7 @@
 #   Version 0.1                                             #
 #############################################################
 
-pp.unif.plot <- function(x, ref.line = TRUE, frac=NULL,  xlab = "Uniform Distribution", ylab = "Empirical Distribution", control.circular=list(), col=NULL, col.inf=NULL, col.sup=NULL, ...) {
+pp.unif.plot <- function(x, ref.line = TRUE, frac=NULL,  xlab = "Uniform Distribution", ylab = "Empirical Distribution", col=NULL, col.inf=NULL, col.sup=NULL, ...) {
     
     # Handling missing values
     x <- na.omit(x)
@@ -17,26 +17,7 @@ pp.unif.plot <- function(x, ref.line = TRUE, frac=NULL,  xlab = "Uniform Distrib
         warning("No observations (at least after removing missing values)")
         return(NULL)
     }
-    if (is.circular(x)) {
-       datacircularp <- circularp(x)
-    } else {
-       datacircularp <- list(type="angles", units="radians", template="none", modulo="asis", zero=0, rotation="counter")
-    }
-
-    dc <- control.circular
-    if (is.null(dc$type))
-       dc$type <- datacircularp$type
-    if (is.null(dc$units))
-       dc$units <- datacircularp$units
-    if (is.null(dc$template))
-       dc$template <- datacircularp$template
-    if (is.null(dc$modulo))
-       dc$modulo <- datacircularp$modulo
-    if (is.null(dc$zero))
-       dc$zero <- datacircularp$zero
-    if (is.null(dc$rotation))
-       dc$rotation <- datacircularp$rotation
-
+  
     x <- conversion.circular(x, units="radians", zero=0, rotation="counter", modulo="2pi")
     attr(x, "class") <- attr(x, "circularp") <- NULL    
     y <- sort(x %% (2 * pi))/(2*pi)
@@ -47,6 +28,9 @@ pp.unif.plot <- function(x, ref.line = TRUE, frac=NULL,  xlab = "Uniform Distrib
     else
       col <- rep(col, length.out=n)  
     if (!is.null(frac)) {
+      if (!is.numeric(frac) || (frac < 0 | frac > 1)) {
+        stop("'frac' must be in the interval [0,1]")
+      }
       f <- round(frac*n)
       if (f) {
         zm <- -1 + ((n-f+1):n)/(n+1)

@@ -55,7 +55,7 @@ RpnormRad <- function(n, mu, sigma) {
 
 dpnorm <- function (x, mu, sigma, log=FALSE) {
   if (missing(mu) || length(mu)!=2)
-    stop("the mean direction parameter 'mu' is mandatory and it must have length 1")
+    stop("the mean direction parameter 'mu' is mandatory and it must have length 2")
   if (missing(sigma) || dim(sigma)!=c(2,2))
     stop("the variance matrix parameter 'sigma' is mandatory and it must be a matrix of dimension 2 by 2")   
   if (!is.logical(log))

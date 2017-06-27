@@ -7,15 +7,15 @@
 #                                                           
 #   median.circular function                                  
 #   Author: Claudio Agostinelli and Alessandro Gagliardi
-#   E-mail: claudio@unive.it                                
-#   Date: May, 12, 2015                                  
-#   Version: 0.4-1                                          
+#   E-mail: claudio.agostinelli@unitn.it                                
+#   Date: June, 26, 2017                                  
+#   Version: 0.5                                          
 #                                                           
-#   Copyright (C) 2015 Claudio Agostinelli and Alessandro Gagliardi
+#   Copyright (C) 2015-2017 Claudio Agostinelli and Alessandro Gagliardi
 #                                                           
 #############################################################
 
-median.circular <- function(x, na.rm=FALSE) {
+median.circular <- function(x, na.rm=FALSE, ...) {
   if (na.rm)
     x <- x[!is.na(x)]
   if (length(x)==0) {
