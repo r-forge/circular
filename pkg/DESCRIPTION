@@ -2,10 +2,18 @@ Title: Circular Statistics
 LazyLoad: yes
 LazyData: yes
 Package: circular
-Version: 0.4-92
-Author: Ulric Lund <ulund@calpoly.edu>, Claudio Agostinelli <claudio.agostinelli@unitn.it>
+Version: 0.4-93
+Author: Ulric Lund <ulund@calpoly.edu> [aut],
+  Claudio Agostinelli <claudio.agostinelli@unitn.it> [aut, cre],
+  Hiroyoshi Arai <h_arai@aoni.waseda.jp> [ctb],
+  Alessando Gagliardi <gagliardi@stud.unive.it> [ctb],
+  Eduardo Garcia Portugues <edgarcia@est-econ.uc3m.es> [ctb],
+  Dimitri Giunchi <dimitri.giunchi@unipi.it> [ctb],
+  Jean-Olivier Irisson <irisson@normalesup.org> [ctb],
+  Matthew Pocernich <pocernic@ucar.edu> [ctb],
+  Federico Rotolo [ctb]
 Maintainer: Claudio Agostinelli <claudio.agostinelli@unitn.it>
-Date: 2016-12-11
+Date: 2017-06-26
 Depends: R (>= 3.0.0)
 Imports: boot, mvtnorm
 Description: Circular Statistics, from "Topics in circular Statistics" (2001) S. Rao Jammalamadaka and A. SenGupta, World Scientific.
