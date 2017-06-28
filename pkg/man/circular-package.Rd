@@ -60,7 +60,7 @@ Dataset \code{swallows} is kindly provided by Dimitri Giunchi \url{http://unimap
 
 The function \code{bw.circular} is developed together with Eduardo Garcia Portugues \url{mailto:}
   
-If I miss to report your contribution please let me know by email at \url{mailto:claudio@unive.it}
+If I miss to report your contribution please let me know by email at \url{mailto:claudio.agostinelli@unitn.it}
 }
 
 \keyword{circle}

@@ -8,7 +8,8 @@ Plots the empirical distribution of a data set against a uniform circular distri
 
 \usage{
 pp.unif.plot(x, ref.line = TRUE, frac = NULL,  xlab = "Uniform Distribution", 
-  ylab = "Empirical Distribution", col = NULL, col.inf = NULL, col.sup = NULL)
+  ylab = "Empirical Distribution", col = NULL,
+  col.inf = NULL, col.sup = NULL, ...)
 }
 
 \arguments{
@@ -17,7 +18,6 @@ pp.unif.plot(x, ref.line = TRUE, frac = NULL,  xlab = "Uniform Distribution",
   the plot. Default is TRUE.}
 \item{frac}{a number in the [0,1] interval or \code{NULL}.}
 \item{xlab, ylab}{labels of the axis.}
-\item{control.circular}{the attribute of the resulting object.}
 \item{col}{color of the points.}
 \item{col.inf, col.sup}{color of the \code{frac}tion of the points replicated in the left bottom and right upper corner of the plot.}    
 \item{...}{parameters passed to the \code{\link{plot.default}} function.}
