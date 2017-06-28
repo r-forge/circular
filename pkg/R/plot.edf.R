@@ -19,6 +19,7 @@
 #############################################################
 
 plot.edf <- function(x, type = "s", xlim = c(0, 2 * pi), ylim = c(0, 1), ...) {
+  .Deprecated("plot.ecdf.circular", package="circular")
     # Handling missing values
     x <- na.omit(x)
     if (length(x)==0) {
@@ -46,6 +47,7 @@ plot.edf <- function(x, type = "s", xlim = c(0, 2 * pi), ylim = c(0, 1), ...) {
 #############################################################
 
 lines.edf <- function(x, type = "s", ...) {
+  .Deprecated("plot.ecdf.circular", package="circular")
     x <- conversion.circular(x, units="radians", modulo="2pi")
     attr(x, "circularp") <- attr(x, "class") <- NULL
 #    x <- x %% (2 * pi)

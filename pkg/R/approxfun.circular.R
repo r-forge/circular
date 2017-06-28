@@ -12,15 +12,10 @@ approxfun.default <- function(x, ...) stats::approxfun(x=x, ...)
 #   Version 0.1                                             #
 #############################################################
 
-approxfun.circular <- function (x, y = NULL, method = "linear", yleft, yright,
-  rule = 1, f = 0, ties = mean) {
+approxfun.circular <- function (x, y = NULL, method = "linear", f = 0, ties = mean) {
   method <- pmatch(method, c("linear", "constant"))
   if (is.na(method))
     stop("invalid interpolation method")
-  stopifnot(is.numeric(rule), (lenR <- length(rule)) >= 1L, 
-    lenR <= 2L)
-  if (lenR == 1)
-    rule <- rule[c(1, 1)]
   x <- conversion.circular(x, units="radians", modulo="2pi")
   attr(x, "circularp") <- attr(x, "class") <- NULL
   x <- c(x-2*pi,x,x+2*pi)
@@ -37,27 +32,20 @@ approxfun.circular <- function (x, y = NULL, method = "linear", yleft, yright,
     if (n == 0) 
       stop("zero non-NA points")
   }
-  if (missing(yleft)) 
-    yleft <- if (rule[1L] == 1) 
-      NA
-  else y[1L]
-  if (missing(yright)) 
-    yright <- if (rule[2L] == 1) 
-      NA
-  else y[length(y)]
   force(f)
-  stopifnot(length(yleft)==1L, length(yright)==1L, length(f)==1L)
-  rm(rule, ties, lenR, n)
+  rm(ties, n)
   x <- as.double(x)
   y <- as.double(y)
 ###  .Call(C_ApproxTest, x, y, method, f)
-  function(v) .approxfun.circular(x, y, v, method, yleft, yright, f)
+  function(v) {
+    if (!is.circular(v))
+      v <- circular(v)
+    .approxfun.circular(x, y, v, method, f)
+  }
 }
 
-.approxfun.circular <- function(x, y, v, method, yleft, yright, f) {
+.approxfun.circular <- function(x, y, v, method, f) {
   v <- conversion.circular(v, units="radians", modulo="2pi")
   attr(v, "circularp") <- attr(v, "class") <- NULL
-  stats:::.approxfun(x, y, v, method, yleft, yright, f)
+  stats:::.approxfun(x, y, v, method, NA, NA, f)
 }
-
-  
